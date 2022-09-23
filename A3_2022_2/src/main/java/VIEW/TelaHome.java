@@ -106,7 +106,7 @@ public class TelaHome extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         ComboBoxTarefas.setBackground(new java.awt.Color(185, 245, 216));
-        ComboBoxTarefas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "À fazer", "Feitas", " ", " " }));
+        ComboBoxTarefas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "À fazer", "Feitas" }));
 
         javax.swing.GroupLayout BackgroundLayout = new javax.swing.GroupLayout(Background);
         Background.setLayout(BackgroundLayout);

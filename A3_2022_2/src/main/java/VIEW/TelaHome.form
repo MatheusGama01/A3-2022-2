@@ -210,11 +210,9 @@
               <Color blue="d8" green="f5" red="b9" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
+              <StringArray count="2">
                 <StringItem index="0" value="&#xc0; fazer"/>
                 <StringItem index="1" value="Feitas"/>
-                <StringItem index="2" value=" "/>
-                <StringItem index="3" value=" "/>
               </StringArray>
             </Property>
           </Properties>
