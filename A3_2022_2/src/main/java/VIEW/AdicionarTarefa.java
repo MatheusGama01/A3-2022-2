@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package VIEW;
 
 /**
@@ -146,7 +143,7 @@ public class AdicionarTarefa extends javax.swing.JPanel {
                 AreaDeTextActionPerformed(evt);
             }
         });
-        add(AreaDeText, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 630, 240));
+        add(AreaDeText, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 660, 240));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton2.setText("Cancelar");
