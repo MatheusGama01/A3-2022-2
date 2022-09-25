@@ -8,12 +8,12 @@ package VIEW;
  *
  * @author Gabriele
  */
-public class ADICIONAR_TAREFA extends javax.swing.JPanel {
+public class AdicionarTarefa extends javax.swing.JPanel {
 
     /**
      * Creates new form ADICIONAR_TAREFA
      */
-    public ADICIONAR_TAREFA() {
+    public AdicionarTarefa() {
         initComponents();
     }
 
