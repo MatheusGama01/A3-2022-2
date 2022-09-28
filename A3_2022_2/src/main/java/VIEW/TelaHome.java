@@ -9,10 +9,10 @@ package VIEW;
  *
  * @author Fabiano
  */
-public class TelaHome extends javax.swing.JFrame {
+public class TelaHome extends javax.swing.JPanel {
 
     /**
-     * Creates new form TelaTarefaAFazer
+     * Creates new form TelaHome
      */
     public TelaHome() {
         initComponents();
@@ -27,173 +27,121 @@ public class TelaHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Background = new javax.swing.JPanel();
-        HeaderBackground = new javax.swing.JPanel();
+        BackgroundHeader = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
-        btnUsuario = new javax.swing.JButton();
+        lblUsuario = new javax.swing.JLabel();
+        lblMinhasTarefas = new javax.swing.JLabel();
         lblNovaTarefa = new javax.swing.JLabel();
+        ComboBoxStatusDaTarefa = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        ComboBoxTarefas = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(185, 245, 216));
-        setMinimumSize(new java.awt.Dimension(400, 350));
-        setPreferredSize(new java.awt.Dimension(1440, 1024));
+        setBackground(new java.awt.Color(107, 143, 113));
+        setPreferredSize(new java.awt.Dimension(700, 400));
 
-        Background.setBackground(new java.awt.Color(185, 245, 216));
-        Background.setPreferredSize(new java.awt.Dimension(1440, 1024));
+        BackgroundHeader.setBackground(new java.awt.Color(185, 245, 216));
 
-        HeaderBackground.setBackground(new java.awt.Color(170, 210, 186));
-        HeaderBackground.setPreferredSize(new java.awt.Dimension(1440, 80));
-
-        lblLogo.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
+        lblLogo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblLogo.setForeground(new java.awt.Color(255, 255, 255));
         lblLogo.setText("SIDE DISH");
 
-        btnUsuario.setBackground(new java.awt.Color(217, 255, 245));
-        btnUsuario.setFont(new java.awt.Font("Tahoma", 0, 26)); // NOI18N
-        btnUsuario.setText("Usuário");
-        btnUsuario.setBorder(null);
-        btnUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnUsuario.setPreferredSize(new java.awt.Dimension(194, 45));
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lblUsuario.setText("Usuário");
 
-        javax.swing.GroupLayout HeaderBackgroundLayout = new javax.swing.GroupLayout(HeaderBackground);
-        HeaderBackground.setLayout(HeaderBackgroundLayout);
-        HeaderBackgroundLayout.setHorizontalGroup(
-            HeaderBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HeaderBackgroundLayout.createSequentialGroup()
-                .addGap(114, 114, 114)
+        javax.swing.GroupLayout BackgroundHeaderLayout = new javax.swing.GroupLayout(BackgroundHeader);
+        BackgroundHeader.setLayout(BackgroundHeaderLayout);
+        BackgroundHeaderLayout.setHorizontalGroup(
+            BackgroundHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BackgroundHeaderLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addComponent(lblLogo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(113, 113, 113))
+                .addComponent(lblUsuario)
+                .addGap(25, 25, 25))
         );
-        HeaderBackgroundLayout.setVerticalGroup(
-            HeaderBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(HeaderBackgroundLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(HeaderBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(17, Short.MAX_VALUE))
+        BackgroundHeaderLayout.setVerticalGroup(
+            BackgroundHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(BackgroundHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(BackgroundHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLogo)
+                    .addComponent(lblUsuario))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lblNovaTarefa.setBackground(new java.awt.Color(0, 0, 0));
-        lblNovaTarefa.setFont(new java.awt.Font("Tahoma", 0, 46)); // NOI18N
+        lblMinhasTarefas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lblMinhasTarefas.setForeground(new java.awt.Color(255, 255, 255));
+        lblMinhasTarefas.setText("Minhas tarefas:");
+
         lblNovaTarefa.setText("Nova Tarefa +");
 
-        jTable1.setForeground(new java.awt.Color(185, 245, 216));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Tarefas à fazer", "Marcar como feita"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        ComboBoxStatusDaTarefa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "À fazer", "Feitas" }));
+        ComboBoxStatusDaTarefa.setFocusable(false);
+        ComboBoxStatusDaTarefa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxStatusDaTarefaActionPerformed(evt);
             }
         });
-        jTable1.setGridColor(new java.awt.Color(185, 245, 216));
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Tarefas"
+            }
+        ));
         jScrollPane1.setViewportView(jTable1);
 
-        ComboBoxTarefas.setBackground(new java.awt.Color(185, 245, 216));
-        ComboBoxTarefas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "À fazer", "Feitas" }));
-
-        javax.swing.GroupLayout BackgroundLayout = new javax.swing.GroupLayout(Background);
-        Background.setLayout(BackgroundLayout);
-        BackgroundLayout.setHorizontalGroup(
-            BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(HeaderBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, BackgroundLayout.createSequentialGroup()
-                .addGap(113, 113, 113)
-                .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1214, Short.MAX_VALUE)
-                    .addGroup(BackgroundLayout.createSequentialGroup()
-                        .addComponent(ComboBoxTarefas, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblNovaTarefa)))
-                .addGap(113, 113, 113))
-        );
-        BackgroundLayout.setVerticalGroup(
-            BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(BackgroundLayout.createSequentialGroup()
-                .addComponent(HeaderBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addGroup(BackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblNovaTarefa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ComboBoxTarefas))
-                .addGap(39, 39, 39)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 75, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(BackgroundHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblMinhasTarefas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ComboBoxStatusDaTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                        .addComponent(lblNovaTarefa)))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(BackgroundHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMinhasTarefas)
+                    .addComponent(lblNovaTarefa)
+                    .addComponent(ComboBoxStatusDaTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 159, Short.MAX_VALUE))
         );
-
-        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void ComboBoxStatusDaTarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxStatusDaTarefaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxStatusDaTarefaActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaHome().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Background;
-    private javax.swing.JComboBox<String> ComboBoxTarefas;
-    private javax.swing.JPanel HeaderBackground;
-    private javax.swing.JButton btnUsuario;
+    private javax.swing.JPanel BackgroundHeader;
+    private javax.swing.JComboBox<String> ComboBoxStatusDaTarefa;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblLogo;
+    private javax.swing.JLabel lblMinhasTarefas;
     private javax.swing.JLabel lblNovaTarefa;
+    private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }
