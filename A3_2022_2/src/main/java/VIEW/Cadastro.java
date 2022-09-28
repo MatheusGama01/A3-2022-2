@@ -10,6 +10,10 @@ package VIEW;
  */
 public class Cadastro extends javax.swing.JPanel {
 
+    static void setvisible(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     /**
      * Creates new form Cadastro
      */
@@ -192,7 +196,9 @@ public class Cadastro extends javax.swing.JPanel {
     }//GEN-LAST:event_ConfirmarSenhaCadastroActionPerformed
 
     private void ButtonirparaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonirparaLoginActionPerformed
-        // TODO add your handling code here:
+        Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ButtonirparaLoginActionPerformed
 
     private void ButtonRealizarCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonRealizarCadastroActionPerformed
@@ -213,4 +219,8 @@ public class Cadastro extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+    private void dispose() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
