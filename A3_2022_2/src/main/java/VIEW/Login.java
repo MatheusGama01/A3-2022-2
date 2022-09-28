@@ -69,6 +69,11 @@ public class Login extends javax.swing.JFrame {
         ButtonLogar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         ButtonLogar.setForeground(new java.awt.Color(107, 143, 113));
         ButtonLogar.setText("Logar");
+        ButtonLogar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ButtonLogarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -166,10 +171,16 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ButtonirparaCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonirparaCadastroActionPerformed
-        TelaHome telaHome = new TelaHome();
-        telaHome.setVisible(true);
+        Cadastro cadastro = new Cadastro();
+        cadastro.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ButtonirparaCadastroActionPerformed
+
+    private void ButtonLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLogarActionPerformed
+     Login login = new Login();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ButtonLogarActionPerformed
         
    
     public static void main(String args[]) {

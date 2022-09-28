@@ -101,16 +101,16 @@ public class AdicionarTarefa extends javax.swing.JPanel {
         jPanel4.setBackground(new java.awt.Color(185, 245, 216));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setForeground(new java.awt.Color(107, 143, 113));
         jLabel1.setText("SIDE");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(107, 143, 113));
         jLabel2.setText("DISH");
 
         jButton1.setBackground(new java.awt.Color(217, 255, 245));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(107, 143, 113));
         jButton1.setText("USUÁRIO");
         jButton1.setContentAreaFilled(false);
 
