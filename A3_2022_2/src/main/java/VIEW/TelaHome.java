@@ -34,7 +34,7 @@ public class TelaHome extends javax.swing.JPanel {
         lblNovaTarefa = new javax.swing.JLabel();
         ComboBoxStatusDaTarefa = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblTarefas = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(107, 143, 113));
         setPreferredSize(new java.awt.Dimension(700, 400));
@@ -78,24 +78,16 @@ public class TelaHome extends javax.swing.JPanel {
 
         ComboBoxStatusDaTarefa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "À fazer", "Feitas" }));
         ComboBoxStatusDaTarefa.setFocusable(false);
-        ComboBoxStatusDaTarefa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBoxStatusDaTarefaActionPerformed(evt);
-            }
-        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblTarefas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null},
-                {null}
+
             },
             new String [] {
                 "Tarefas"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblTarefas);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -110,7 +102,7 @@ public class TelaHome extends javax.swing.JPanel {
                         .addComponent(lblMinhasTarefas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ComboBoxStatusDaTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 427, Short.MAX_VALUE)
                         .addComponent(lblNovaTarefa)))
                 .addGap(25, 25, 25))
         );
@@ -124,24 +116,20 @@ public class TelaHome extends javax.swing.JPanel {
                     .addComponent(lblNovaTarefa)
                     .addComponent(ComboBoxStatusDaTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 159, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 26, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ComboBoxStatusDaTarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxStatusDaTarefaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBoxStatusDaTarefaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackgroundHeader;
     private javax.swing.JComboBox<String> ComboBoxStatusDaTarefa;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMinhasTarefas;
     private javax.swing.JLabel lblNovaTarefa;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JTable tblTarefas;
     // End of variables declaration//GEN-END:variables
 }
