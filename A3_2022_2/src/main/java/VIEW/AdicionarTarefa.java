@@ -109,9 +109,9 @@ public class AdicionarTarefa extends javax.swing.JPanel {
         jLabel2.setText("DISH");
 
         jButton1.setBackground(new java.awt.Color(217, 255, 245));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(107, 143, 113));
-        jButton1.setText("USUÁRIO");
+        jButton1.setText("Usuário");
         jButton1.setContentAreaFilled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -120,12 +120,12 @@ public class AdicionarTarefa extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 542, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 524, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addGap(31, 31, 31))
+                .addGap(35, 35, 35))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +136,7 @@ public class AdicionarTarefa extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
+                        .addContainerGap()
                         .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -150,30 +150,28 @@ public class AdicionarTarefa extends javax.swing.JPanel {
                 AreaDeTextActionPerformed(evt);
             }
         });
-        add(AreaDeText, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 500, 270));
+        add(AreaDeText, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 540, 270));
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setForeground(new java.awt.Color(107, 143, 113));
         jButton2.setText("Cancelar");
-        jButton2.setContentAreaFilled(false);
         jButton2.setDefaultCapable(false);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 130, -1, -1));
+        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 130, -1, -1));
 
         ButtonAdicionar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ButtonAdicionar.setForeground(new java.awt.Color(255, 255, 255));
+        ButtonAdicionar.setForeground(new java.awt.Color(107, 143, 113));
         ButtonAdicionar.setText("ok");
-        ButtonAdicionar.setContentAreaFilled(false);
-        add(ButtonAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 330, 60, -1));
+        add(ButtonAdicionar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 300, 60, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Adicionar tarefa:");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 160, -1));
+        jLabel3.setText("Adicionar Tarefa:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 160, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void AreaDeTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AreaDeTextActionPerformed
