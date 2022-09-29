@@ -177,7 +177,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonirparaCadastroActionPerformed
 
     private void ButtonLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLogarActionPerformed
-     Login login = new Login();
+        Login login = new Login();
         login.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ButtonLogarActionPerformed
