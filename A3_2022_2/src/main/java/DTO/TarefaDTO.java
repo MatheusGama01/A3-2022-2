@@ -1,12 +1,17 @@
 package DTO;
 
 public class TarefaDTO {
+
     private int id;
     private String descricao, status;
 
     public TarefaDTO(String descricao, String statuts) {
         this.descricao = descricao;
         this.status = status;
+    }
+
+    public TarefaDTO() {
+
     }
 
     public String getDescricao() {
@@ -24,12 +29,12 @@ public class TarefaDTO {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    public int getId(){
+
+    public int getId() {
         return id;
     }
-    
-    public void setId(int id){
+
+    public void setId(int id) {
         this.id = id;
     }
 }
