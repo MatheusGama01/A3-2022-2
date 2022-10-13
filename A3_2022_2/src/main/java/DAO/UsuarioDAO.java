@@ -15,7 +15,8 @@ import java.sql.SQLException;
  * @author Gabriele
  */
 public class UsuarioDAO {
-     Connection conn;
+
+    Connection conn;
 
     public ResultSet autenticaUsuario(UsuarioDTO usuarioDTO) {
         try {
@@ -44,7 +45,6 @@ public class UsuarioDAO {
             pstm.setString(1, objUsuarioDTO.getNome());
             pstm.setString(2, objUsuarioDTO.getSenha());
             pstm.setString(3, objUsuarioDTO.getEmail());
-           
 
             pstm.execute();
             pstm.close();
@@ -61,7 +61,6 @@ public class UsuarioDAO {
             String query = "SELECT * FROM usuario WHERE CPF=?";
             PreparedStatement pstm = conn.prepareStatement(query);
 
-          
             ResultSet rs = pstm.executeQuery();
             return rs;
         } catch (SQLException ex) {
@@ -78,7 +77,7 @@ public class UsuarioDAO {
             pstm.setString(1, usuarioDTO.getEmail());
             pstm.setString(2, usuarioDTO.getNome());
             pstm.setString(3, usuarioDTO.getSenha());
-         
+
             pstm.executeUpdate();
 
         } catch (SQLException ex) {
@@ -87,7 +86,7 @@ public class UsuarioDAO {
     }
 
     public void delete(UsuarioDTO objDTO) {
-       try {
+        try {
             conn = new ConexaoDAO().conectaBD();
             PreparedStatement pstm = conn.prepareStatement("DELETE FROM usuario WHERE CPF = ?");
             pstm.executeUpdate();
@@ -96,5 +95,5 @@ public class UsuarioDAO {
             System.out.println("Deu errado ao deletar o usuário" + ex);
         }
     }
-    
+
 }

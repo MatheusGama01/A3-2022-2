@@ -4,17 +4,22 @@
  */
 package VIEW;
 
+import DTO.UsuarioDTO;
+
 /**
  *
  * @author Vitor
  */
-public class USUÁRIO extends javax.swing.JPanel {
+public class TelaUsuario extends javax.swing.JPanel {
+
+    UsuarioDTO usuarioLogado = new UsuarioDTO();
 
     /**
      * Creates new form USUÁRIO
      */
-    public USUÁRIO() {
+    public TelaUsuario(UsuarioDTO usuario) {
         initComponents();
+        usuario = usuarioLogado;
     }
 
     /**

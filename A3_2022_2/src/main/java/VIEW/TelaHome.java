@@ -1,21 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package VIEW;
 
-/**
- *
- * @author Fabiano
- */
+import CONTROLLER.ControllerTelaHome;
+import DTO.UsuarioDTO;
+
 public class TelaHome extends javax.swing.JPanel {
+
+    ControllerTelaHome controller = new ControllerTelaHome();
+    UsuarioDTO usuarioLogado = new UsuarioDTO();
 
     /**
      * Creates new form TelaHome
      */
-    public TelaHome() {
+    public TelaHome(UsuarioDTO usuario) {
         initComponents();
+        usuario = usuarioLogado;
     }
 
     /**
@@ -63,6 +61,11 @@ public class TelaHome extends javax.swing.JPanel {
         lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lblUsuario.setText("Usuário");
+        lblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsuarioMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout BackgroundHeaderLayout = new javax.swing.GroupLayout(BackgroundHeader);
         BackgroundHeader.setLayout(BackgroundHeaderLayout);
@@ -90,6 +93,11 @@ public class TelaHome extends javax.swing.JPanel {
         lblMinhasTarefas.setText("Minhas tarefas:");
 
         lblNovaTarefa.setText("Nova Tarefa +");
+        lblNovaTarefa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNovaTarefaMouseClicked(evt);
+            }
+        });
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "À fazer", "Feitas" }));
         jComboBox1.setFocusable(false);
@@ -136,6 +144,16 @@ public class TelaHome extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void lblNovaTarefaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNovaTarefaMouseClicked
+        controller.navegarParaTelaDeAdicionarTarefa(usuarioLogado);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblNovaTarefaMouseClicked
+
+    private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
+        controller.navegarParaTelaDeUsuario(usuarioLogado);
+        this.setVisible(false);
+    }//GEN-LAST:event_lblUsuarioMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackgroundHeader;
@@ -149,4 +167,5 @@ public class TelaHome extends javax.swing.JPanel {
     private javax.swing.JLabel lblNovaTarefa;
     private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
+
 }

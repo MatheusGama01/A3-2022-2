@@ -58,14 +58,14 @@ public class TarefaDAO {
             System.out.println("Deu erro em atualizarTarefa" + ex);
         }
     }
-    
-    public void apagarTarefa(TarefaDTO tarefaDTO){
-        try{
+
+    public void apagarTarefa(TarefaDTO tarefaDTO) {
+        try {
             conn = new ConexaoDAO().conectaBD();
             pstm = conn.prepareStatement("DELETE FROM tarefa WHERE id = ?");
             pstm.setInt(1, tarefaDTO.getId());
             pstm.executeUpdate();
-        } catch (SQLException ex){
+        } catch (SQLException ex) {
             System.out.println("Deu erro em apagarTarefa" + ex);
         }
     }

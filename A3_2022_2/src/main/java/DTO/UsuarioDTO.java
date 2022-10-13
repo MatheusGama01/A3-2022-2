@@ -9,16 +9,16 @@ package DTO;
  * @author Gabriele
  */
 public class UsuarioDTO {
-    private String nome,senha,email,Confirmarsenha;
+
+    private String nome, senha, email, Confirmarsenha;
     private int id;
-    
-    public UsuarioDTO(String nome, String senha, String email,String Confirmarsenha) {
+
+    public UsuarioDTO(String nome, String senha, String email, String Confirmarsenha) {
         this.nome = nome;
         this.senha = senha;
         this.email = email;
         this.Confirmarsenha = Confirmarsenha;
-       
-        
+
     }
 
     public UsuarioDTO() {
@@ -37,7 +37,6 @@ public class UsuarioDTO {
         this.senha = senha;
         this.email = email;
     }
-       
 
     public String getNome() {
         return nome;
@@ -62,6 +61,5 @@ public class UsuarioDTO {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-   
+
 }

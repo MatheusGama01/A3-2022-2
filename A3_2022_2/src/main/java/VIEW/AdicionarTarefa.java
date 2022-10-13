@@ -1,5 +1,6 @@
-
 package VIEW;
+
+import DTO.UsuarioDTO;
 
 /**
  *
@@ -7,11 +8,14 @@ package VIEW;
  */
 public class AdicionarTarefa extends javax.swing.JPanel {
 
+    UsuarioDTO usuarioLogado = new UsuarioDTO();
+
     /**
      * Creates new form ADICIONAR_TAREFA
      */
-    public AdicionarTarefa() {
+    public AdicionarTarefa(UsuarioDTO usuario) {
         initComponents();
+        usuario = usuarioLogado;
     }
 
     /**
