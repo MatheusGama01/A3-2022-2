@@ -95,5 +95,4 @@ public class UsuarioDAO {
             System.out.println("Deu errado ao deletar o usuário" + ex);
         }
     }
-
 }

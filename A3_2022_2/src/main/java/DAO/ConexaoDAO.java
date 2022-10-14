@@ -8,6 +8,7 @@ public class ConexaoDAO {
 
     Connection conn = null;
 
+    //Inicializa a conexão com o banco de dados
     public Connection conectaBD() {
         try {
             String url = "colocar url do bd";

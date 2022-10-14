@@ -1,12 +1,27 @@
 package VIEW;
 
-public class TelaTarefa extends javax.swing.JPanel {
+import CONTROLLER.ControllerTelaTarefa;
+import DTO.TarefaDTO;
+import DTO.UsuarioDTO;
+
+public class TelaTarefa extends javax.swing.JFrame {
+
+    ControllerTelaTarefa controller = new ControllerTelaTarefa();
+    TarefaDTO tarefa = new TarefaDTO();
+    UsuarioDTO usuarioLogado = new UsuarioDTO();
 
     /**
      * Creates new form TelaTarefa
      */
     public TelaTarefa() {
         initComponents();
+    }
+
+    public TelaTarefa(TarefaDTO tarefaSelecionada, UsuarioDTO usuario) {
+        initComponents();
+        tarefa = tarefaSelecionada;
+        usuarioLogado = usuario;
+        inicializarTelaTarefa(tarefaSelecionada);
     }
 
     /**
@@ -18,6 +33,7 @@ public class TelaTarefa extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         BackgroundHeader = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
@@ -27,18 +43,30 @@ public class TelaTarefa extends javax.swing.JPanel {
         btnApagarTarefa = new javax.swing.JButton();
         btnSalvarEdicao = new javax.swing.JButton();
 
-        setBackground(new java.awt.Color(185, 245, 216));
-        setPreferredSize(new java.awt.Dimension(700, 400));
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(185, 245, 216));
+        jPanel1.setPreferredSize(new java.awt.Dimension(700, 400));
 
         BackgroundHeader.setBackground(new java.awt.Color(107, 143, 113));
 
         lblLogo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblLogo.setForeground(new java.awt.Color(255, 255, 255));
         lblLogo.setText("SIDE DISH");
+        lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogoMouseClicked(evt);
+            }
+        });
 
         lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lblUsuario.setText("Usuário");
+        lblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblUsuarioMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout BackgroundHeaderLayout = new javax.swing.GroupLayout(BackgroundHeader);
         BackgroundHeader.setLayout(BackgroundHeaderLayout);
@@ -47,7 +75,7 @@ public class TelaTarefa extends javax.swing.JPanel {
             .addGroup(BackgroundHeaderLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(lblLogo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 550, Short.MAX_VALUE)
                 .addComponent(lblUsuario)
                 .addGap(25, 25, 25))
         );
@@ -68,46 +96,139 @@ public class TelaTarefa extends javax.swing.JPanel {
         CheckBoxStatusDaTarefa.setText("Marcar tarefa como feita");
         CheckBoxStatusDaTarefa.setFocusable(false);
 
-        btnApagarTarefa.setBackground(new java.awt.Color(170, 210, 186));
         btnApagarTarefa.setForeground(new java.awt.Color(255, 0, 0));
         btnApagarTarefa.setText("Apagar tarefa");
 
+        btnSalvarEdicao.setForeground(new java.awt.Color(107, 143, 113));
         btnSalvarEdicao.setText("Salvar edição");
+        btnSalvarEdicao.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSalvarEdicaoMouseClicked(evt);
+            }
+        });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(BackgroundHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnSalvarEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CheckBoxStatusDaTarefa)
+                            .addComponent(btnSalvarEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnApagarTarefa))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(CheckBoxStatusDaTarefa)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(btnApagarTarefa)))
                 .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(BackgroundHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(CheckBoxStatusDaTarefa)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnApagarTarefa)
                     .addComponent(btnSalvarEdicao))
                 .addContainerGap())
         );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Navega para TelaUsuario
+
+    private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
+        controller.navegarParaTelaDeUsuario(usuarioLogado);
+        this.dispose();
+    }//GEN-LAST:event_lblUsuarioMouseClicked
+
+    //Navega para TelaHome
+
+    private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
+        controller.navegarParaTelaHome(usuarioLogado);
+        this.dispose();
+    }//GEN-LAST:event_lblLogoMouseClicked
+
+    //Chama o métdo salvarEdicao de ControllerTelaTarefa
+
+    private void btnSalvarEdicaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarEdicaoMouseClicked
+        String descricao = TextAreaDescricaoDaTarefa.getText();
+        String status = CheckBoxStatusDaTarefa.getText().toString();
+        controller.salvarEdicao(tarefa, descricao, status, usuarioLogado);
+        this.dispose();
+    }//GEN-LAST:event_btnSalvarEdicaoMouseClicked
+
+    //Inicializa TelaTarefa com as informações da tarefa que foi passada
+    private void inicializarTelaTarefa(TarefaDTO tarefa) {
+        String descricao = tarefa.getDescricao();
+        String status = tarefa.getStatus();
+
+        TextAreaDescricaoDaTarefa.setText(descricao);
+        //Ainda falta inicializar a checkbox
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(TelaTarefa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(TelaTarefa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(TelaTarefa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(TelaTarefa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new TelaTarefa().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackgroundHeader;
@@ -115,6 +236,7 @@ public class TelaTarefa extends javax.swing.JPanel {
     private javax.swing.JTextArea TextAreaDescricaoDaTarefa;
     private javax.swing.JButton btnApagarTarefa;
     private javax.swing.JButton btnSalvarEdicao;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblUsuario;
