@@ -11,7 +11,7 @@ public class ConexaoDAO {
     //Inicializa a conexão com o banco de dados
     public Connection conectaBD() {
         try {
-            String url = "colocar url do bd";
+            String url = "jdbc:mysql://localhost:3306/app_tarefas?user_root&password=Vl030116@";
             conn = DriverManager.getConnection(url);
         } catch (SQLException ex) {
             System.out.println("Deu erro em conectaBD" + ex);
