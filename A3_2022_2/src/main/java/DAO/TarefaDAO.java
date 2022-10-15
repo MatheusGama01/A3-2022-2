@@ -46,7 +46,7 @@ public class TarefaDAO {
             //Inseri uma tarefa no banco de dados
             pstm = conn.prepareStatement("INSERT INTO tarefa(descricao,status) values(?,?)");
             pstm.setString(1, tarefaDTO.getDescricao());
-            pstm.setString(2, "a fazer");
+            pstm.setString(2, "À fazer");
             pstm.execute();
         } catch (SQLException ex) {
             System.out.println("Deu erro em criarTarefa" + ex);

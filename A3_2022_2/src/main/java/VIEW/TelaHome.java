@@ -1,7 +1,10 @@
 package VIEW;
 
 import CONTROLLER.ControllerTelaHome;
+import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class TelaHome extends javax.swing.JFrame {
 
@@ -18,6 +21,7 @@ public class TelaHome extends javax.swing.JFrame {
     public TelaHome(UsuarioDTO usuario) {
         initComponents();
         usuario = usuarioLogado;
+        inicializarTabela();
     }
 
     /**
@@ -35,9 +39,9 @@ public class TelaHome extends javax.swing.JFrame {
         lblUsuario = new javax.swing.JLabel();
         lblMinhasTarefas = new javax.swing.JLabel();
         lblNovaTarefa = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBoxStatusTarefa = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblTarefas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,10 +95,15 @@ public class TelaHome extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "À fazer", "Feitas" }));
-        jComboBox1.setFocusable(false);
+        jComboBoxStatusTarefa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "À fazer", "Feitas" }));
+        jComboBoxStatusTarefa.setFocusable(false);
+        jComboBoxStatusTarefa.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxStatusTarefaItemStateChanged(evt);
+            }
+        });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblTarefas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -102,7 +111,7 @@ public class TelaHome extends javax.swing.JFrame {
                 "Tarefas:"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblTarefas);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -116,7 +125,7 @@ public class TelaHome extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lblMinhasTarefas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxStatusTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 427, Short.MAX_VALUE)
                         .addComponent(lblNovaTarefa)))
                 .addGap(25, 25, 25))
@@ -127,7 +136,7 @@ public class TelaHome extends javax.swing.JFrame {
                 .addComponent(BackgroundHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBox1)
+                    .addComponent(jComboBoxStatusTarefa)
                     .addComponent(lblMinhasTarefas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblNovaTarefa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -160,63 +169,57 @@ public class TelaHome extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     //Navega para TelaUsuario
-
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
         controller.navegarParaTelaDeUsuario(usuarioLogado);
         this.dispose();
     }//GEN-LAST:event_lblUsuarioMouseClicked
 
     //Navega para TelaTarefa
-
     private void lblNovaTarefaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNovaTarefaMouseClicked
         controller.navegarParaTelaDeAdicionarTarefa(usuarioLogado);
         this.dispose();
     }//GEN-LAST:event_lblNovaTarefaMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    //Verifica se se há alteração na seleção do ComboBox
+    private void jComboBoxStatusTarefaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxStatusTarefaItemStateChanged
+        inicializarTabela();
+    }//GEN-LAST:event_jComboBoxStatusTarefaItemStateChanged
+    
+    //Inicializa a tabela com a tarefas a partir do item selecionado no ComboBox
+    private void inicializarTabela() {
+        String statusSelecionado = statusComboBox();
+        ArrayList<TarefaDTO> tarefas = new ArrayList<>();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaHome().setVisible(true);
-            }
-        });
+        if (statusSelecionado == "À fazer") {
+            tarefas = controller.listarTarefasAFazer();
+        } else {
+            tarefas = controller.listarTarefasFeitas();
+        }
+
+        DefaultTableModel tabelaTarefas = (DefaultTableModel) tblTarefas.getModel();
+        tabelaTarefas.setNumRows(0);
+
+        for (TarefaDTO tarefa : tarefas) {
+            tabelaTarefas.addRow(new Object[]{
+                tarefa.getDescricao()
+            });
+        }
+    }
+    
+    //Realiza o get do item selecionado no ComboBox
+    private String statusComboBox() {
+        return (String) jComboBoxStatusTarefa.getSelectedItem();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackgroundHeader;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxStatusTarefa;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMinhasTarefas;
     private javax.swing.JLabel lblNovaTarefa;
     private javax.swing.JLabel lblUsuario;
+    private javax.swing.JTable tblTarefas;
     // End of variables declaration//GEN-END:variables
 }

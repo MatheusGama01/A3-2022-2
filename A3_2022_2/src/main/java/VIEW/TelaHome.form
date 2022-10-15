@@ -68,7 +68,7 @@
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="lblMinhasTarefas" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jComboBoxStatusTarefa" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="427" max="32767" attributes="0"/>
                           <Component id="lblNovaTarefa" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -83,7 +83,7 @@
                   <Component id="BackgroundHeader" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jComboBoxStatusTarefa" alignment="0" max="32767" attributes="0"/>
                       <Component id="lblMinhasTarefas" alignment="0" max="32767" attributes="0"/>
                       <Component id="lblNovaTarefa" alignment="0" max="32767" attributes="0"/>
                   </Group>
@@ -174,7 +174,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblNovaTarefaMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="jComboBoxStatusTarefa">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="2">
@@ -184,6 +184,9 @@
             </Property>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="jComboBoxStatusTarefaItemStateChanged"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -195,7 +198,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="jTable2">
+            <Component class="javax.swing.JTable" name="tblTarefas">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="1" rowCount="0">
