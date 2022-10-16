@@ -184,7 +184,7 @@ public class TelaHome extends javax.swing.JFrame {
     private void jComboBoxStatusTarefaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxStatusTarefaItemStateChanged
         inicializarTabela();
     }//GEN-LAST:event_jComboBoxStatusTarefaItemStateChanged
-    
+
     //Inicializa a tabela com a tarefas a partir do item selecionado no ComboBox
     private void inicializarTabela() {
         String statusSelecionado = statusComboBox();
@@ -205,7 +205,7 @@ public class TelaHome extends javax.swing.JFrame {
             });
         }
     }
-    
+
     //Realiza o get do item selecionado no ComboBox
     private String statusComboBox() {
         return (String) jComboBoxStatusTarefa.getSelectedItem();

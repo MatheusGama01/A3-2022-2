@@ -3,9 +3,10 @@ package DTO;
 public class TarefaDTO {
 
     private int id;
-    private String descricao, status;
+    private String descricao;
+    Boolean status;
 
-    public TarefaDTO(String descricao, String statuts) {
+    public TarefaDTO(String descricao, Boolean statuts) {
         this.descricao = descricao;
         this.status = status;
     }
@@ -22,11 +23,11 @@ public class TarefaDTO {
         this.descricao = descricao;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

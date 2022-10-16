@@ -98,6 +98,11 @@ public class TelaTarefa extends javax.swing.JFrame {
 
         btnApagarTarefa.setForeground(new java.awt.Color(255, 0, 0));
         btnApagarTarefa.setText("Apagar tarefa");
+        btnApagarTarefa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnApagarTarefaMouseClicked(evt);
+            }
+        });
 
         btnSalvarEdicao.setForeground(new java.awt.Color(107, 143, 113));
         btnSalvarEdicao.setText("Salvar edição");
@@ -163,36 +168,43 @@ public class TelaTarefa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    //Navega para TelaUsuario
-
+    //Navega para TelaUsuario.
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
         controller.navegarParaTelaDeUsuario(usuarioLogado);
         this.dispose();
     }//GEN-LAST:event_lblUsuarioMouseClicked
 
-    //Navega para TelaHome
-
+    //Navega para TelaHome.
     private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
         controller.navegarParaTelaHome(usuarioLogado);
         this.dispose();
     }//GEN-LAST:event_lblLogoMouseClicked
 
-    //Chama o métdo salvarEdicao de ControllerTelaTarefa
-
+    //Chama o métdo salvarEdicao de ControllerTelaTarefa.
     private void btnSalvarEdicaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarEdicaoMouseClicked
         String descricao = TextAreaDescricaoDaTarefa.getText();
-        String status = CheckBoxStatusDaTarefa.getText().toString();
+        Boolean status = CheckBoxStatusDaTarefa.isSelected();
         controller.salvarEdicao(tarefa, descricao, status, usuarioLogado);
         this.dispose();
     }//GEN-LAST:event_btnSalvarEdicaoMouseClicked
 
-    //Inicializa TelaTarefa com as informações da tarefa que foi passada
+    //Chama  método apagarTarefa de ControllerTelaTarefa.
+    private void btnApagarTarefaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApagarTarefaMouseClicked
+        controller.apagarTarefa(tarefa, usuarioLogado);
+    }//GEN-LAST:event_btnApagarTarefaMouseClicked
+
+    //Inicializa TelaTarefa com as informações da tarefa que foi passada.
     private void inicializarTelaTarefa(TarefaDTO tarefa) {
         String descricao = tarefa.getDescricao();
-        String status = tarefa.getStatus();
+        Boolean status = tarefa.getStatus();
 
         TextAreaDescricaoDaTarefa.setText(descricao);
-        //Ainda falta inicializar a checkbox
+
+        /**
+         * Se status == true -> a tarefa já estará marcada como feita. 
+         * Se status == false -> a checkbox ficará desmarcada, pois a tarefa está à fazer.
+         */
+        CheckBoxStatusDaTarefa.setSelected(status);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
