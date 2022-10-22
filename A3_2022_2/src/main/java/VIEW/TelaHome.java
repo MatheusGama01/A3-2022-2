@@ -21,7 +21,7 @@ public class TelaHome extends javax.swing.JFrame {
     public TelaHome(UsuarioDTO usuario) {
         initComponents();
         usuario = usuarioLogado;
-        inicializarTabela();
+        inicializarTabela(usuarioLogado);
     }
 
     /**
@@ -95,7 +95,7 @@ public class TelaHome extends javax.swing.JFrame {
             }
         });
 
-        jComboBoxStatusTarefa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "À fazer", "Feitas" }));
+        jComboBoxStatusTarefa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "À fazer", "Feitas" }));
         jComboBoxStatusTarefa.setFocusable(false);
         jComboBoxStatusTarefa.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -108,9 +108,14 @@ public class TelaHome extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tarefas:"
+                "Id", "Descrição", "Status"
             }
         ));
+        tblTarefas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTarefasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblTarefas);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -166,6 +171,7 @@ public class TelaHome extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     //Navega para TelaUsuario
@@ -180,28 +186,54 @@ public class TelaHome extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_lblNovaTarefaMouseClicked
 
-    //Verifica se se há alteração na seleção do ComboBox
+    //Verifica se há alteração na seleção do ComboBox
     private void jComboBoxStatusTarefaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxStatusTarefaItemStateChanged
-        inicializarTabela();
+        inicializarTabela(usuarioLogado);
     }//GEN-LAST:event_jComboBoxStatusTarefaItemStateChanged
 
+    private void tblTarefasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTarefasMouseClicked
+        int idTarefa = 0;
+        String descricao = "";
+        String status = "";
+
+        if (tblTarefas.getSelectedRow() != -1) {
+            idTarefa = (int) tblTarefas.getValueAt(tblTarefas.getSelectedRow(), 0);
+            descricao = tblTarefas.getValueAt(tblTarefas.getSelectedRow(), 1).toString();
+            status = tblTarefas.getValueAt(tblTarefas.getSelectedRow(), 2).toString();
+        }
+
+        controller.navegarParaTelaTarefa(idTarefa, descricao, status, usuarioLogado);
+    }//GEN-LAST:event_tblTarefasMouseClicked
+
     //Inicializa a tabela com a tarefas a partir do item selecionado no ComboBox
-    private void inicializarTabela() {
+    private void inicializarTabela(UsuarioDTO usuario) {
         String statusSelecionado = statusComboBox();
         ArrayList<TarefaDTO> tarefas = new ArrayList<>();
 
         if (statusSelecionado == "À fazer") {
-            tarefas = controller.listarTarefasAFazer();
+            tarefas = controller.listarTarefasAFazer(usuario);
+        } else if (statusSelecionado == "Feitas") {
+            tarefas = controller.listarTarefasFeitas(usuario);
         } else {
-            tarefas = controller.listarTarefasFeitas();
+            tarefas = controller.listarTarefas(usuario);
         }
 
         DefaultTableModel tabelaTarefas = (DefaultTableModel) tblTarefas.getModel();
         tabelaTarefas.setNumRows(0);
 
         for (TarefaDTO tarefa : tarefas) {
+            String status;
+
+            if (tarefa.getStatus() == true) {
+                status = "Feita";
+            } else {
+                status = "À fazer";
+            }
+
             tabelaTarefas.addRow(new Object[]{
-                tarefa.getDescricao()
+                tarefa.getId(),
+                tarefa.getDescricao(),
+                status
             });
         }
     }

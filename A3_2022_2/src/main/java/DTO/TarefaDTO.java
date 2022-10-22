@@ -11,6 +11,12 @@ public class TarefaDTO {
         this.status = status;
     }
 
+    public TarefaDTO(int id, String descricao, Boolean statuts) {
+        this.id = id;
+        this.descricao = descricao;
+        this.status = status;
+    }
+
     public TarefaDTO() {
 
     }
@@ -33,5 +39,9 @@ public class TarefaDTO {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
