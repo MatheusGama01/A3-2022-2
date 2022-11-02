@@ -7,10 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
 
 public class TarefaDAO {
-    
+
     PreparedStatement pstm;
     Connection conn;
 
@@ -19,21 +18,30 @@ public class TarefaDAO {
         try {
             ArrayList<TarefaDTO> listaDeTarefas = new ArrayList<>();
 
+            System.out.println("Em TarefaDAO o idUsuario é: " + usuarioDTO.getId());
+
             //Busca, no banco de dados, todas as tarefas da tabela tarefas.
-            String sql = "SELECT * FROM tarefa WHERE idUsuario=?";
+            String sql = "SELECT * FROM tarefas WHERE idUsuario= " + usuarioDTO.getId();
             conn = new ConexaoDAO().conectaBD();
             pstm = conn.prepareStatement(sql);
-            pstm.setInt(1, usuarioDTO.getId());
             ResultSet rs = pstm.executeQuery();
 
-            //Inseri a descrição das tarefas retornadas pelo banco de dados no ArrayList listaDeTarefas.
+            /**
+             * Inseri a descrição das tarefas retornadas pelo banco de dados no
+             * ArrayList listaDeTarefas.
+             */
             while (rs.next()) {
                 TarefaDTO tarefa = new TarefaDTO();
+
+                System.out.println("Status da tarefa capturada em TarefaDAO: " + rs.getString("status"));
+
                 tarefa.setId(rs.getInt("id"));
                 tarefa.setDescricao(rs.getString("descricao"));
+                tarefa.setStatus(rs.getBoolean("status"));
+                tarefa.setIdUsuario(rs.getInt("idUsuario"));
                 listaDeTarefas.add(tarefa);
             }
-            
+
             pstm.close();
             return listaDeTarefas;
         } catch (SQLException ex) {
@@ -46,7 +54,7 @@ public class TarefaDAO {
     public void criarTarefa(TarefaDTO tarefaDTO, UsuarioDTO usuarioDTO) {
         try {
             conn = new ConexaoDAO().conectaBD();
-            pstm = conn.prepareStatement("INSERT INTO tarefa(descricao,status,idUsuario) values(?,?,?)");
+            pstm = conn.prepareStatement("INSERT INTO tarefas(descricao,status,idUsuario) values(?,?,?)");
             pstm.setString(1, tarefaDTO.getDescricao());
             pstm.setBoolean(2, false);
             pstm.setInt(3, usuarioDTO.getId());
@@ -60,7 +68,7 @@ public class TarefaDAO {
     public void atualizarTarefa(TarefaDTO tarefaDTO) {
         try {
             conn = new ConexaoDAO().conectaBD();
-            pstm = conn.prepareStatement("UPDATE tarefa SET descricao = ? , status = ? where  id = ?");
+            pstm = conn.prepareStatement("UPDATE tarefas SET descricao = ? , status = ? where  id = ?");
             pstm.setString(1, tarefaDTO.getDescricao());
             pstm.setBoolean(2, tarefaDTO.getStatus());
             pstm.setInt(3, tarefaDTO.getId());
@@ -74,14 +82,14 @@ public class TarefaDAO {
     public Boolean apagarTarefa(TarefaDTO tarefaDTO) {
         try {
             conn = new ConexaoDAO().conectaBD();
-            pstm = conn.prepareStatement("DELETE FROM tarefa WHERE id = ?");
+            pstm = conn.prepareStatement("DELETE FROM tarefas WHERE id = ?");
             pstm.setInt(1, tarefaDTO.getId());
             pstm.executeUpdate();
-            
+
             return true;
         } catch (SQLException ex) {
             System.out.println("Deu erro em apagarTarefa" + ex);
-            
+
             return false;
         }
     }

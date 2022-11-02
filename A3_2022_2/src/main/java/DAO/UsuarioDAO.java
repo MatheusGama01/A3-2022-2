@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAO;
 
 import DTO.UsuarioDTO;
@@ -18,15 +14,18 @@ public class UsuarioDAO {
 
     Connection conn;
 
+    /**
+     * Verifica se os dados passados pelo model usuarioDTO são semelhantes a
+     * algum usuario no banco.
+     */
     public ResultSet autenticaUsuario(UsuarioDTO usuarioDTO) {
         try {
             conn = new ConexaoDAO().conectaBD();
-            String query = "SELECT * FROM usuario WHERE Nome=? AND Senha=? AND Email=?";
+            String query = "SELECT * FROM usuarios WHERE email=? AND senha=?";
             PreparedStatement pstm = conn.prepareStatement(query);
 
-            pstm.setString(1, usuarioDTO.getNome());
+            pstm.setString(1, usuarioDTO.getEmail());
             pstm.setString(2, usuarioDTO.getSenha());
-            pstm.setString(3, usuarioDTO.getEmail());
 
             ResultSet rs = pstm.executeQuery();
             return rs;
