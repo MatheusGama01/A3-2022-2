@@ -1,24 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DTO;
 
-/**
- *
- * @author Gabriele
- */
 public class UsuarioDTO {
 
-    private String nome, senha, email, Confirmarsenha;
+    private String nome, senha, email;
     private int id;
 
-    public UsuarioDTO(String nome, String senha, String email, String Confirmarsenha) {
+    public UsuarioDTO(int id, String nome, String senha, String email) {
+        this.id = id;
         this.nome = nome;
         this.senha = senha;
         this.email = email;
-        this.Confirmarsenha = Confirmarsenha;
-
     }
 
     public UsuarioDTO() {
@@ -30,12 +21,6 @@ public class UsuarioDTO {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public UsuarioDTO(String nome, String senha, String email) {
-        this.nome = nome;
-        this.senha = senha;
-        this.email = email;
     }
 
     public String getNome() {
