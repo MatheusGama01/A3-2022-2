@@ -3,10 +3,12 @@ package VIEW;
 import CONTROLLER.ControllerTelaTarefa;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
+import javax.swing.JCheckBox;
+import javax.swing.JTextArea;
 
 public class TelaTarefa extends javax.swing.JFrame {
 
-    ControllerTelaTarefa controller = new ControllerTelaTarefa();
+    private ControllerTelaTarefa controller;
     TarefaDTO tarefa = new TarefaDTO();
     UsuarioDTO usuarioLogado = new UsuarioDTO();
 
@@ -19,6 +21,7 @@ public class TelaTarefa extends javax.swing.JFrame {
 
     public TelaTarefa(TarefaDTO tarefaSelecionada, UsuarioDTO usuario) {
         initComponents();
+        controller = new ControllerTelaTarefa(this);
         tarefa = tarefaSelecionada;
         usuarioLogado = usuario;
         inicializarTelaTarefa(tarefaSelecionada);
@@ -166,31 +169,27 @@ public class TelaTarefa extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     //Navega para TelaUsuario.
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
-        controller.navegarParaTelaDeUsuario(usuarioLogado);
-        this.dispose();
+        this.controller.navegarParaTelaDeUsuario(usuarioLogado);
     }//GEN-LAST:event_lblUsuarioMouseClicked
 
     //Navega para TelaHome.
     private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
-        controller.navegarParaTelaHome(usuarioLogado);
-        this.dispose();
+        this.controller.navegarParaTelaHome(usuarioLogado);
     }//GEN-LAST:event_lblLogoMouseClicked
 
     //Chama o métdo salvarEdicao de ControllerTelaTarefa.
     private void btnSalvarEdicaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarEdicaoMouseClicked
-        String descricao = TextAreaDescricaoDaTarefa.getText();
-        Boolean status = CheckBoxStatusDaTarefa.isSelected();
-        controller.salvarEdicao(tarefa, descricao, status, usuarioLogado);
-        this.dispose();
+        this.controller.salvarEdicao(tarefa, usuarioLogado);
     }//GEN-LAST:event_btnSalvarEdicaoMouseClicked
 
     //Chama  método apagarTarefa de ControllerTelaTarefa.
     private void btnApagarTarefaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApagarTarefaMouseClicked
-        controller.apagarTarefa(tarefa, usuarioLogado);
+        this.controller.apagarTarefa(tarefa, usuarioLogado);
     }//GEN-LAST:event_btnApagarTarefaMouseClicked
 
     //Inicializa TelaTarefa com as informações da tarefa que foi passada.
@@ -198,14 +197,34 @@ public class TelaTarefa extends javax.swing.JFrame {
         String descricao = tarefa.getDescricao();
         Boolean status = tarefa.getStatus();
 
+        System.out.println("Em tela tarefa o status é: " + status);
+
         TextAreaDescricaoDaTarefa.setText(descricao);
 
         /**
          * Se status == true -> a tarefa já estará marcada como feita. 
-         * Se status == false -> a checkbox ficará desmarcada, pois a tarefa está à fazer.
+         * Se status == false -> a checkbox ficará desmarcada, pois a tarefa 
+         * está à fazer.
          */
         CheckBoxStatusDaTarefa.setSelected(status);
     }
+
+    public JCheckBox getCheckBoxStatusDaTarefa() {
+        return CheckBoxStatusDaTarefa;
+    }
+
+    public void setCheckBoxStatusDaTarefa(JCheckBox CheckBoxStatusDaTarefa) {
+        this.CheckBoxStatusDaTarefa = CheckBoxStatusDaTarefa;
+    }
+
+    public JTextArea getTextAreaDescricaoDaTarefa() {
+        return TextAreaDescricaoDaTarefa;
+    }
+
+    public void setTextAreaDescricaoDaTarefa(JTextArea TextAreaDescricaoDaTarefa) {
+        this.TextAreaDescricaoDaTarefa = TextAreaDescricaoDaTarefa;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackgroundHeader;
@@ -216,6 +235,6 @@ public class TelaTarefa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLogo;
-    private javax.swing.JLabel lblUsuario;
+    public static javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }

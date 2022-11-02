@@ -1,10 +1,14 @@
 package VIEW;
 
+import CONTROLLER.ControllerTelaLogin;
+
 /**
  *
  * @author Gabriele
  */
 public class Login extends javax.swing.JFrame {
+
+    ControllerTelaLogin controller = new ControllerTelaLogin();
 
     public Login() {
         initComponents();
@@ -44,10 +48,6 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(107, 143, 113));
         jLabel2.setText("ENTRE PARA VISUALIZAR SUAS TAREFAS");
-
-        TextFielEMAIL.setText("EMAIL");
-
-        TextFieldSenha.setText("jPasswordField1");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(107, 143, 113));
@@ -174,9 +174,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonirparaCadastroActionPerformed
 
     private void ButtonLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLogarActionPerformed
-        Login login = new Login();
-        login.setVisible(true);
-        this.dispose();
+        this.acessarSistema();
     }//GEN-LAST:event_ButtonLogarActionPerformed
 
     public static void main(String args[]) {
@@ -184,6 +182,18 @@ public class Login extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new Login().setVisible(true);
         });
+    }
+
+    /**
+     * Captura os dados dos campos de texto e chama o método logar de
+     * ControllerTelaLogin.
+     */
+    private void acessarSistema() {
+        String email = TextFielEMAIL.getText();
+        String senha = new String(TextFieldSenha.getPassword());
+        controller.logar(email, senha);
+
+        this.dispose();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

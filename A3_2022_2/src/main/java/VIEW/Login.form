@@ -181,14 +181,8 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="TextFielEMAIL">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="EMAIL"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JPasswordField" name="TextFieldSenha">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="jPasswordField1"/>
-              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
