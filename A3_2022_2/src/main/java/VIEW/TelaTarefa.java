@@ -21,7 +21,7 @@ public class TelaTarefa extends javax.swing.JFrame {
 
     public TelaTarefa(TarefaDTO tarefaSelecionada, UsuarioDTO usuario) {
         initComponents();
-        controller = new ControllerTelaTarefa(this);
+        controller = new ControllerTelaTarefa();
         tarefa = tarefaSelecionada;
         usuarioLogado = usuario;
         inicializarTelaTarefa(tarefaSelecionada);
@@ -175,16 +175,21 @@ public class TelaTarefa extends javax.swing.JFrame {
     //Navega para TelaUsuario.
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
         this.controller.navegarParaTelaDeUsuario(usuarioLogado);
+        this.dispose();
     }//GEN-LAST:event_lblUsuarioMouseClicked
 
     //Navega para TelaHome.
     private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
         this.controller.navegarParaTelaHome(usuarioLogado);
+        this.dispose();
     }//GEN-LAST:event_lblLogoMouseClicked
 
     //Chama o métdo salvarEdicao de ControllerTelaTarefa.
     private void btnSalvarEdicaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarEdicaoMouseClicked
-        this.controller.salvarEdicao(tarefa, usuarioLogado);
+        String descricao = TextAreaDescricaoDaTarefa.getText();
+        Boolean status = CheckBoxStatusDaTarefa.isSelected();
+        controller.salvarEdicao(tarefa, descricao, status, usuarioLogado);
+        this.dispose();
     }//GEN-LAST:event_btnSalvarEdicaoMouseClicked
 
     //Chama  método apagarTarefa de ControllerTelaTarefa.
@@ -197,34 +202,14 @@ public class TelaTarefa extends javax.swing.JFrame {
         String descricao = tarefa.getDescricao();
         Boolean status = tarefa.getStatus();
 
-        System.out.println("Em tela tarefa o status é: " + status);
-
         TextAreaDescricaoDaTarefa.setText(descricao);
 
         /**
          * Se status == true -> a tarefa já estará marcada como feita. 
-         * Se status == false -> a checkbox ficará desmarcada, pois a tarefa 
-         * está à fazer.
+         * Se status == false -> a checkbox ficará desmarcada, pois a tarefa está à fazer.
          */
         CheckBoxStatusDaTarefa.setSelected(status);
     }
-
-    public JCheckBox getCheckBoxStatusDaTarefa() {
-        return CheckBoxStatusDaTarefa;
-    }
-
-    public void setCheckBoxStatusDaTarefa(JCheckBox CheckBoxStatusDaTarefa) {
-        this.CheckBoxStatusDaTarefa = CheckBoxStatusDaTarefa;
-    }
-
-    public JTextArea getTextAreaDescricaoDaTarefa() {
-        return TextAreaDescricaoDaTarefa;
-    }
-
-    public void setTextAreaDescricaoDaTarefa(JTextArea TextAreaDescricaoDaTarefa) {
-        this.TextAreaDescricaoDaTarefa = TextAreaDescricaoDaTarefa;
-    }
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackgroundHeader;

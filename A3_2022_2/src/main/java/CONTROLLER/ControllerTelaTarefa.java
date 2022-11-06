@@ -3,62 +3,45 @@ package CONTROLLER;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
 import DAO.TarefaDAO;
-import HELPER.HelperControllerTelaTarefa;
 import VIEW.TelaUsuario;
 import VIEW.TelaHome;
-import VIEW.TelaTarefa;
 import javax.swing.JOptionPane;
 
 public class ControllerTelaTarefa {
-
-    private final TelaTarefa telaTarefa;
-    private HelperControllerTelaTarefa helper;
-
-    public ControllerTelaTarefa(TelaTarefa telaTarefa) {
-        this.telaTarefa = telaTarefa;
-        this.helper = new HelperControllerTelaTarefa(telaTarefa);
-    }
-
+    
     //Instancia TelaUsuario e a torna visível.
     public void navegarParaTelaDeUsuario(UsuarioDTO usuario) {
         TelaUsuario telaUsuario = new TelaUsuario(usuario);
         telaUsuario.setVisible(true);
-
-        this.telaTarefa.dispose();
     }
 
     //Instancia TelaHome e a torna visível.
     public void navegarParaTelaHome(UsuarioDTO usuario) {
         TelaHome telaHome = new TelaHome(usuario);
         telaHome.setVisible(true);
-
-        this.telaTarefa.dispose();
     }
 
     /**
      * Verifica se há alteração na tarefa, caso sim chama o método
      * atualizarTarefa de TarefaDAO.
      */
-    public void salvarEdicao(TarefaDTO tarefa, UsuarioDTO usuario) {
-        TarefaDTO tarerfaView = helper.obterModelo();
+    public void salvarEdicao(TarefaDTO tarefa, String descricao, Boolean status, UsuarioDTO usuario) {
 
-        if (tarerfaView.getDescricao().equals(tarefa.getDescricao()) && tarerfaView.getStatus() == tarefa.getStatus()) {
+        if (descricao.equals(tarefa.getDescricao()) && status == tarefa.getStatus()) {
             navegarParaTelaHome(usuario);
             System.out.println("Nada foi alterado na tarefa");
         } else {
             System.out.println("Salvando alteração");
             TarefaDAO tarefaDAO = new TarefaDAO();
 
-            tarefa.setDescricao(tarerfaView.getDescricao());
-            tarefa.setStatus(tarerfaView.getStatus());
+            tarefa.setDescricao(descricao);
+            tarefa.setStatus(status);
 
             tarefaDAO.atualizarTarefa(tarefa);
         }
 
         TelaHome telaHome = new TelaHome(usuario);
         telaHome.setVisible(true);
-
-        this.telaTarefa.dispose();
     }
 
     /**
@@ -88,8 +71,6 @@ public class ControllerTelaTarefa {
 
                 TelaHome telaHome = new TelaHome(usuario);
                 telaHome.setVisible(true);
-
-                this.telaTarefa.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Não foi possível apagar a tarefa! Tente novamente mais tarde!", "Atenção", JOptionPane.ERROR_MESSAGE);
             }

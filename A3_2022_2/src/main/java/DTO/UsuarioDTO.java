@@ -12,6 +12,12 @@ public class UsuarioDTO {
         this.email = email;
     }
 
+    public UsuarioDTO(String nome, String senha, String email) {
+        this.nome = nome;
+        this.senha = senha;
+        this.email = email;
+    }
+
     public UsuarioDTO() {
     }
 

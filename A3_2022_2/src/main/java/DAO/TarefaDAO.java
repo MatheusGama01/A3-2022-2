@@ -43,29 +43,61 @@ public class TarefaDAO {
             }
 
             pstm.close();
+            
             return listaDeTarefas;
         } catch (SQLException ex) {
             System.out.println("Deu erro em listarTarefas" + ex);
+            
+            return null;
+        }
+    }
+
+    //Pega uma tarefa no banco de dados
+    public TarefaDTO listarTarefa(TarefaDTO tarefa, UsuarioDTO usuario) {
+        try {
+
+            String sql = "SELECT * FROM tarefas WHERE id = " + tarefa.getId();
+            conn = new ConexaoDAO().conectaBD();
+            pstm = conn.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+
+            TarefaDTO tarefaRetornada = new TarefaDTO();
+
+            if (rs.next()) {
+                tarefaRetornada.setId(rs.getInt("id"));
+                tarefaRetornada.setDescricao(rs.getString("descricao"));
+                tarefaRetornada.setStatus(rs.getBoolean("status"));
+                tarefaRetornada.setIdUsuario(rs.getInt("idUsuario"));
+            }
+
+            return tarefaRetornada;
+        } catch (SQLException ex) {
+            System.out.println("Deu erro em listarTarefa" + ex);
+
             return null;
         }
     }
 
     //Inseri uma tarefa no banco de dados.
-    public void criarTarefa(TarefaDTO tarefaDTO, UsuarioDTO usuarioDTO) {
+    public Boolean criarTarefa(TarefaDTO tarefaDTO, UsuarioDTO usuarioDTO) {
         try {
             conn = new ConexaoDAO().conectaBD();
-            pstm = conn.prepareStatement("INSERT INTO tarefas(descricao,status,idUsuario) values(?,?,?)");
+            pstm = conn.prepareStatement("INSERT INTO tarefas(descricao, status, idUsuario) VALUES(?, ?, ?)");
             pstm.setString(1, tarefaDTO.getDescricao());
-            pstm.setBoolean(2, false);
+            pstm.setBoolean(2, tarefaDTO.getStatus());
             pstm.setInt(3, usuarioDTO.getId());
             pstm.execute();
+
+            return true;
         } catch (SQLException ex) {
             System.out.println("Deu erro em criarTarefa" + ex);
+
+            return false;
         }
     }
 
     //Atualiza uma tarefa salva no banco de dados.
-    public void atualizarTarefa(TarefaDTO tarefaDTO) {
+    public Boolean atualizarTarefa(TarefaDTO tarefaDTO) {
         try {
             conn = new ConexaoDAO().conectaBD();
             pstm = conn.prepareStatement("UPDATE tarefas SET descricao = ? , status = ? where  id = ?");
@@ -73,8 +105,12 @@ public class TarefaDAO {
             pstm.setBoolean(2, tarefaDTO.getStatus());
             pstm.setInt(3, tarefaDTO.getId());
             pstm.executeUpdate();
+
+            return true;
         } catch (SQLException ex) {
             System.out.println("Deu erro em atualizarTarefa" + ex);
+
+            return false;
         }
     }
 

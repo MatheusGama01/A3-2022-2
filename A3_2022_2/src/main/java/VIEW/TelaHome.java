@@ -1,8 +1,10 @@
 package VIEW;
 
 import CONTROLLER.ControllerTelaHome;
+import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
-import javax.swing.JTable;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class TelaHome extends javax.swing.JFrame {
 
@@ -14,7 +16,7 @@ public class TelaHome extends javax.swing.JFrame {
      */
     public TelaHome(UsuarioDTO usuario) {
         initComponents();
-        controller = new ControllerTelaHome(this);
+        controller = new ControllerTelaHome();
         usuarioLogado = usuario;
         inicializarTela();
     }
@@ -172,21 +174,34 @@ public class TelaHome extends javax.swing.JFrame {
     //Navega para TelaUsuario.
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
         this.controller.navegarParaTelaDeUsuario(usuarioLogado);
+        this.dispose();
     }//GEN-LAST:event_lblUsuarioMouseClicked
 
     //Navega para TelaTarefa.
     private void lblNovaTarefaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNovaTarefaMouseClicked
         this.controller.navegarParaTelaDeAdicionarTarefa(usuarioLogado);
+        this.dispose();
     }//GEN-LAST:event_lblNovaTarefaMouseClicked
 
     //Verifica se há alteração na seleção do ComboBox.
     private void jComboBoxStatusTarefaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxStatusTarefaItemStateChanged
-        this.controller.inicializarTabela(usuarioLogado);
+        this.inicializarTabela();
     }//GEN-LAST:event_jComboBoxStatusTarefaItemStateChanged
 
     //Navega para telaTarefa.
     private void tblTarefasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTarefasMouseClicked
-        this.controller.navegarParaTelaTarefa(usuarioLogado);
+        int idTarefa = 0;
+        String descricao = "";
+        String status = "";
+
+        if (tblTarefas.getSelectedRow() != -1) {
+            idTarefa = (int) tblTarefas.getValueAt(tblTarefas.getSelectedRow(), 0);
+            descricao = tblTarefas.getValueAt(tblTarefas.getSelectedRow(), 1).toString();
+            status = tblTarefas.getValueAt(tblTarefas.getSelectedRow(), 2).toString();
+        }
+
+        this.controller.navegarParaTelaTarefa(idTarefa, descricao, status, usuarioLogado);
+        this.dispose();
     }//GEN-LAST:event_tblTarefasMouseClicked
 
     //Realiza o get do item selecionado no ComboBox.
@@ -196,15 +211,47 @@ public class TelaHome extends javax.swing.JFrame {
 
     //Inicializa a telaHome.
     private void inicializarTela() {
-        this.controller.inicializarTabela(usuarioLogado);
+        this.inicializarTabela();
     }
+    
+    //Inseri os dados do ArrayList tarefas na tabela.
+    private void inicializarTabela() {
+        String statusSelecionado = statusComboBox();
+        ArrayList<TarefaDTO> tarefas = new ArrayList<>();
 
-    public JTable getTblTarefas() {
-        return tblTarefas;
-    }
+        /**
+         * A partir do status selecionado na combo box da TelaHome ele chama o
+         * método mais adequado para trazer as tarefas do vanco de dados.
+         */
+        if (statusSelecionado.equals("À fazer")) {
+            System.out.println("Em inicializarTabela, chamando controller.listarTarefasAFazer");
+            tarefas = this.controller.listarTarefasAFazer(usuarioLogado);
+        } else if (statusSelecionado.equals("Feitas")) {
+            System.out.println("Em inicializarTabela, chamando controller.listarTarefasFeitas");
+            tarefas = this.controller.listarTarefasFeitas(usuarioLogado);
+        } else {
+            System.out.println("Em inicializarTabela, chamando controller.listarTarefas");
+            tarefas = this.controller.listarTarefas(usuarioLogado);
+        }
+        
+        DefaultTableModel tabelaTarefas = (DefaultTableModel) tblTarefas.getModel();
+        tabelaTarefas.setNumRows(0);
 
-    public void setTblTarefas(JTable tblTarefas) {
-        this.tblTarefas = tblTarefas;
+        for (TarefaDTO tarefa : tarefas) {
+            String status;
+
+            if (tarefa.getStatus() == true) {
+                status = "Feita";
+            } else {
+                status = "À fazer";
+            }
+
+            tabelaTarefas.addRow(new Object[]{
+                tarefa.getId(),
+                tarefa.getDescricao(),
+                status
+            });
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
