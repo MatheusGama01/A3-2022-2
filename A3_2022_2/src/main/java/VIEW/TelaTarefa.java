@@ -3,8 +3,7 @@ package VIEW;
 import CONTROLLER.ControllerTelaTarefa;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
-import javax.swing.JCheckBox;
-import javax.swing.JTextArea;
+import javax.swing.JOptionPane;
 
 public class TelaTarefa extends javax.swing.JFrame {
 
@@ -194,7 +193,12 @@ public class TelaTarefa extends javax.swing.JFrame {
 
     //Chama  método apagarTarefa de ControllerTelaTarefa.
     private void btnApagarTarefaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApagarTarefaMouseClicked
-        this.controller.apagarTarefa(tarefa, usuarioLogado);
+        //Confirmar se o usuário realmente quer excluir a tarefa.
+        Boolean confirmarExclusao = confirmarExclusao();
+        if(confirmarExclusao == true){
+            this.controller.apagarTarefa(tarefa, usuarioLogado);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnApagarTarefaMouseClicked
 
     //Inicializa TelaTarefa com as informações da tarefa que foi passada.
@@ -209,6 +213,17 @@ public class TelaTarefa extends javax.swing.JFrame {
          * Se status == false -> a checkbox ficará desmarcada, pois a tarefa está à fazer.
          */
         CheckBoxStatusDaTarefa.setSelected(status);
+    }
+    
+    //Confirmar se o usuário realmente quer excluir a tarefa.
+    private Boolean confirmarExclusao() {
+        int confirmarExclusao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja apagar a tarefa?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+        if (confirmarExclusao == JOptionPane.YES_OPTION) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
