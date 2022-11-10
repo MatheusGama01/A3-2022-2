@@ -2,6 +2,10 @@ package DAO;
 
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelApagarATarefaException;
+import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
+import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +18,7 @@ public class TarefaDAO {
     Connection conn;
 
     //Cria um ArrayList de tarefas a partir das tarefas salvas no banco de dados.
-    public ArrayList<TarefaDTO> listarTarefas(UsuarioDTO usuarioDTO) {
+    public ArrayList<TarefaDTO> listarTarefas(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         try {
             ArrayList<TarefaDTO> listaDeTarefas = new ArrayList<>();
 
@@ -47,13 +51,13 @@ public class TarefaDAO {
             return listaDeTarefas;
         } catch (SQLException ex) {
             System.out.println("Deu erro em listarTarefas" + ex);
-            
-            return null;
+            throw new NaoFoiPossivelListarAsTarefasDoUsuario();
+            //return null;
         }
     }
 
     //Pega uma tarefa no banco de dados
-    public TarefaDTO listarTarefa(TarefaDTO tarefa, UsuarioDTO usuario) {
+    public TarefaDTO listarTarefa(TarefaDTO tarefa, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
 
             String sql = "SELECT * FROM tarefas WHERE id = " + tarefa.getId();
@@ -79,7 +83,7 @@ public class TarefaDAO {
     }
 
     //Inseri uma tarefa no banco de dados.
-    public Boolean criarTarefa(TarefaDTO tarefaDTO, UsuarioDTO usuarioDTO) {
+    public Boolean criarTarefa(TarefaDTO tarefaDTO, UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();
             pstm = conn.prepareStatement("INSERT INTO tarefas(descricao, status, idUsuario) VALUES(?, ?, ?)");
@@ -97,7 +101,7 @@ public class TarefaDAO {
     }
 
     //Atualiza uma tarefa salva no banco de dados.
-    public Boolean atualizarTarefa(TarefaDTO tarefaDTO) {
+    public Boolean atualizarTarefa(TarefaDTO tarefaDTO) throws NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();
             pstm = conn.prepareStatement("UPDATE tarefas SET descricao = ? , status = ? where  id = ?");
@@ -109,13 +113,13 @@ public class TarefaDAO {
             return true;
         } catch (SQLException ex) {
             System.out.println("Deu erro em atualizarTarefa" + ex);
-
-            return false;
+            throw new NaoFoiPossivelSalvarAEdicaoDaTarefaException();
+            //return false;
         }
     }
 
     //Apaga uma tarefa salva no banco de dados.
-    public Boolean apagarTarefa(TarefaDTO tarefaDTO) {
+    public Boolean apagarTarefa(TarefaDTO tarefaDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException {
         try {
             conn = new ConexaoDAO().conectaBD();
             pstm = conn.prepareStatement("DELETE FROM tarefas WHERE id = ?");
@@ -125,8 +129,8 @@ public class TarefaDAO {
             return true;
         } catch (SQLException ex) {
             System.out.println("Deu erro em apagarTarefa" + ex);
-
-            return false;
+            throw new NaoFoiPossivelApagarATarefaException();
+            //return false;
         }
     }
 }

@@ -7,13 +7,14 @@ package CONTROLLER;
 import DAO.TarefaDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 
 /**
  *
  * @author Gabriele
  */
 public class ControllerAdicionarTarefa {
-    public void criarTarefa(String descricao, UsuarioDTO usuario){
+    public void criarTarefa(String descricao, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException{
         TarefaDTO tarefa = new TarefaDTO(descricao,false);
         TarefaDAO tarefaDAO = new TarefaDAO();
         tarefaDAO.criarTarefa(tarefa, usuario);

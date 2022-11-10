@@ -2,6 +2,10 @@ package VIEW;
 
 import CONTROLLER.ControllerAdicionarTarefa;
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -194,9 +198,17 @@ public class AdicionarTarefa extends javax.swing.JPanel {
 
     private void ButtonAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonAdicionarActionPerformed
         String descricao = txtDescricao.getText();
-        controller.criarTarefa(descricao, usuarioLogado);
+        try {
+            controller.criarTarefa(descricao, usuarioLogado);
+        } catch (NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException e) {
+            ErroInesperado(e);
+        }
     }//GEN-LAST:event_ButtonAdicionarActionPerformed
 
+    //Mostra uma mensagem referente ao erro ocorrido.
+    private void ErroInesperado(Exception e){
+        JOptionPane.showMessageDialog(null, e.getMessage());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonAdicionar;

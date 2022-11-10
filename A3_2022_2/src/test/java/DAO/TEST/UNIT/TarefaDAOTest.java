@@ -3,6 +3,9 @@ package DAO.TEST.UNIT;
 import DAO.TarefaDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelApagarATarefaException;
+import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
 import java.util.ArrayList;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -18,46 +21,31 @@ public class TarefaDAOTest {
     }
 
     @Test
-    public void deveListarTodasAsTarefasDoUsuario() {
+    public void deveListarTodasAsTarefasDoUsuario() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         UsuarioDTO usuarioDTO = new UsuarioDTO(4, "Teste ListarTarefas", "123", "listarTarefas@email.com");
-        TarefaDTO tarefaDTO1 = new TarefaDTO(50, "Teste 1", false, 4);
-        TarefaDTO tarefaDTO2 = new TarefaDTO(51, "Teste 2", true, 4);
+        ArrayList<TarefaDTO> tarefas = new ArrayList<>();
+        tarefas.add(new TarefaDTO(50, "Teste 1", false, 4));
+        tarefas.add(new TarefaDTO(51, "Teste 2", true, 4));
 
         ArrayList<TarefaDTO> tarefasListadas = tarefaDAO.listarTarefas(usuarioDTO);
 
-        for (TarefaDTO tarefa : tarefasListadas) {
-
-            if (tarefa.getId() == 50) {
-                assertEquals(tarefaDTO1.getId(), tarefa.getId());
-                assertEquals(tarefaDTO1.getDescricao(), tarefa.getDescricao());
-                assertEquals(tarefaDTO1.getStatus(), tarefa.getStatus());
-                assertEquals(tarefaDTO1.getIdUsuario(), tarefa.getIdUsuario());
-            } else {
-                assertEquals(tarefaDTO2.getId(), tarefa.getId());
-                assertEquals(tarefaDTO2.getDescricao(), tarefa.getDescricao());
-                assertEquals(tarefaDTO2.getStatus(), tarefa.getStatus());
-                assertEquals(tarefaDTO2.getIdUsuario(), tarefa.getIdUsuario());
-            }
-        }
+        assertEquals(tarefas, tarefasListadas);
     }
 
     @Test
-    public void deveListarUmaTarefaComSucesso() {
+    public void deveListarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         UsuarioDTO usuarioDTO = new UsuarioDTO(4, "Teste ListarTarefas", "123", "listarTarefas@email.com");
         TarefaDTO tarefaDTO = new TarefaDTO(50, "Teste 1", false, 4);
 
         TarefaDTO tarefaListada = tarefaDAO.listarTarefa(tarefaDTO, usuarioDTO);
 
-        assertEquals(tarefaDTO.getId(), tarefaListada.getId());
-        assertEquals(tarefaDTO.getDescricao(), tarefaListada.getDescricao());
-        assertEquals(tarefaDTO.getStatus(), tarefaListada.getStatus());
-        assertEquals(tarefaDTO.getIdUsuario(), tarefaListada.getIdUsuario());
+        assertEquals(tarefaDTO, tarefaListada);
     }
 
     @Test
-    public void deveCriarUmaTarefaComSucesso() {
+    public void deveCriarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         UsuarioDTO usuarioDTO = new UsuarioDTO(3, "Teste TarefaDAO", "123", "tarefadao@email.com");
-        TarefaDTO tarefaDTO = new TarefaDTO(65, "Teste unitário", false);
+        TarefaDTO tarefaDTO = new TarefaDTO(64, "Teste unitário", false);
 
         tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO);
 
@@ -68,9 +56,9 @@ public class TarefaDAOTest {
     }
 
     @Test
-    public void deveAtualizarUmaTarefaComSucesso() {
+    public void deveAtualizarUmaTarefaComSucesso() throws NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         UsuarioDTO usuarioDTO = new UsuarioDTO(3, "Teste TarefaDAO", "123", "tarefadao@email.com");
-        TarefaDTO tarefaDTO = new TarefaDTO(65, "Teste", false);
+        TarefaDTO tarefaDTO = new TarefaDTO(62, "Teste", false);
 
         tarefaDAO.atualizarTarefa(tarefaDTO);
 
@@ -79,9 +67,9 @@ public class TarefaDAOTest {
     }
 
     @Test
-    public void deveApagarUmaTarefaComSucesso() {
+    public void deveApagarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException {
         UsuarioDTO usuarioDTO = new UsuarioDTO(3, "Teste TarefaDAO", "123", "tarefadao@email.com");
-        TarefaDTO tarefaDTO = new TarefaDTO(65, "Teste", false);
+        TarefaDTO tarefaDTO = new TarefaDTO(64, "Teste", false);
 
         tarefaDAO.apagarTarefa(tarefaDTO);
 

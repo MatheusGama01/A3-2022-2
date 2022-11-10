@@ -3,7 +3,12 @@ package VIEW;
 import CONTROLLER.ControllerTelaHome;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaHome extends javax.swing.JFrame {
@@ -185,7 +190,11 @@ public class TelaHome extends javax.swing.JFrame {
 
     //Verifica se há alteração na seleção do ComboBox.
     private void jComboBoxStatusTarefaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxStatusTarefaItemStateChanged
-        this.inicializarTabela();
+        try {
+            this.inicializarTabela();
+        } catch (NaoFoiPossivelListarAsTarefasDoUsuario e) {
+            ErroInesperado(e);
+        }
     }//GEN-LAST:event_jComboBoxStatusTarefaItemStateChanged
 
     //Navega para telaTarefa.
@@ -211,11 +220,15 @@ public class TelaHome extends javax.swing.JFrame {
 
     //Inicializa a telaHome.
     private void inicializarTela() {
-        this.inicializarTabela();
+        try {
+            this.inicializarTabela();
+        } catch (NaoFoiPossivelListarAsTarefasDoUsuario e) {
+            ErroInesperado(e);
+        }
     }
-    
+
     //Inseri os dados do ArrayList tarefas na tabela.
-    private void inicializarTabela() {
+    private void inicializarTabela() throws NaoFoiPossivelListarAsTarefasDoUsuario {
         String statusSelecionado = statusComboBox();
         ArrayList<TarefaDTO> tarefas = new ArrayList<>();
 
@@ -223,17 +236,21 @@ public class TelaHome extends javax.swing.JFrame {
          * A partir do status selecionado na combo box da TelaHome ele chama o
          * método mais adequado para trazer as tarefas do vanco de dados.
          */
-        if (statusSelecionado.equals("À fazer")) {
-            System.out.println("Em inicializarTabela, chamando controller.listarTarefasAFazer");
-            tarefas = this.controller.listarTarefasAFazer(usuarioLogado);
-        } else if (statusSelecionado.equals("Feitas")) {
-            System.out.println("Em inicializarTabela, chamando controller.listarTarefasFeitas");
-            tarefas = this.controller.listarTarefasFeitas(usuarioLogado);
-        } else {
-            System.out.println("Em inicializarTabela, chamando controller.listarTarefas");
-            tarefas = this.controller.listarTarefas(usuarioLogado);
+        try {
+            if (statusSelecionado.equals("À fazer")) {
+                System.out.println("Em inicializarTabela, chamando controller.listarTarefasAFazer");
+                tarefas = this.controller.listarTarefasAFazer(usuarioLogado);
+            } else if (statusSelecionado.equals("Feitas")) {
+                System.out.println("Em inicializarTabela, chamando controller.listarTarefasFeitas");
+                tarefas = this.controller.listarTarefasFeitas(usuarioLogado);
+            } else {
+                System.out.println("Em inicializarTabela, chamando controller.listarTarefas");
+                tarefas = this.controller.listarTarefas(usuarioLogado);
+            }
+        } catch (NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException e) {
+            ErroInesperado(e);
         }
-        
+
         DefaultTableModel tabelaTarefas = (DefaultTableModel) tblTarefas.getModel();
         tabelaTarefas.setNumRows(0);
 
@@ -252,6 +269,10 @@ public class TelaHome extends javax.swing.JFrame {
                 status
             });
         }
+    }
+
+    private void ErroInesperado(Exception e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

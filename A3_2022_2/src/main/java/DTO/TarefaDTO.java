@@ -1,5 +1,7 @@
 package DTO;
 
+import java.util.Objects;
+
 public class TarefaDTO {
 
     private int id, idUsuario;
@@ -58,5 +60,32 @@ public class TarefaDTO {
 
     public void setIdUsuario(int idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TarefaDTO other = (TarefaDTO) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (this.idUsuario != other.idUsuario) {
+            return false;
+        }
+        if (!Objects.equals(this.descricao, other.descricao)) {
+            return false;
+        }
+        if (!Objects.equals(this.status, other.status)) {
+            return false;
+        }
+        return true;
     }
 }

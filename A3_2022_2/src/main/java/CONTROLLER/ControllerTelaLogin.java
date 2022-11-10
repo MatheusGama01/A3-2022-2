@@ -2,6 +2,7 @@ package CONTROLLER;
 
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import VIEW.TelaHome;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ public class ControllerTelaLogin {
      * Realiza a verificação dos dados digitados pelo usúario e, caso estejam
      * corretos, navega para telaHome.
      */
-    public void logar(String email, String senha) {
+    public void logar(String email, String senha) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             UsuarioDTO usuarioDTO = new UsuarioDTO();
             usuarioDTO.setEmail(email);

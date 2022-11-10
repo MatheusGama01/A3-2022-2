@@ -3,6 +3,10 @@ package VIEW;
 import CONTROLLER.ControllerTelaTarefa;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelApagarATarefaException;
+import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
+import EXCEPTIONS.TarefaNaoAlteradaException;
 import javax.swing.JOptionPane;
 
 public class TelaTarefa extends javax.swing.JFrame {
@@ -187,17 +191,27 @@ public class TelaTarefa extends javax.swing.JFrame {
     private void btnSalvarEdicaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarEdicaoMouseClicked
         String descricao = TextAreaDescricaoDaTarefa.getText();
         Boolean status = CheckBoxStatusDaTarefa.isSelected();
-        controller.salvarEdicao(tarefa, descricao, status, usuarioLogado);
-        this.dispose();
+        
+        try {
+            controller.salvarEdicao(tarefa, descricao, status, usuarioLogado);
+            this.dispose();
+        } catch (TarefaNaoAlteradaException | NaoFoiPossivelSalvarAEdicaoDaTarefaException | NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException e) {
+            ErroInesperado(e);
+        }
     }//GEN-LAST:event_btnSalvarEdicaoMouseClicked
 
     //Chama  método apagarTarefa de ControllerTelaTarefa.
     private void btnApagarTarefaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApagarTarefaMouseClicked
-        //Confirmar se o usuário realmente quer excluir a tarefa.
+        //Confirma se o usuário realmente quer excluir a tarefa.
         Boolean confirmarExclusao = confirmarExclusao();
         if(confirmarExclusao == true){
-            this.controller.apagarTarefa(tarefa, usuarioLogado);
-            this.dispose();
+            try {
+                this.controller.apagarTarefa(tarefa, usuarioLogado);
+                this.dispose();
+                TarefaApagadaComSucesso();
+            } catch (NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | NaoFoiPossivelApagarATarefaException e) {
+                ErroInesperado(e);
+            }
         }
     }//GEN-LAST:event_btnApagarTarefaMouseClicked
 
@@ -210,12 +224,13 @@ public class TelaTarefa extends javax.swing.JFrame {
 
         /**
          * Se status == true -> a tarefa já estará marcada como feita. 
-         * Se status == false -> a checkbox ficará desmarcada, pois a tarefa está à fazer.
+         * Se status == false -> a checkbox ficará desmarcada, pois a tarefa 
+         * está à fazer.
          */
         CheckBoxStatusDaTarefa.setSelected(status);
     }
-    
-    //Confirmar se o usuário realmente quer excluir a tarefa.
+
+    //Confirma se o usuário realmente quer excluir a tarefa.
     private Boolean confirmarExclusao() {
         int confirmarExclusao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja apagar a tarefa?", "Atenção", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
@@ -224,6 +239,16 @@ public class TelaTarefa extends javax.swing.JFrame {
         } else {
             return false;
         }
+    }
+    
+    //Mostra uma menssagem indiccando que a tarefa foi apagada.
+    private void TarefaApagadaComSucesso(){
+        JOptionPane.showMessageDialog(null, "A tarefa foi apagada!");
+    }
+    
+    //Mostra uma mensagem referente ao erro ocorrido.
+    private void ErroInesperado(Exception e){
+        JOptionPane.showMessageDialog(null, e.getMessage());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

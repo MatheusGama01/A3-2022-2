@@ -3,6 +3,7 @@ package CONTROLLER.TEST.UNIT;
 import CONTROLLER.ControllerTelaHome;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import java.util.ArrayList;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -18,7 +19,7 @@ public class ControllerTelaHomeTest {
     }
 
     @Test
-    public void deveListarTodasAsTarefas() {
+    public void deveListarTodasAsTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         UsuarioDTO usuarioDTO = new UsuarioDTO(4, "Teste ListarTarefas", "123", "listarTarefas@email.com");
         TarefaDTO tarefaDTO1 = new TarefaDTO(50, "Teste 1", false, 4);
         TarefaDTO tarefaDTO2 = new TarefaDTO(51, "Teste 2", true, 4);
@@ -42,7 +43,7 @@ public class ControllerTelaHomeTest {
     }
 
     @Test
-    public void deveListarTodasAsTarefasAFazer() {
+    public void deveListarTodasAsTarefasAFazer() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         UsuarioDTO usuarioDTO = new UsuarioDTO(4, "Teste ListarTarefas", "123", "listarTarefas@email.com");
         TarefaDTO tarefaDTO1 = new TarefaDTO(50, "Teste 1", false, 4);
 
@@ -57,7 +58,7 @@ public class ControllerTelaHomeTest {
     }
 
     @Test
-    public void deveListarTodasAsTarefasFeitas() {
+    public void deveListarTodasAsTarefasFeitas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         UsuarioDTO usuarioDTO = new UsuarioDTO(4, "Teste ListarTarefas", "123", "listarTarefas@email.com");
         TarefaDTO tarefaDTO2 = new TarefaDTO(51, "Teste 2", true, 4);
 

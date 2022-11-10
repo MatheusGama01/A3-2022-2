@@ -1,6 +1,8 @@
 package VIEW;
 
 import CONTROLLER.ControllerTelaLogin;
+import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -174,7 +176,11 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_ButtonirparaCadastroActionPerformed
 
     private void ButtonLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLogarActionPerformed
-        this.acessarSistema();
+        try {
+            this.acessarSistema();
+        } catch (NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException e) {
+            ErroInesperado(e);
+        }
     }//GEN-LAST:event_ButtonLogarActionPerformed
 
     public static void main(String args[]) {
@@ -188,12 +194,16 @@ public class Login extends javax.swing.JFrame {
      * Captura os dados dos campos de texto e chama o método logar de
      * ControllerTelaLogin.
      */
-    private void acessarSistema() {
+    private void acessarSistema() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         String email = TextFielEMAIL.getText();
         String senha = new String(TextFieldSenha.getPassword());
         controller.logar(email, senha);
 
         this.dispose();
+    }
+
+    private void ErroInesperado(Exception e){
+        JOptionPane.showMessageDialog(null, e.getMessage());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

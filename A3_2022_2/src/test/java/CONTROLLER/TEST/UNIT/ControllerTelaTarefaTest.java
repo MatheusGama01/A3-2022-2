@@ -4,6 +4,10 @@ import CONTROLLER.ControllerTelaTarefa;
 import DAO.TarefaDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelApagarATarefaException;
+import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
+import EXCEPTIONS.TarefaNaoAlteradaException;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +24,7 @@ public class ControllerTelaTarefaTest {
     }
 
     @Test
-    public void deveSalvarAEdicaoDaTarefaComSucesso() {
+    public void deveSalvarAEdicaoDaTarefaComSucesso() throws TarefaNaoAlteradaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         UsuarioDTO usuarioDTO = new UsuarioDTO(6, "Teste ControllerTelaTarefa", "123", "testeControllerTelaTarefa@email.com");
         TarefaDTO tarefaDTO = new TarefaDTO(66, "Teste 2", true, 6);
         String descricao = "Teste";
@@ -37,7 +41,7 @@ public class ControllerTelaTarefaTest {
     }
     
     @Test
-    public void deveApagarATarefaComSucesso(){
+    public void deveApagarATarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException{
         UsuarioDTO usuarioDTO = new UsuarioDTO(6, "Teste ControllerTelaTarefa", "123", "testeControllerTelaTarefa@email.com");
         TarefaDTO tarefaDTO = new TarefaDTO(70, "Teste 1", false, 6);
         

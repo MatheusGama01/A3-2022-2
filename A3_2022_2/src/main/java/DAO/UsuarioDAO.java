@@ -1,6 +1,7 @@
 package DAO;
 
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,7 +15,7 @@ public class UsuarioDAO {
      * Verifica se os dados passados pelo model usuarioDTO são semelhantes a
      * algum usuario no banco.
      */
-    public ResultSet autenticaUsuario(UsuarioDTO usuarioDTO) {
+    public ResultSet autenticaUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();
             String query = "SELECT * FROM usuarios WHERE email=? AND senha=?";
@@ -31,7 +32,7 @@ public class UsuarioDAO {
         }
     }
 
-    public void create(UsuarioDTO objUsuarioDTO) {
+    public void create(UsuarioDTO objUsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();
             String query = "INSERT INTO usuario (Nome,Senha,Email,CPF,DataNasc,Telefone) VALUES (?,?,?,?,?,?)";
@@ -50,7 +51,7 @@ public class UsuarioDAO {
 
     }
 
-    public ResultSet loadUser(UsuarioDTO UsuarioDTO) {
+    public ResultSet loadUser(UsuarioDTO UsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();
             String query = "SELECT * FROM usuario WHERE CPF=?";
@@ -64,7 +65,7 @@ public class UsuarioDAO {
         }
     }
 
-    public void update(UsuarioDTO usuarioDTO) {
+    public void update(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();
             PreparedStatement pstm = conn.prepareStatement("UPDATE usuario SET Email = ? , Nome = ?, Senha = ? WHERE  CPF = ?");
@@ -80,7 +81,7 @@ public class UsuarioDAO {
         }
     }
 
-    public void delete(UsuarioDTO objDTO) {
+    public void delete(UsuarioDTO objDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();
             PreparedStatement pstm = conn.prepareStatement("DELETE FROM usuario WHERE CPF = ?");

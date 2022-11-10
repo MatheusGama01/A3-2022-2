@@ -3,6 +3,8 @@ package CONTROLLER;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
 import DAO.TarefaDAO;
+import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
 import VIEW.AdicionarTarefa;
 import VIEW.TelaTarefa;
 import VIEW.TelaUsuario;
@@ -42,7 +44,7 @@ public class ControllerTelaHome {
     }
 
     //Cria um ArrayList com todas as tarefas do usuário.
-    public ArrayList<TarefaDTO> listarTarefas(UsuarioDTO usuario) {
+    public ArrayList<TarefaDTO> listarTarefas(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         System.out.println("Em ControllerTelaHome o idUsuario é: " + usuario.getId());
         TarefaDAO tarefaDAO = new TarefaDAO();
         ArrayList<TarefaDTO> listaDeTarefas = new ArrayList<>();
@@ -57,7 +59,7 @@ public class ControllerTelaHome {
     }
 
     //Cria um ArrayList apenas com as tarefas à fazer.
-    public ArrayList listarTarefasAFazer(UsuarioDTO usuario) {
+    public ArrayList listarTarefasAFazer(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         System.out.println("Em ControllerTelaHome o idUsuario é: " + usuario.getId());
         TarefaDAO tarefaDAO = new TarefaDAO();
         ArrayList<TarefaDTO> listaDeTarefasAFazer = new ArrayList<>();
@@ -77,7 +79,7 @@ public class ControllerTelaHome {
     }
 
     //Cria um ArrayList apenas com as tarefas feitas.
-    public ArrayList listarTarefasFeitas(UsuarioDTO usuario) {
+    public ArrayList listarTarefasFeitas(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         System.out.println("Em ControllerTelaHome o idUsuario é: " + usuario.getId());
         TarefaDAO tarefaDAO = new TarefaDAO();
         ArrayList<TarefaDTO> listaDeTarefasFeitas = new ArrayList<>();
