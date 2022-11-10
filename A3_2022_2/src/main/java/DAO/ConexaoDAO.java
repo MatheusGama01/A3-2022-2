@@ -9,7 +9,7 @@ public class ConexaoDAO {
     Connection conn = null;
     String url = "jdbc:mysql://localhost:3306/teste_a3";
     String usuario = "root";
-    String senha = "@ServidorMySQL@";
+    String senha = "123456";
 
     //Inicializa a conexão com o banco de dados
     public Connection conectaBD() {
