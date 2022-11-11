@@ -57,7 +57,7 @@ public class TarefaDAO {
     }
 
     //Pega uma tarefa no banco de dados
-    public TarefaDTO listarTarefa(TarefaDTO tarefa, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
+    public TarefaDTO listarTarefa(TarefaDTO tarefa, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         try {
 
             String sql = "SELECT * FROM tarefas WHERE id = " + tarefa.getId();
@@ -77,8 +77,8 @@ public class TarefaDAO {
             return tarefaRetornada;
         } catch (SQLException ex) {
             System.out.println("Deu erro em listarTarefa" + ex);
-
-            return null;
+            throw new NaoFoiPossivelListarAsTarefasDoUsuario();
+            //return null;
         }
     }
 
@@ -95,7 +95,7 @@ public class TarefaDAO {
             return true;
         } catch (SQLException ex) {
             System.out.println("Deu erro em criarTarefa" + ex);
-
+            
             return false;
         }
     }
