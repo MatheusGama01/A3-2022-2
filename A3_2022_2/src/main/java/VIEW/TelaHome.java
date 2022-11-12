@@ -6,8 +6,6 @@ import DTO.UsuarioDTO;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -147,7 +145,7 @@ public class TelaHome extends javax.swing.JFrame {
                     .addComponent(lblMinhasTarefas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblNovaTarefa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -221,6 +219,7 @@ public class TelaHome extends javax.swing.JFrame {
     //Inicializa a telaHome.
     private void inicializarTela() {
         try {
+            lblUsuario.setText(usuarioLogado.getNome());
             this.inicializarTabela();
         } catch (NaoFoiPossivelListarAsTarefasDoUsuario e) {
             ErroInesperado(e);
@@ -283,7 +282,7 @@ public class TelaHome extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblMinhasTarefas;
     private javax.swing.JLabel lblNovaTarefa;
-    public static javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JTable tblTarefas;
     // End of variables declaration//GEN-END:variables
 }

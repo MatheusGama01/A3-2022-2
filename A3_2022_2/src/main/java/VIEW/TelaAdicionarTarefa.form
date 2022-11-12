@@ -123,6 +123,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="SIDE DISH"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblLogoMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblUsuario">
               <Properties>
@@ -134,9 +137,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
               </Properties>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
-              </AuxValues>
             </Component>
           </SubComponents>
         </Container>

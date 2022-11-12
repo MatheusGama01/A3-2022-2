@@ -17,6 +17,7 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
         initComponents();
         usuarioLogado = usuario;
         controller = new ControllerTelaAdicionarTarefa();
+        inicializarTela(usuario);
     }
 
     /**
@@ -47,6 +48,11 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
         lblLogo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblLogo.setForeground(new java.awt.Color(255, 255, 255));
         lblLogo.setText("SIDE DISH");
+        lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLogoMouseClicked(evt);
+            }
+        });
 
         lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblUsuario.setForeground(new java.awt.Color(255, 255, 255));
@@ -148,6 +154,16 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
+        this.controller.navegarParaTelaHome(usuarioLogado);
+        this.dispose();
+    }//GEN-LAST:event_lblLogoMouseClicked
+    
+    //Inicializa a telaAdicinarTarefa com o nome do usuário logado.
+    private void inicializarTela(UsuarioDTO usuario) {
+        lblUsuario.setText(usuario.getNome());
+    }
+
     //Mostra uma mensagem referente ao erro ocorrido.
     private void ErroInesperado(Exception e) {
         JOptionPane.showMessageDialog(null, e.getMessage());
@@ -161,7 +177,7 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLogo;
-    public static javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JTextArea textAreaDescricao;
     // End of variables declaration//GEN-END:variables
 }

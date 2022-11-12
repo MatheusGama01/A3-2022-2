@@ -27,7 +27,7 @@ public class TelaTarefa extends javax.swing.JFrame {
         controller = new ControllerTelaTarefa();
         tarefa = tarefaSelecionada;
         usuarioLogado = usuario;
-        inicializarTelaTarefa(tarefaSelecionada);
+        inicializarTelaTarefa(tarefaSelecionada, usuario);
     }
 
     /**
@@ -216,18 +216,16 @@ public class TelaTarefa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnApagarTarefaMouseClicked
 
     //Inicializa TelaTarefa com as informações da tarefa que foi passada.
-    private void inicializarTelaTarefa(TarefaDTO tarefa) {
-        String descricao = tarefa.getDescricao();
-        Boolean status = tarefa.getStatus();
-
-        TextAreaDescricaoDaTarefa.setText(descricao);
+    private void inicializarTelaTarefa(TarefaDTO tarefa, UsuarioDTO usuario) {        
+        lblUsuario.setText(usuario.getNome());
+        TextAreaDescricaoDaTarefa.setText(tarefa.getDescricao());
 
         /**
          * Se status == true -> a tarefa já estará marcada como feita. 
          * Se status == false -> a checkbox ficará desmarcada, pois a tarefa 
          * está à fazer.
          */
-        CheckBoxStatusDaTarefa.setSelected(status);
+        CheckBoxStatusDaTarefa.setSelected(tarefa.getStatus());
     }
 
     //Confirma se o usuário realmente quer excluir a tarefa.
@@ -260,6 +258,6 @@ public class TelaTarefa extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLogo;
-    public static javax.swing.JLabel lblUsuario;
+    private javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
 }

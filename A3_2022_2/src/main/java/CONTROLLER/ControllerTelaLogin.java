@@ -29,7 +29,6 @@ public class ControllerTelaLogin {
                 System.out.println(usuario.getId() + " " + usuario.getNome() + " " + usuario.getEmail() + " " + usuario.getSenha());
                 TelaHome telaHome = new TelaHome(usuario);
                 telaHome.setVisible(true);
-                telaHome.lblUsuario.setText(usuario.getNome());
             } else {
                 System.out.println("Não foi possível conectar");
             }
