@@ -5,7 +5,7 @@ import DTO.UsuarioDTO;
 import DAO.TarefaDAO;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
-import VIEW.AdicionarTarefa;
+import VIEW.TelaAdicionarTarefa;
 import VIEW.TelaTarefa;
 import VIEW.TelaUsuario;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class ControllerTelaHome {
 
     //Instancia tela AdicionarTarefa e a torna visível.
     public void navegarParaTelaDeAdicionarTarefa(UsuarioDTO usuario) {
-        AdicionarTarefa telaAdicionarTarefa = new AdicionarTarefa(usuario);
+        TelaAdicionarTarefa telaAdicionarTarefa = new TelaAdicionarTarefa(usuario);
         telaAdicionarTarefa.setVisible(true);
     }
 

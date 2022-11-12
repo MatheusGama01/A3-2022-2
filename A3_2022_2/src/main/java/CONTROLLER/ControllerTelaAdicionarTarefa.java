@@ -13,7 +13,7 @@ import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
  *
  * @author Gabriele
  */
-public class ControllerAdicionarTarefa {
+public class ControllerTelaAdicionarTarefa {
     public void criarTarefa(String descricao, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException{
         TarefaDTO tarefa = new TarefaDTO(descricao,false);
         TarefaDAO tarefaDAO = new TarefaDAO();
