@@ -13,7 +13,6 @@ import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 
 public class ControllerTelaTarefaTest {
@@ -24,7 +23,7 @@ public class ControllerTelaTarefaTest {
     @Before
     public void init() {
         this.controller = new ControllerTelaTarefa();
-        tarefaDAO = new TarefaDAO();
+        this.tarefaDAO = new TarefaDAO();
     }
 
     @Test

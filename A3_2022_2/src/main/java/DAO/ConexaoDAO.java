@@ -16,10 +16,10 @@ public class ConexaoDAO {
     public Connection conectaBD() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = DriverManager.getConnection(url, usuario, senha);
+            return conn;
         } catch (SQLException ex) {
             System.out.println("Deu erro em conectaBD " + ex);
             throw new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException();
         }
-        return conn;
     }
 }
