@@ -1,6 +1,6 @@
 package EXCEPTIONS;
 
-public class NenhumDadoInseridoException extends Exception {
+public class NenhumDadoDeLoginInseridoException extends Exception {
 
     @Override
     public String getMessage() {

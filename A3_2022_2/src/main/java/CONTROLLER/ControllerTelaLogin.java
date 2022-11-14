@@ -30,7 +30,7 @@ public class ControllerTelaLogin {
 
             UsuarioDAO usuarioDAO = new UsuarioDAO();
 
-            ResultSet rs = usuarioDAO.autenticaUsuario(usuarioDTO);
+            ResultSet rs = usuarioDAO.autenticarUsuario(usuarioDTO);
 
             if (rs.next()) {
                 System.out.println("Parabéns! você conseguiu acessar");

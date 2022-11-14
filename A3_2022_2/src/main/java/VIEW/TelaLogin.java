@@ -3,10 +3,8 @@ package VIEW;
 import CONTROLLER.ControllerTelaLogin;
 import EXCEPTIONS.FalhaAoAutenticarException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
-import EXCEPTIONS.NenhumDadoInseridoException;
+import EXCEPTIONS.NenhumDadoDeLoginInseridoException;
 import EXCEPTIONS.UsuarioOuSenhaIncorretosException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -15,10 +13,11 @@ import javax.swing.JOptionPane;
  */
 public class TelaLogin extends javax.swing.JFrame {
 
-    ControllerTelaLogin controller = new ControllerTelaLogin();
+    private final ControllerTelaLogin controller;
 
     public TelaLogin() {
         initComponents();
+        this.controller = new ControllerTelaLogin();
     }
 
     @SuppressWarnings("unchecked")
@@ -206,7 +205,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 controller.logar(email, senha);
                 this.dispose();
             }
-        } catch (NenhumDadoInseridoException | NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | UsuarioOuSenhaIncorretosException | FalhaAoAutenticarException e) {
+        } catch (NenhumDadoDeLoginInseridoException | NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | UsuarioOuSenhaIncorretosException | FalhaAoAutenticarException e) {
             ErroInesperado(e);
         }
     }//GEN-LAST:event_btnLogarActionPerformed
@@ -219,9 +218,9 @@ public class TelaLogin extends javax.swing.JFrame {
     }
 
     //Verifica  se foram inseridos email e senha.
-    private Boolean dadosInseridos(String email, String senha) throws NenhumDadoInseridoException {
+    private Boolean dadosInseridos(String email, String senha) throws NenhumDadoDeLoginInseridoException {
         if (email.equals("") && senha.equals("")) {
-            throw new NenhumDadoInseridoException();
+            throw new NenhumDadoDeLoginInseridoException();
         } else {
             return true;
         }

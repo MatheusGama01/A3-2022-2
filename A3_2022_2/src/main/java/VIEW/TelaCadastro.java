@@ -1,12 +1,27 @@
 package VIEW;
 
+import CONTROLLER.ControllerTelaCadastro;
+import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
+import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import EXCEPTIONS.NenhumDadoDeCadastroInseridoException;
+import EXCEPTIONS.SenhasDiferentesException;
+import HELPER.Validacoes;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 public class TelaCadastro extends javax.swing.JFrame {
+
+    private final ControllerTelaCadastro controller;
+    private final Validacoes validacoes;
 
     /**
      * Creates new form Cadastro
      */
     public TelaCadastro() {
         initComponents();
+        this.controller = new ControllerTelaCadastro();
+        this.validacoes = new Validacoes();
     }
 
     /**
@@ -34,7 +49,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         txtConfirmarSenha = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
         lblLogin = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,11 +104,16 @@ public class TelaCadastro extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(185, 245, 216));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(107, 143, 113));
-        jButton1.setText("Cadastrar");
-        jButton1.setFocusable(false);
+        btnCadastrar.setBackground(new java.awt.Color(185, 245, 216));
+        btnCadastrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCadastrar.setForeground(new java.awt.Color(107, 143, 113));
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.setFocusable(false);
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -121,7 +141,7 @@ public class TelaCadastro extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblLogin)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(92, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -156,7 +176,7 @@ public class TelaCadastro extends javax.swing.JFrame {
                         .addContainerGap(32, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(btnCadastrar)
                         .addContainerGap())))
         );
 
@@ -208,13 +228,45 @@ public class TelaCadastro extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseClicked
-        TelaLogin login = new TelaLogin();
-        login.setVisible(true);
+        this.controller.navegarParaTelaLogin();
         this.dispose();
     }//GEN-LAST:event_lblLoginMouseClicked
 
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        String nome = txtNome.getText();
+        String email = txtEmail.getText();
+        String senha = new String(txtSenha.getPassword());
+        String confirmarSenha = new String(txtConfirmarSenha.getPassword());
+        
+        try {
+            boolean dadosValidados = validaDados(nome, email, senha, confirmarSenha);
+            
+            if(dadosValidados == true){
+                controller.cadastrarUsuario(nome, email, senha);
+                this.dispose();
+            }
+        } catch (NenhumDadoDeCadastroInseridoException | SenhasDiferentesException | NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | NaoFoiPossivelCadastrarUsuarioException e) {
+            ErroInesperado(e);
+        }
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private Boolean validaDados(String nome, String email, String senha, String confirmarSenha) throws NenhumDadoDeCadastroInseridoException, SenhasDiferentesException {
+        boolean dadosInseridos = validacoes.dadosInseridos(nome, email, senha, confirmarSenha);
+        boolean senhasIguais = validacoes.senhasIguais(senha, confirmarSenha);
+
+        if(dadosInseridos == true && senhasIguais == true){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void ErroInesperado(Exception e) {
+        JOptionPane.showMessageDialog(null, e.getMessage());
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

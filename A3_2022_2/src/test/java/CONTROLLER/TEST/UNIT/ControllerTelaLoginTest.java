@@ -1,7 +1,6 @@
 package CONTROLLER.TEST.UNIT;
 
 import CONTROLLER.ControllerTelaLogin;
-import DAO.TarefaDAO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.FalhaAoAutenticarException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
@@ -14,12 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ControllerTelaLoginTest {
 
     private ControllerTelaLogin controller;
-    private TarefaDAO tarefaDAO;
 
     @Before
     public void inti() {
         this.controller = new ControllerTelaLogin();
-        this.tarefaDAO = new TarefaDAO();
     }
 
     @Test

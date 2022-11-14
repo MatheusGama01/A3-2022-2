@@ -1,6 +1,7 @@
 package DAO;
 
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ public class UsuarioDAO {
      * Verifica se os dados passados pelo model usuarioDTO são semelhantes a
      * algum usuario no banco.
      */
-    public ResultSet autenticaUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
+    public ResultSet autenticarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();
             String query = "SELECT * FROM usuarios WHERE email=? AND senha=?";
@@ -32,29 +33,30 @@ public class UsuarioDAO {
         }
     }
 
-    public void create(UsuarioDTO objUsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
+    public void cadastrarUsuario(UsuarioDTO objUsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
         try {
             conn = new ConexaoDAO().conectaBD();
-            String query = "INSERT INTO usuario (Nome,Senha,Email,CPF,DataNasc,Telefone) VALUES (?,?,?,?,?,?)";
+            String query = "INSERT INTO usuarios (nome, email, senha) VALUES (?,?,?)";
             PreparedStatement pstm = conn.prepareStatement(query);
 
             pstm.setString(1, objUsuarioDTO.getNome());
-            pstm.setString(2, objUsuarioDTO.getSenha());
-            pstm.setString(3, objUsuarioDTO.getEmail());
+            pstm.setString(2, objUsuarioDTO.getEmail());
+            pstm.setString(3, objUsuarioDTO.getSenha());
 
             pstm.execute();
             pstm.close();
             System.out.println("Usuário inserido no banco de dados");
         } catch (SQLException ex) {
-            System.out.println("Erro UsuarioDAO.create()" + ex);
+            System.out.println("Erro UsuarioDAO.cadastrarUsuario()" + ex);
+            throw new NaoFoiPossivelCadastrarUsuarioException();
         }
 
     }
 
-    public ResultSet loadUser(UsuarioDTO UsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
+    public ResultSet listarUsuario(UsuarioDTO UsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();
-            String query = "SELECT * FROM usuario WHERE CPF=?";
+            String query = "SELECT * FROM usuarios WHERE email=?";
             PreparedStatement pstm = conn.prepareStatement(query);
 
             ResultSet rs = pstm.executeQuery();
@@ -65,14 +67,14 @@ public class UsuarioDAO {
         }
     }
 
-    public void update(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
+    public void atualizarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();
-            PreparedStatement pstm = conn.prepareStatement("UPDATE usuario SET Email = ? , Nome = ?, Senha = ? WHERE  CPF = ?");
+            PreparedStatement pstm = conn.prepareStatement("UPDATE usuarios SET nome = ? , senha = ? WHERE  email = ?");
 
-            pstm.setString(1, usuarioDTO.getEmail());
-            pstm.setString(2, usuarioDTO.getNome());
-            pstm.setString(3, usuarioDTO.getSenha());
+            pstm.setString(1, usuarioDTO.getNome());
+            pstm.setString(2, usuarioDTO.getSenha());
+            pstm.setString(3, usuarioDTO.getEmail());
 
             pstm.executeUpdate();
 
@@ -81,10 +83,10 @@ public class UsuarioDAO {
         }
     }
 
-    public void delete(UsuarioDTO objDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
+    public void apagarUsuario(UsuarioDTO objDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();
-            PreparedStatement pstm = conn.prepareStatement("DELETE FROM usuario WHERE CPF = ?");
+            PreparedStatement pstm = conn.prepareStatement("DELETE FROM usuarios WHERE email = ?");
             pstm.executeUpdate();
 
         } catch (SQLException ex) {
