@@ -18,6 +18,11 @@ public class UsuarioDTO {
         this.email = email;
     }
 
+    public UsuarioDTO(String senha, String email) {
+        this.senha = senha;
+        this.email = email;
+    }
+
     public UsuarioDTO() {
     }
 

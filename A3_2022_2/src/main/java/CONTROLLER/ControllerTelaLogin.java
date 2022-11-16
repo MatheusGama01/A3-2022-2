@@ -3,8 +3,10 @@ package CONTROLLER;
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.FalhaAoAutenticarException;
+import EXCEPTIONS.FalhaAoCriptografarSenhaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.UsuarioOuSenhaIncorretosException;
+import HELPER.Criptografia;
 import VIEW.TelaCadastro;
 import VIEW.TelaHome;
 import java.sql.ResultSet;
@@ -22,12 +24,9 @@ public class ControllerTelaLogin {
      * Realiza a verificação dos dados digitados pelo usúario e, caso estejam
      * corretos, navega para telaHome.
      */
-    public Boolean logar(String email, String senha) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, UsuarioOuSenhaIncorretosException, FalhaAoAutenticarException {
+    public Boolean logar(String email, String senha) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, UsuarioOuSenhaIncorretosException, FalhaAoAutenticarException, FalhaAoCriptografarSenhaException {
         try {
-            UsuarioDTO usuarioDTO = new UsuarioDTO();
-            usuarioDTO.setEmail(email);
-            usuarioDTO.setSenha(senha);
-
+            UsuarioDTO usuarioDTO = new UsuarioDTO(Criptografia.encriptarSenha(senha), email);
             UsuarioDAO usuarioDAO = new UsuarioDAO();
 
             ResultSet rs = usuarioDAO.autenticarUsuario(usuarioDTO);

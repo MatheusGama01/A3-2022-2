@@ -1,6 +1,7 @@
 package VIEW;
 
 import CONTROLLER.ControllerTelaCadastro;
+import EXCEPTIONS.FalhaAoCriptografarSenhaException;
 import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NenhumDadoDeCadastroInseridoException;
@@ -245,7 +246,7 @@ public class TelaCadastro extends javax.swing.JFrame {
                 controller.cadastrarUsuario(nome, email, senha);
                 this.dispose();
             }
-        } catch (NenhumDadoDeCadastroInseridoException | SenhasDiferentesException | NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | NaoFoiPossivelCadastrarUsuarioException e) {
+        } catch (NenhumDadoDeCadastroInseridoException | SenhasDiferentesException | NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | NaoFoiPossivelCadastrarUsuarioException | FalhaAoCriptografarSenhaException e) {
             ErroInesperado(e);
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
