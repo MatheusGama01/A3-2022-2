@@ -29,7 +29,7 @@ public class ControllerTelaTarefaTest {
     @Test
     public void deveSalvarAEdicaoDaTarefaComSucesso() throws TarefaNaoAlteradaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         UsuarioDTO usuarioDTO = new UsuarioDTO(6, "Teste ControllerTelaTarefa", "123", "testeControllerTelaTarefa@email.com");
-        TarefaDTO tarefaDTO = new TarefaDTO(66, "Teste 2", true, 6);
+        TarefaDTO tarefaDTO = new TarefaDTO(11, "Teste 2", true, 5);
         String descricao = "Teste";
         Boolean status = false;
 
@@ -47,7 +47,7 @@ public class ControllerTelaTarefaTest {
     @DisplayName("O método salvarEdição deve lançar uma exceção quando não há nenhuma alteração na tarefa")
     public void verifcaSeSalvarEdicaoLancaException() throws TarefaNaoAlteradaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         UsuarioDTO usuarioDTO = new UsuarioDTO(6, "Teste ControllerTelaTarefa", "123", "testeControllerTelaTarefa@email.com");
-        TarefaDTO tarefaDTO = new TarefaDTO(66, "Teste 2", true, 6);
+        TarefaDTO tarefaDTO = new TarefaDTO(11, "Teste 2", true, 5);
         String descricao = "Teste 2";
         Boolean status = true;
 
@@ -61,7 +61,7 @@ public class ControllerTelaTarefaTest {
     @Test
     public void deveApagarATarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarAsTarefasDoUsuario {
         UsuarioDTO usuarioDTO = new UsuarioDTO(6, "Teste ControllerTelaTarefa", "123", "testeControllerTelaTarefa@email.com");
-        TarefaDTO tarefaDTO = new TarefaDTO(70, "Teste 1", false, 6);
+        TarefaDTO tarefaDTO = new TarefaDTO(12, "Teste 1", false, 5);
 
         controller.apagarTarefa(tarefaDTO, usuarioDTO);
 

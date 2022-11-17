@@ -3,6 +3,7 @@ package CONTROLLER.TEST.UNIT;
 import CONTROLLER.ControllerTelaLogin;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.FalhaAoAutenticarException;
+import EXCEPTIONS.FalhaAoCriptografarSenhaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.UsuarioOuSenhaIncorretosException;
 import static org.junit.Assert.*;
@@ -20,7 +21,7 @@ public class ControllerTelaLoginTest {
     }
 
     @Test
-    public void deveRealizarAutenticacaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, UsuarioOuSenhaIncorretosException, FalhaAoAutenticarException {
+    public void deveRealizarAutenticacaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, UsuarioOuSenhaIncorretosException, FalhaAoAutenticarException, FalhaAoCriptografarSenhaException {
         UsuarioDTO usuarioDTO = new UsuarioDTO(8, "Teste", "123", "teste@email.com");
         String email = usuarioDTO.getEmail();
         String senha = usuarioDTO.getSenha();

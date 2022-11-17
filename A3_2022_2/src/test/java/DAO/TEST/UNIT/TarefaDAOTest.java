@@ -4,6 +4,7 @@ import DAO.TarefaDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.NaoFoiPossivelApagarATarefaException;
+import EXCEPTIONS.NaoFoiPossivelCriarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
 import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
@@ -25,8 +26,8 @@ public class TarefaDAOTest {
     public void deveListarTodasAsTarefasDoUsuario() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         UsuarioDTO usuarioDTO = new UsuarioDTO(4, "Teste ListarTarefas", "123", "listarTarefas@email.com");
         ArrayList<TarefaDTO> tarefas = new ArrayList<>();
-        tarefas.add(new TarefaDTO(50, "Teste 1", false, 4));
-        tarefas.add(new TarefaDTO(51, "Teste 2", true, 4));
+        tarefas.add(new TarefaDTO(6, "Teste 1", false, 4));
+        tarefas.add(new TarefaDTO(7, "Teste 2", true, 4));
 
         ArrayList<TarefaDTO> tarefasListadas = tarefaDAO.listarTarefas(usuarioDTO);
 
@@ -50,7 +51,7 @@ public class TarefaDAOTest {
     @Test
     public void deveListarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         UsuarioDTO usuarioDTO = new UsuarioDTO(4, "Teste ListarTarefas", "123", "listarTarefas@email.com");
-        TarefaDTO tarefaDTO = new TarefaDTO(50, "Teste 1", false, 4);
+        TarefaDTO tarefaDTO = new TarefaDTO(6, "Teste 1", false, 4);
 
         TarefaDTO tarefaListada = tarefaDAO.listarTarefa(tarefaDTO, usuarioDTO);
 
@@ -58,9 +59,9 @@ public class TarefaDAOTest {
     }
 
     @Test
-    public void deveCriarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    public void deveCriarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelCriarATarefaException {
         UsuarioDTO usuarioDTO = new UsuarioDTO(3, "Teste TarefaDAO", "123", "tarefadao@email.com");
-        TarefaDTO tarefaDTO = new TarefaDTO(64, "Teste unitário", false);
+        TarefaDTO tarefaDTO = new TarefaDTO("Teste unitário", false);
 
         tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO);
 

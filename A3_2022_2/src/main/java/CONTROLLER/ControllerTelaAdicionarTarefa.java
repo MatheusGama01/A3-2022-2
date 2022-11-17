@@ -7,6 +7,7 @@ package CONTROLLER;
 import DAO.TarefaDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelCriarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import VIEW.TelaHome;
 import VIEW.TelaUsuario;
@@ -29,7 +30,7 @@ public class ControllerTelaAdicionarTarefa {
         telaUsuario.setVisible(true);
     }
 
-    public void criarTarefa(String descricao, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
+    public void criarTarefa(String descricao, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException {
         TarefaDTO tarefa = new TarefaDTO(descricao, false);
         TarefaDAO tarefaDAO = new TarefaDAO();
         

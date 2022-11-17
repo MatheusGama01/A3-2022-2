@@ -1,6 +1,7 @@
 package DAO;
 
 import DTO.UsuarioDTO;
+import EXCEPTIONS.FalhaAoAutenticarException;
 import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import java.sql.Connection;
@@ -16,7 +17,7 @@ public class UsuarioDAO {
      * Verifica se os dados passados pelo model usuarioDTO são semelhantes a
      * algum usuario no banco.
      */
-    public ResultSet autenticarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
+    public ResultSet autenticarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, FalhaAoAutenticarException {
         try {
             conn = new ConexaoDAO().conectaBD();
             String query = "SELECT * FROM usuarios WHERE email=? AND senha=?";
@@ -29,11 +30,12 @@ public class UsuarioDAO {
             return rs;
         } catch (SQLException ex) {
             System.out.println("Erro na consulta para autenticação " + ex);
-            return null;
+            throw new FalhaAoAutenticarException();
+            //return null;
         }
     }
 
-    public void cadastrarUsuario(UsuarioDTO objUsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
+    public Boolean cadastrarUsuario(UsuarioDTO objUsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
         try {
             conn = new ConexaoDAO().conectaBD();
             String query = "INSERT INTO usuarios (nome, email, senha) VALUES (?,?,?)";
@@ -46,6 +48,8 @@ public class UsuarioDAO {
             pstm.execute();
             pstm.close();
             System.out.println("Usuário inserido no banco de dados");
+            
+            return true;
         } catch (SQLException ex) {
             System.out.println("Erro UsuarioDAO.cadastrarUsuario()" + ex);
             throw new NaoFoiPossivelCadastrarUsuarioException();

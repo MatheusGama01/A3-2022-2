@@ -2,7 +2,10 @@ package VIEW;
 
 import CONTROLLER.ControllerTelaAdicionarTarefa;
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelCriarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class TelaAdicionarTarefa extends javax.swing.JFrame {
@@ -174,7 +177,7 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
         try {
             controller.criarTarefa(descricao, usuarioLogado);
             this.dispose();
-        } catch (NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException e) {
+        } catch (NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | NaoFoiPossivelCriarATarefaException e) {
             ErroInesperado(e);
         }
     }//GEN-LAST:event_btnSalvarTarefaActionPerformed

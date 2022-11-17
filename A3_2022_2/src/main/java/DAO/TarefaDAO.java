@@ -3,6 +3,7 @@ package DAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.NaoFoiPossivelApagarATarefaException;
+import EXCEPTIONS.NaoFoiPossivelCriarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
 import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
@@ -83,7 +84,7 @@ public class TarefaDAO {
     }
 
     //Inseri uma tarefa no banco de dados.
-    public Boolean criarTarefa(TarefaDTO tarefaDTO, UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
+    public Boolean criarTarefa(TarefaDTO tarefaDTO, UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException {
         try {
             conn = new ConexaoDAO().conectaBD();
             pstm = conn.prepareStatement("INSERT INTO tarefas(descricao, status, idUsuario) VALUES(?, ?, ?)");
@@ -95,8 +96,8 @@ public class TarefaDAO {
             return true;
         } catch (SQLException ex) {
             System.out.println("Deu erro em criarTarefa" + ex);
-            
-            return false;
+            throw new NaoFoiPossivelCriarATarefaException();
+            //return false;
         }
     }
 

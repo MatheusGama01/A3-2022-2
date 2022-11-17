@@ -23,8 +23,8 @@ public class ControllerTelaHomeTest {
     public void deveListarTodasAsTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         UsuarioDTO usuarioDTO = new UsuarioDTO(4, "Teste ListarTarefas", "123", "listarTarefas@email.com");
         ArrayList<TarefaDTO> tarefas = new ArrayList<>();
-        tarefas.add(new TarefaDTO(50, "Teste 1", false, 4));
-        tarefas.add(new TarefaDTO(51, "Teste 2", true, 4));
+        tarefas.add(new TarefaDTO(6, "Teste 1", false, 4));
+        tarefas.add(new TarefaDTO(7, "Teste 2", true, 4));
 
         ArrayList<TarefaDTO> tarefasListadas = controller.listarTarefas(usuarioDTO);
         
@@ -35,7 +35,7 @@ public class ControllerTelaHomeTest {
     public void deveListarTodasAsTarefasAFazer() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         UsuarioDTO usuarioDTO = new UsuarioDTO(4, "Teste ListarTarefas", "123", "listarTarefas@email.com");
         ArrayList<TarefaDTO> tarefas = new ArrayList<>();
-        tarefas.add(new TarefaDTO(50, "Teste 1", false, 4));
+        tarefas.add(new TarefaDTO(6, "Teste 1", false, 4));
 
         ArrayList<TarefaDTO> tarefasListadas = controller.listarTarefasAFazer(usuarioDTO);
 
@@ -46,7 +46,7 @@ public class ControllerTelaHomeTest {
     public void deveListarTodasAsTarefasFeitas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         UsuarioDTO usuarioDTO = new UsuarioDTO(4, "Teste ListarTarefas", "123", "listarTarefas@email.com");
         ArrayList<TarefaDTO> tarefas = new ArrayList<>();
-        tarefas.add(new TarefaDTO(51, "Teste 2", true, 4));
+        tarefas.add(new TarefaDTO(7, "Teste 2", true, 4));
 
         ArrayList<TarefaDTO> tarefasListadas = controller.listarTarefasFeitas(usuarioDTO);
 
