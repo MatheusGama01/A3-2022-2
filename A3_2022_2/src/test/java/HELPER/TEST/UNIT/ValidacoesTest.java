@@ -1,5 +1,6 @@
 package HELPER.TEST.UNIT;
 
+import EXCEPTIONS.EmailInvalidoException;
 import EXCEPTIONS.NenhumDadoDeCadastroInseridoException;
 import EXCEPTIONS.SenhasDiferentesException;
 import HELPER.Validacoes;
@@ -24,7 +25,7 @@ public class ValidacoesTest {
         String senha = "123";
         String confirmarSenha = "123";
 
-        Boolean dadosInseridos = validacoes.dadosInseridos(nome, email, senha, confirmarSenha);
+        boolean dadosInseridos = validacoes.dadosDeCadastroInseridos(nome, email, senha, confirmarSenha);
 
         assertTrue(dadosInseridos);
     }
@@ -37,7 +38,7 @@ public class ValidacoesTest {
         String confirmarSenha = "123";
 
         NenhumDadoDeCadastroInseridoException NenhumDadoDeCadastroInseridoException = assertThrows(NenhumDadoDeCadastroInseridoException.class, () -> {
-            validacoes.dadosInseridos(nome, email, senha, confirmarSenha);
+            validacoes.dadosDeCadastroInseridos(nome, email, senha, confirmarSenha);
         });
 
         assertEquals("Digite seus dados para realizar o cadastro.", NenhumDadoDeCadastroInseridoException.getMessage());
@@ -48,7 +49,7 @@ public class ValidacoesTest {
         String senha = "123";
         String confirmarSenha = "123";
 
-        Boolean senhasIguais = validacoes.senhasIguais(senha, confirmarSenha);
+        boolean senhasIguais = validacoes.senhasIguais(senha, confirmarSenha);
 
         assertTrue(senhasIguais);
     }
@@ -63,5 +64,36 @@ public class ValidacoesTest {
         });
 
         assertEquals("As senhas são diferentes!\nDigite a mesma senha para realizar o cadastro.", SenhasDiferentesException.getMessage());
+    }
+
+    @Test
+    public void deveRetornarTrueParaEmailValido() throws EmailInvalidoException {
+        String email = "aaabbb@gmail.com";
+
+        boolean emailValido = validacoes.emailValido(email);
+
+        assertTrue(emailValido);
+    }
+
+    @Test
+    public void deveRetornarUmaExceptionQuandoEmailInvalido() throws EmailInvalidoException {
+        String email = "inv@lido@com.br";
+
+        EmailInvalidoException EmailInvalidoException = assertThrows(EmailInvalidoException.class, () -> {
+            validacoes.emailValido(email);
+        });
+
+        assertEquals("O email digitado não é válido!\nPor favor, digite um email válido.", EmailInvalidoException.getMessage());
+    }
+    
+    @Test
+    public void deveRetornarUmaExceptionQuandoEmailNaoDigitado() throws EmailInvalidoException {
+        String email = "";
+
+        EmailInvalidoException EmailInvalidoException = assertThrows(EmailInvalidoException.class, () -> {
+            validacoes.emailValido(email);
+        });
+
+        assertEquals("O email digitado não é válido!\nPor favor, digite um email válido.", EmailInvalidoException.getMessage());
     }
 }

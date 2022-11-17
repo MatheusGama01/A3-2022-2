@@ -1,6 +1,7 @@
 package VIEW;
 
 import CONTROLLER.ControllerTelaCadastro;
+import EXCEPTIONS.EmailInvalidoException;
 import EXCEPTIONS.FalhaAoCriptografarSenhaException;
 import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
@@ -238,24 +239,25 @@ public class TelaCadastro extends javax.swing.JFrame {
         String email = txtEmail.getText();
         String senha = new String(txtSenha.getPassword());
         String confirmarSenha = new String(txtConfirmarSenha.getPassword());
-        
+
         try {
             boolean dadosValidados = validaDados(nome, email, senha, confirmarSenha);
-            
-            if(dadosValidados == true){
+
+            if (dadosValidados == true) {
                 controller.cadastrarUsuario(nome, email, senha);
                 this.dispose();
             }
-        } catch (NenhumDadoDeCadastroInseridoException | SenhasDiferentesException | NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | NaoFoiPossivelCadastrarUsuarioException | FalhaAoCriptografarSenhaException e) {
+        } catch (NenhumDadoDeCadastroInseridoException | SenhasDiferentesException | NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | NaoFoiPossivelCadastrarUsuarioException | FalhaAoCriptografarSenhaException | EmailInvalidoException e) {
             ErroInesperado(e);
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    private Boolean validaDados(String nome, String email, String senha, String confirmarSenha) throws NenhumDadoDeCadastroInseridoException, SenhasDiferentesException {
-        boolean dadosInseridos = validacoes.dadosInseridos(nome, email, senha, confirmarSenha);
+    private Boolean validaDados(String nome, String email, String senha, String confirmarSenha) throws NenhumDadoDeCadastroInseridoException, SenhasDiferentesException, EmailInvalidoException {
+        boolean dadosInseridos = validacoes.dadosDeCadastroInseridos(nome, email, senha, confirmarSenha);
+        boolean emailValido = validacoes.emailValido(email);
         boolean senhasIguais = validacoes.senhasIguais(senha, confirmarSenha);
 
-        if(dadosInseridos == true && senhasIguais == true){
+        if (dadosInseridos == true && emailValido == true && senhasIguais == true) {
             return true;
         } else {
             return false;

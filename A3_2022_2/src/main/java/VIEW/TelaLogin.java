@@ -6,8 +6,7 @@ import EXCEPTIONS.FalhaAoCriptografarSenhaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NenhumDadoDeLoginInseridoException;
 import EXCEPTIONS.UsuarioOuSenhaIncorretosException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import HELPER.Validacoes;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,10 +16,12 @@ import javax.swing.JOptionPane;
 public class TelaLogin extends javax.swing.JFrame {
 
     private final ControllerTelaLogin controller;
+    private final Validacoes validacoes;
 
     public TelaLogin() {
         initComponents();
         this.controller = new ControllerTelaLogin();
+        this.validacoes = new Validacoes();
     }
 
     @SuppressWarnings("unchecked")
@@ -204,7 +205,9 @@ public class TelaLogin extends javax.swing.JFrame {
         String senha = new String(txtSenha.getPassword());
 
         try {
-            if (dadosInseridos(email, senha) == true) {
+            Boolean dadosInseridos = validacoes.dadosDeLoginInseridos(email, senha);
+            
+            if (dadosInseridos == true) {
                 controller.logar(email, senha);
                 this.dispose();
             }
@@ -218,15 +221,6 @@ public class TelaLogin extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new TelaLogin().setVisible(true);
         });
-    }
-
-    //Verifica  se foram inseridos email e senha.
-    private Boolean dadosInseridos(String email, String senha) throws NenhumDadoDeLoginInseridoException {
-        if (email.equals("") && senha.equals("")) {
-            throw new NenhumDadoDeLoginInseridoException();
-        } else {
-            return true;
-        }
     }
 
     private void ErroInesperado(Exception e) {
