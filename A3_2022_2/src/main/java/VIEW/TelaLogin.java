@@ -205,6 +205,7 @@ public class TelaLogin extends javax.swing.JFrame {
         String senha = new String(txtSenha.getPassword());
 
         try {
+            //Verifica se foram inseridos os dados
             Boolean dadosInseridos = validacoes.dadosDeLoginInseridos(email, senha);
             
             if (dadosInseridos == true) {
@@ -223,6 +224,7 @@ public class TelaLogin extends javax.swing.JFrame {
         });
     }
 
+    //Mostra uma mensagem referente ao erro ocorrido.
     private void ErroInesperado(Exception e) {
         JOptionPane.showMessageDialog(null, e.getMessage());
     }

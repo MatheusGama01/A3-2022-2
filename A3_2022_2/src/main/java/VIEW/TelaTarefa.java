@@ -43,7 +43,6 @@ public class TelaTarefa extends javax.swing.JFrame {
         BackgroundHeader = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TextAreaDescricaoDaTarefa = new javax.swing.JTextArea();
         CheckBoxStatusDaTarefa = new javax.swing.JCheckBox();
@@ -56,29 +55,26 @@ public class TelaTarefa extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(700, 400));
 
         BackgroundHeader.setBackground(new java.awt.Color(107, 143, 113));
-        BackgroundHeader.setPreferredSize(new java.awt.Dimension(178, 51));
 
-        lblLogo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblLogo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblLogo.setForeground(new java.awt.Color(255, 255, 255));
         lblLogo.setText("Notepad");
+        lblLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblLogo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblLogoMouseClicked(evt);
             }
         });
 
-        lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lblUsuario.setText("Usuário");
+        lblUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblUsuarioMouseClicked(evt);
             }
         });
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Magator");
 
         javax.swing.GroupLayout BackgroundHeaderLayout = new javax.swing.GroupLayout(BackgroundHeader);
         BackgroundHeader.setLayout(BackgroundHeaderLayout);
@@ -86,25 +82,19 @@ public class TelaTarefa extends javax.swing.JFrame {
             BackgroundHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BackgroundHeaderLayout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(BackgroundHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(BackgroundHeaderLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(lblLogo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblLogo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 560, Short.MAX_VALUE)
                 .addComponent(lblUsuario)
-                .addGap(23, 23, 23))
+                .addGap(25, 25, 25))
         );
         BackgroundHeaderLayout.setVerticalGroup(
             BackgroundHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BackgroundHeaderLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblLogo)
-                .addGap(1, 1, 1)
                 .addGroup(BackgroundHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsuario)
-                    .addComponent(jLabel1))
-                .addContainerGap(10, Short.MAX_VALUE))
+                    .addComponent(lblLogo)
+                    .addComponent(lblUsuario))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         TextAreaDescricaoDaTarefa.setColumns(20);
@@ -134,36 +124,31 @@ public class TelaTarefa extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(BackgroundHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addComponent(BackgroundHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnSalvarEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(572, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(CheckBoxStatusDaTarefa)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CheckBoxStatusDaTarefa)
+                            .addComponent(btnSalvarEdicao, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnApagarTarefa)
-                        .addGap(16, 16, 16))))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnApagarTarefa)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(BackgroundHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addGap(18, 18, 18)
-                        .addComponent(CheckBoxStatusDaTarefa)
-                        .addGap(19, 19, 19))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(286, 286, 286)
-                        .addComponent(btnApagarTarefa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(btnSalvarEdicao)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(CheckBoxStatusDaTarefa)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnApagarTarefa)
+                    .addComponent(btnSalvarEdicao))
                 .addContainerGap())
         );
 
@@ -221,6 +206,7 @@ public class TelaTarefa extends javax.swing.JFrame {
     private void btnApagarTarefaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApagarTarefaMouseClicked
         //Confirma se o usuário realmente quer excluir a tarefa.
         Boolean confirmarExclusao = confirmarExclusao();
+        
         if(confirmarExclusao == true){
             try {
                 this.controller.apagarTarefa(tarefa, usuarioLogado);
@@ -256,7 +242,7 @@ public class TelaTarefa extends javax.swing.JFrame {
         }
     }
     
-    //Mostra uma menssagem indiccando que a tarefa foi apagada.
+    //Mostra uma menssagem indicando que a tarefa foi apagada.
     private void TarefaApagadaComSucesso(){
         JOptionPane.showMessageDialog(null, "A tarefa foi apagada!");
     }
@@ -272,7 +258,6 @@ public class TelaTarefa extends javax.swing.JFrame {
     private javax.swing.JTextArea TextAreaDescricaoDaTarefa;
     private javax.swing.JButton btnApagarTarefa;
     private javax.swing.JButton btnSalvarEdicao;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblLogo;

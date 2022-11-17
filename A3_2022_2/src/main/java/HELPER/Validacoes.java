@@ -36,7 +36,7 @@ public class Validacoes {
         }
     }
 
-    //Verifica se o email digitado é válido
+    //Verifica se o email digitado é válido.
     public boolean emailValido(String email) throws EmailInvalidoException {
         boolean emailValido = false;
 

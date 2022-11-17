@@ -37,7 +37,6 @@ public class TelaHome extends javax.swing.JFrame {
         BackgroundHeader = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         lblUsuario = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         lblMinhasTarefas = new javax.swing.JLabel();
         lblNovaTarefa = new javax.swing.JLabel();
         jComboBoxStatusTarefa = new javax.swing.JComboBox<>();
@@ -51,52 +50,40 @@ public class TelaHome extends javax.swing.JFrame {
 
         BackgroundHeader.setBackground(new java.awt.Color(107, 143, 113));
 
-        lblLogo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblLogo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblLogo.setForeground(new java.awt.Color(255, 255, 255));
         lblLogo.setText("Notepad");
+        lblLogo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblUsuario.setForeground(new java.awt.Color(255, 255, 255));
         lblUsuario.setText("Usuário");
+        lblUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblUsuarioMouseClicked(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Magator");
-
         javax.swing.GroupLayout BackgroundHeaderLayout = new javax.swing.GroupLayout(BackgroundHeader);
         BackgroundHeader.setLayout(BackgroundHeaderLayout);
         BackgroundHeaderLayout.setHorizontalGroup(
             BackgroundHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BackgroundHeaderLayout.createSequentialGroup()
-                .addGroup(BackgroundHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(BackgroundHeaderLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(lblLogo))
-                    .addGroup(BackgroundHeaderLayout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(25, 25, 25)
+                .addComponent(lblLogo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblUsuario)
-                .addGap(22, 22, 22))
+                .addGap(25, 25, 25))
         );
         BackgroundHeaderLayout.setVerticalGroup(
             BackgroundHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(BackgroundHeaderLayout.createSequentialGroup()
-                .addGroup(BackgroundHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(BackgroundHeaderLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(lblLogo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1))
-                    .addGroup(BackgroundHeaderLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(lblUsuario)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(BackgroundHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLogo)
+                    .addComponent(lblUsuario))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         lblMinhasTarefas.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -104,6 +91,7 @@ public class TelaHome extends javax.swing.JFrame {
         lblMinhasTarefas.setText("Minhas tarefas:");
 
         lblNovaTarefa.setText("Nova Tarefa +");
+        lblNovaTarefa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblNovaTarefa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblNovaTarefaMouseClicked(evt);
@@ -140,29 +128,27 @@ public class TelaHome extends javax.swing.JFrame {
             .addComponent(BackgroundHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblMinhasTarefas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxStatusTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 427, Short.MAX_VALUE)
+                        .addComponent(lblNovaTarefa)))
                 .addGap(25, 25, 25))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(lblMinhasTarefas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxStatusTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblNovaTarefa)
-                .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(BackgroundHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblMinhasTarefas, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBoxStatusTarefa))
-                    .addComponent(lblNovaTarefa, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBoxStatusTarefa)
+                    .addComponent(lblMinhasTarefas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblNovaTarefa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -250,7 +236,7 @@ public class TelaHome extends javax.swing.JFrame {
 
         /**
          * A partir do status selecionado na combo box da TelaHome ele chama o
-         * método mais adequado para trazer as tarefas do vanco de dados.
+         * método mais adequado para trazer as tarefas do banco de dados.
          */
         try {
             if (statusSelecionado.equals("À fazer")) {
@@ -266,7 +252,12 @@ public class TelaHome extends javax.swing.JFrame {
         } catch (NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException e) {
             ErroInesperado(e);
         }
+        
+        preencherTabela(tarefas);
+    }
 
+    //Preenche a tabela com os dados do ArrayList.
+    public void preencherTabela(ArrayList<TarefaDTO> tarefas) {
         DefaultTableModel tabelaTarefas = (DefaultTableModel) tblTarefas.getModel();
         tabelaTarefas.setNumRows(0);
 
@@ -287,6 +278,7 @@ public class TelaHome extends javax.swing.JFrame {
         }
     }
 
+    //Mostra uma mensagem referente ao erro ocorrido.
     private void ErroInesperado(Exception e) {
         JOptionPane.showMessageDialog(null, e.getMessage());
     }
@@ -294,7 +286,6 @@ public class TelaHome extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BackgroundHeader;
     private javax.swing.JComboBox<String> jComboBoxStatusTarefa;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblLogo;

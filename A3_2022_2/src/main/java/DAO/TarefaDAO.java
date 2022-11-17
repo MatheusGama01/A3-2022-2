@@ -25,15 +25,15 @@ public class TarefaDAO {
 
             System.out.println("Em TarefaDAO o idUsuario é: " + usuarioDTO.getId());
 
-            //Busca, no banco de dados, todas as tarefas da tabela tarefas.
+            //Busca no banco de dados todas as tarefas com o id do usuário.
             String sql = "SELECT * FROM tarefas WHERE idUsuario= " + usuarioDTO.getId();
             conn = new ConexaoDAO().conectaBD();
             pstm = conn.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
 
             /**
-             * Inseri a descrição das tarefas retornadas pelo banco de dados no
-             * ArrayList listaDeTarefas.
+             * Inseri as tarefas retornadas pelo banco de dados no ArrayList
+             * listaDeTarefas.
              */
             while (rs.next()) {
                 TarefaDTO tarefa = new TarefaDTO();
@@ -48,7 +48,7 @@ public class TarefaDAO {
             }
 
             pstm.close();
-            
+
             return listaDeTarefas;
         } catch (SQLException ex) {
             System.out.println("Deu erro em listarTarefas" + ex);
@@ -57,7 +57,7 @@ public class TarefaDAO {
         }
     }
 
-    //Pega uma tarefa no banco de dados
+    //Lista uma tarefa no banco de dados.
     public TarefaDTO listarTarefa(TarefaDTO tarefa, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         try {
 

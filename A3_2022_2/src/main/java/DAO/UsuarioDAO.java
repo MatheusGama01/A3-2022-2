@@ -35,6 +35,7 @@ public class UsuarioDAO {
         }
     }
 
+    //Inseri um usuário no banco de dados.
     public Boolean cadastrarUsuario(UsuarioDTO objUsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
         try {
             conn = new ConexaoDAO().conectaBD();
@@ -57,6 +58,7 @@ public class UsuarioDAO {
 
     }
 
+    //Lista um usuário do banco.
     public ResultSet listarUsuario(UsuarioDTO UsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();
@@ -71,6 +73,7 @@ public class UsuarioDAO {
         }
     }
 
+    //Atualiza um usuário do banco de dados.
     public void atualizarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();
@@ -87,6 +90,7 @@ public class UsuarioDAO {
         }
     }
 
+    //Apaga um usuário do banco de dados.
     public void apagarUsuario(UsuarioDTO objDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = new ConexaoDAO().conectaBD();

@@ -30,6 +30,7 @@ public class ControllerTelaAdicionarTarefa {
         telaUsuario.setVisible(true);
     }
 
+    //Chama o método de criar tarefa em tarefaDAO.
     public void criarTarefa(String descricao, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException {
         TarefaDTO tarefa = new TarefaDTO(descricao, false);
         TarefaDAO tarefaDAO = new TarefaDAO();

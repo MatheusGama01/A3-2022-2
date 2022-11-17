@@ -41,6 +41,12 @@ public class TelaUsuario extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 40)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Notepad");
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -139,12 +145,23 @@ public class TelaUsuario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //Navega para telaLogin.
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         TelaLogin telaLogin = new TelaLogin();
         telaLogin.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_btnSairActionPerformed
+
+    //Navega para TelaHome.
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        TelaHome telaHome = new TelaHome(usuarioLogado);
+        telaHome.setVisible(true);
+        
+        this.dispose();
+    }//GEN-LAST:event_jLabel3MouseClicked
     
+    //Inicializa tela com o nome do usuário.
     private void inicializarTela(UsuarioDTO usuario){
         lblUsuario.setText(usuario.getNome());
     }

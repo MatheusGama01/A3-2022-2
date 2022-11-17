@@ -8,8 +8,6 @@ import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NenhumDadoDeCadastroInseridoException;
 import EXCEPTIONS.SenhasDiferentesException;
 import HELPER.Validacoes;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class TelaCadastro extends javax.swing.JFrame {
@@ -229,11 +227,16 @@ public class TelaCadastro extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    //Navega para telaLogin.
     private void lblLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseClicked
         this.controller.navegarParaTelaLogin();
         this.dispose();
     }//GEN-LAST:event_lblLoginMouseClicked
 
+    /**
+     * Verifica se foram inseridos dados e faz as devidas validações, caso esteja
+     * tudo certo o usuário é cadastrado.
+     */
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         String nome = txtNome.getText();
         String email = txtEmail.getText();
@@ -241,6 +244,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         String confirmarSenha = new String(txtConfirmarSenha.getPassword());
 
         try {
+            //Chama o método validaDados para realizar as validações.
             boolean dadosValidados = validaDados(nome, email, senha, confirmarSenha);
 
             if (dadosValidados == true) {
@@ -252,6 +256,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    //Verifica se foi inserido algum dado e realiza validaçã de email e senha.
     private Boolean validaDados(String nome, String email, String senha, String confirmarSenha) throws NenhumDadoDeCadastroInseridoException, SenhasDiferentesException, EmailInvalidoException {
         boolean dadosInseridos = validacoes.dadosDeCadastroInseridos(nome, email, senha, confirmarSenha);
         boolean emailValido = validacoes.emailValido(email);
@@ -264,6 +269,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         }
     }
 
+    //Mostra uma mensagem referente ao erro ocorrido.
     private void ErroInesperado(Exception e) {
         JOptionPane.showMessageDialog(null, e.getMessage());
     }

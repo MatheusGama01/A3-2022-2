@@ -45,10 +45,7 @@ public class ControllerTelaTarefa {
         }
     }
 
-    /**
-     * Verifica se o usuário realmente quer apagar a tarefa. Caso queira, a
-     * tarefa é apagada, se não, volta para a Tela de edição da tarefa.
-     */
+    //Chama o método de apagar tarefa em tarefaDAO.
     public void apagarTarefa(TarefaDTO tarefa, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException {
         TarefaDAO tarefaDAO = new TarefaDAO();
 

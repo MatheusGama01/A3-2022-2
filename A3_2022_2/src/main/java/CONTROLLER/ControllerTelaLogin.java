@@ -21,7 +21,7 @@ public class ControllerTelaLogin {
     }
     
     /**
-     * Realiza a verificação dos dados digitados pelo usúario e, caso estejam
+     * Realiza a verificação dos dados digitados pelo usuário e, caso estejam
      * corretos, navega para telaHome.
      */
     public Boolean logar(String email, String senha) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, UsuarioOuSenhaIncorretosException, FalhaAoAutenticarException, FalhaAoCriptografarSenhaException {
