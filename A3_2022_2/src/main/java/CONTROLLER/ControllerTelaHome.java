@@ -59,7 +59,7 @@ public class ControllerTelaHome {
     }
 
     //Cria um ArrayList apenas com as tarefas à fazer.
-    public ArrayList listarTarefasAFazer(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    public ArrayList<TarefaDTO> listarTarefasAFazer(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         System.out.println("Em ControllerTelaHome o idUsuario é: " + usuario.getId());
         TarefaDAO tarefaDAO = new TarefaDAO();
         ArrayList<TarefaDTO> listaDeTarefasAFazer = new ArrayList<>();
@@ -79,7 +79,7 @@ public class ControllerTelaHome {
     }
 
     //Cria um ArrayList apenas com as tarefas feitas.
-    public ArrayList listarTarefasFeitas(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    public ArrayList<TarefaDTO> listarTarefasFeitas(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         System.out.println("Em ControllerTelaHome o idUsuario é: " + usuario.getId());
         TarefaDAO tarefaDAO = new TarefaDAO();
         ArrayList<TarefaDTO> listaDeTarefasFeitas = new ArrayList<>();
