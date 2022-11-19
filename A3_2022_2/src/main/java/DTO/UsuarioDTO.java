@@ -1,5 +1,7 @@
 package DTO;
 
+import java.util.Objects;
+
 public class UsuarioDTO {
 
     private String nome, senha, email;
@@ -57,4 +59,32 @@ public class UsuarioDTO {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final UsuarioDTO other = (UsuarioDTO) obj;
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.senha, other.senha)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        return true;
+    }
+    
 }

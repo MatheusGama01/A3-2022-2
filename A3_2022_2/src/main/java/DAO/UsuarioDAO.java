@@ -2,8 +2,10 @@ package DAO;
 
 import DTO.UsuarioDTO;
 import EXCEPTIONS.FalhaAoAutenticarException;
+import EXCEPTIONS.NaoFoiPossivelApagarOUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import EXCEPTIONS.NaoFoiPossivelListarOUsuarioException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,6 +29,7 @@ public class UsuarioDAO {
             pstm.setString(2, usuarioDTO.getSenha());
 
             ResultSet rs = pstm.executeQuery();
+            
             return rs;
         } catch (SQLException ex) {
             System.out.println("Erro na consulta para autenticação " + ex);
@@ -36,12 +39,12 @@ public class UsuarioDAO {
     }
 
     //Inseri um usuário no banco de dados.
-    public Boolean cadastrarUsuario(UsuarioDTO objUsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
+    public boolean cadastrarUsuario(UsuarioDTO objUsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
         try {
             conn = new ConexaoDAO().conectaBD();
             String query = "INSERT INTO usuarios (nome, email, senha) VALUES (?,?,?)";
             PreparedStatement pstm = conn.prepareStatement(query);
-
+            
             pstm.setString(1, objUsuarioDTO.getNome());
             pstm.setString(2, objUsuarioDTO.getEmail());
             pstm.setString(3, objUsuarioDTO.getSenha());
@@ -49,7 +52,7 @@ public class UsuarioDAO {
             pstm.execute();
             pstm.close();
             System.out.println("Usuário inserido no banco de dados");
-            
+
             return true;
         } catch (SQLException ex) {
             System.out.println("Erro UsuarioDAO.cadastrarUsuario()" + ex);
@@ -59,20 +62,35 @@ public class UsuarioDAO {
     }
 
     //Lista um usuário do banco.
-    public ResultSet listarUsuario(UsuarioDTO UsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
+    public UsuarioDTO listarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException {
         try {
+            UsuarioDTO usuarioRetornado = new UsuarioDTO();
+            
             conn = new ConexaoDAO().conectaBD();
-            String query = "SELECT * FROM usuarios WHERE email=?";
-            PreparedStatement pstm = conn.prepareStatement(query);
+            PreparedStatement pstm = conn.prepareStatement("SELECT * FROM usuarios WHERE email=?");
+            
+            pstm.setString(1, usuarioDTO.getEmail());
 
             ResultSet rs = pstm.executeQuery();
-            return rs;
+            
+            //Inseri o usuário retornado no Objeto usuarioRetornado.
+            while (rs.next()) {
+                
+                usuarioRetornado.setId(rs.getInt("id"));
+                usuarioRetornado.setNome(rs.getString("nome"));
+                usuarioRetornado.setEmail(rs.getString("email"));
+                usuarioRetornado.setSenha(rs.getString("senha"));
+            }
+
+            return usuarioRetornado;
         } catch (SQLException ex) {
             System.out.println("Erro na consulta para autenticação " + ex);
-            return null;
+            throw new NaoFoiPossivelListarOUsuarioException();
         }
     }
-
+    
+    /* Não sei se precisa ter.
+    
     //Atualiza um usuário do banco de dados.
     public void atualizarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
@@ -89,16 +107,23 @@ public class UsuarioDAO {
             System.out.println("Erro ao atualizar o usuário" + ex);
         }
     }
+    
+    */
 
     //Apaga um usuário do banco de dados.
-    public void apagarUsuario(UsuarioDTO objDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
+    public boolean apagarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException {
         try {
             conn = new ConexaoDAO().conectaBD();
             PreparedStatement pstm = conn.prepareStatement("DELETE FROM usuarios WHERE email = ?");
+
+            pstm.setString(1, usuarioDTO.getEmail());
+
             pstm.executeUpdate();
 
+            return true;
         } catch (SQLException ex) {
             System.out.println("Deu errado ao deletar o usuário" + ex);
+            throw new NaoFoiPossivelApagarOUsuarioException();
         }
     }
 }
