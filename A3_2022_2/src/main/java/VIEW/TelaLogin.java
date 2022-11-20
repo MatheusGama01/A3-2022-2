@@ -5,7 +5,7 @@ import EXCEPTIONS.FalhaAoAutenticarException;
 import EXCEPTIONS.FalhaAoCriptografarSenhaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NenhumDadoDeLoginInseridoException;
-import EXCEPTIONS.UsuarioOuSenhaIncorretosException;
+import EXCEPTIONS.EmailOuSenhaIncorretosException;
 import HELPER.Validacoes;
 import javax.swing.JOptionPane;
 
@@ -212,7 +212,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 controller.logar(email, senha);
                 this.dispose();
             }
-        } catch (NenhumDadoDeLoginInseridoException | NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | UsuarioOuSenhaIncorretosException | FalhaAoAutenticarException | FalhaAoCriptografarSenhaException e) {
+        } catch (NenhumDadoDeLoginInseridoException | NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | EmailOuSenhaIncorretosException | FalhaAoAutenticarException | FalhaAoCriptografarSenhaException e) {
             ErroInesperado(e);
         }
     }//GEN-LAST:event_btnLogarActionPerformed

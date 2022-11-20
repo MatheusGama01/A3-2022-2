@@ -8,8 +8,8 @@ import EXCEPTIONS.FalhaAoCriptografarSenhaException;
 import EXCEPTIONS.NaoFoiPossivelApagarOUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import EXCEPTIONS.NaoFoiPossivelListarOUsuarioException;
 import HELPER.Criptografia;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.junit.After;
 import static org.junit.Assert.*;
@@ -19,21 +19,28 @@ import org.junit.Test;
 public class ControllerTelaCadastroTest {
 
     private ControllerTelaCadastro controller;
+    private Criptografia criptografia;
 
     @Before
     public void init() {
         this.controller = new ControllerTelaCadastro();
+        this.criptografia = new Criptografia();
     }
     
     @After
-    public void tearDown() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException{
+    public void tearDown() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarOUsuarioException{
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         UsuarioDTO usuarioDTO = new UsuarioDTO("123", "controllerTelaCadastro@email.com");
+        
         usuarioDAO.apagarUsuario(usuarioDTO);
-    }
+        UsuarioDTO usuarioRetornado = usuarioDAO.listarUsuario(usuarioDTO);
 
+        UsuarioDTO usuarioDTO2 = new UsuarioDTO(0, null, null, null);
+        assertEquals(usuarioDTO2, usuarioRetornado);
+    }
+    
     @Test
-    public void deveCadastrarOUsuarioComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException, FalhaAoCriptografarSenhaException, FalhaAoAutenticarException, SQLException {
+    public void deveCadastrarOUsuarioComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException, FalhaAoCriptografarSenhaException, FalhaAoAutenticarException, SQLException, NaoFoiPossivelListarOUsuarioException {
         String nome = "ControllerTelaCadastro Teste";
         String senha = "123";
         String email = "controllerTelaCadastro@email.com";
@@ -41,9 +48,11 @@ public class ControllerTelaCadastroTest {
         controller.cadastrarUsuario(nome, email, senha);
 
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-        UsuarioDTO usuarioDTO = new UsuarioDTO(Criptografia.encriptarSenha(senha), email);
-        ResultSet usuarioAutenticado = usuarioDAO.autenticarUsuario(usuarioDTO);
+        UsuarioDTO usuarioDTO = new UsuarioDTO(nome, senha, email);
+        UsuarioDTO usuarioCadastrado = usuarioDAO.listarUsuario(usuarioDTO);
+        usuarioDTO.setId(usuarioCadastrado.getId());
+        usuarioDTO.setSenha(criptografia.encriptarSenha(senha));
 
-        assertNotNull(usuarioAutenticado);
+        assertEquals(usuarioDTO, usuarioCadastrado);
     }
 }

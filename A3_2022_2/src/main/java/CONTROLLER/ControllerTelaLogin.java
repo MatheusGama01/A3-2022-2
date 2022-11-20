@@ -5,7 +5,7 @@ import DTO.UsuarioDTO;
 import EXCEPTIONS.FalhaAoAutenticarException;
 import EXCEPTIONS.FalhaAoCriptografarSenhaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
-import EXCEPTIONS.UsuarioOuSenhaIncorretosException;
+import EXCEPTIONS.EmailOuSenhaIncorretosException;
 import HELPER.Criptografia;
 import VIEW.TelaCadastro;
 import VIEW.TelaHome;
@@ -24,7 +24,7 @@ public class ControllerTelaLogin {
      * Realiza a verificação dos dados digitados pelo usuário e, caso estejam
      * corretos, navega para telaHome.
      */
-    public Boolean logar(String email, String senha) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, UsuarioOuSenhaIncorretosException, FalhaAoAutenticarException, FalhaAoCriptografarSenhaException {
+    public Boolean logar(String email, String senha) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, EmailOuSenhaIncorretosException, FalhaAoAutenticarException, FalhaAoCriptografarSenhaException {
         try {
             UsuarioDTO usuarioDTO = new UsuarioDTO(Criptografia.encriptarSenha(senha), email);
             UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -42,7 +42,7 @@ public class ControllerTelaLogin {
                 return true;
             } else {
                 System.out.println("Não foi possível conectar");
-                throw new UsuarioOuSenhaIncorretosException();
+                throw new EmailOuSenhaIncorretosException();
             }
         } catch (SQLException ex) {
             System.out.println("Erro ao tentar autenticar");

@@ -89,7 +89,7 @@ public class TarefaDAO {
             conn = new ConexaoDAO().conectaBD();
             pstm = conn.prepareStatement("INSERT INTO tarefas(descricao, status, idUsuario) VALUES(?, ?, ?)");
             pstm.setString(1, tarefaDTO.getDescricao());
-            pstm.setBoolean(2, tarefaDTO.getStatus());
+            pstm.setBoolean(2, false);
             pstm.setInt(3, usuarioDTO.getId());
             pstm.execute();
 

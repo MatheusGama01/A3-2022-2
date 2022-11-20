@@ -85,7 +85,28 @@ public class ValidacoesTest {
 
         assertEquals("O email digitado não é válido!\nPor favor, digite um email válido.", EmailInvalidoException.getMessage());
     }
+
+    public void deveRetornarExceptionParaEmailSemArroba() throws EmailInvalidoException {
+        String email = "invalido.com.br";
+
+        EmailInvalidoException EmailInvalidoException = assertThrows(EmailInvalidoException.class, () -> {
+            validacoes.emailValido(email);
+        });
+
+        assertEquals("O email digitado não é válido!\nPor favor, digite um email válido.", EmailInvalidoException.getMessage());
+    }
     
+    @Test
+    public void deveRetornarExceptionParaEmailSemPonto() throws EmailInvalidoException {
+        String email = "invalido@gmail";
+
+        EmailInvalidoException EmailInvalidoException = assertThrows(EmailInvalidoException.class, () -> {
+            validacoes.emailValido(email);
+        });
+
+        assertEquals("O email digitado não é válido!\nPor favor, digite um email válido.", EmailInvalidoException.getMessage());
+    }
+
     @Test
     public void deveRetornarUmaExceptionQuandoEmailNaoDigitado() throws EmailInvalidoException {
         String email = "";

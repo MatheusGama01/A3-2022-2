@@ -68,7 +68,7 @@ public class TarefaDAOTest {
     public void deveListarTodasAsTarefasDoUsuario() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefa1 = new TarefaDTO("Teste 1", false);
-        TarefaDTO tarefa2 = new TarefaDTO("Teste 2", true);
+        TarefaDTO tarefa2 = new TarefaDTO("Teste 2", false);
         tarefaDAO.criarTarefa(tarefa1, usuarioDTO);
         tarefaDAO.criarTarefa(tarefa2, usuarioDTO);
 
