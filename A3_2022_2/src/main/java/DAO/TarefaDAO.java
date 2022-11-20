@@ -58,7 +58,7 @@ public class TarefaDAO {
     }
 
     //Lista uma tarefa no banco de dados.
-    public TarefaDTO listarTarefa(TarefaDTO tarefa, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    public TarefaDTO listarTarefa(TarefaDTO tarefa) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
         try {
 
             String sql = "SELECT * FROM tarefas WHERE id = " + tarefa.getId();

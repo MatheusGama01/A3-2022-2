@@ -30,7 +30,7 @@ public class ControllerTelaAdicionarTarefaTest {
 
         controller.criarTarefa(descricao, usuarioDTO);
 
-        TarefaDTO tarefaListada = tarefaDAO.listarTarefa(tarefaDTO, usuarioDTO);
+        TarefaDTO tarefaListada = tarefaDAO.listarTarefa(tarefaDTO);
 
         assertEquals(tarefaDTO, tarefaListada);
     }

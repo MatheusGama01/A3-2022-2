@@ -35,7 +35,7 @@ public class ControllerTelaTarefaTest {
 
         controller.salvarEdicao(tarefaDTO, descricao, status, usuarioDTO);
 
-        TarefaDTO tarefaEditada = tarefaDAO.listarTarefa(tarefaDTO, usuarioDTO);
+        TarefaDTO tarefaEditada = tarefaDAO.listarTarefa(tarefaDTO);
 
         assertEquals(tarefaDTO.getId(), tarefaEditada.getId());
         assertEquals(descricao, tarefaEditada.getDescricao());
@@ -65,7 +65,7 @@ public class ControllerTelaTarefaTest {
 
         controller.apagarTarefa(tarefaDTO, usuarioDTO);
 
-        TarefaDTO tarefaApagada = tarefaDAO.listarTarefa(tarefaDTO, usuarioDTO);
+        TarefaDTO tarefaApagada = tarefaDAO.listarTarefa(tarefaDTO);
         assertEquals(0, tarefaApagada.getId());
     }
 }
