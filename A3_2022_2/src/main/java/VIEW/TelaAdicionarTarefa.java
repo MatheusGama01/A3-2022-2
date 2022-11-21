@@ -170,21 +170,27 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSalvarTarefaActionPerformed
 
-    //Navega para telaHome.
+    //Instancia TelaHome e a torna visível.
     private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
-        this.controller.navegarParaTelaHome(usuarioLogado);
+        TelaHome telaHome = new TelaHome(usuarioLogado);
+        telaHome.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_lblLogoMouseClicked
 
-    //Navega para telaUsuario.
+    //Instancia TelaUsuario e a torna visível.
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
-        this.controller.navegarParaTelaDeUsuario(usuarioLogado);
+        TelaUsuario telaUsuario = new TelaUsuario(usuarioLogado);
+        telaUsuario.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_lblUsuarioMouseClicked
 
     //Navega para telaHome sem salvar a tarefa.
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.controller.navegarParaTelaHome(usuarioLogado);
+        TelaHome telaHome = new TelaHome(usuarioLogado);
+        telaHome.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 

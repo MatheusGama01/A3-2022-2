@@ -177,15 +177,19 @@ public class TelaTarefa extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    //Navega para TelaUsuario.
+    //Instancia TelaUsuario e a torna visível.
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
-        this.controller.navegarParaTelaDeUsuario(usuarioLogado);
+        TelaUsuario telaUsuario = new TelaUsuario(usuarioLogado);
+        telaUsuario.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_lblUsuarioMouseClicked
 
-    //Navega para TelaHome.
+    //Instancia TelaHome e a torna visível.
     private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
-        this.controller.navegarParaTelaHome(usuarioLogado);
+        TelaHome telaHome = new TelaHome(usuarioLogado);
+        telaHome.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_lblLogoMouseClicked
 

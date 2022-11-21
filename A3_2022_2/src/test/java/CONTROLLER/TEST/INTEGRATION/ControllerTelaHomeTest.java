@@ -40,7 +40,7 @@ public class ControllerTelaHomeTest {
     public void deveTornarATelaAdicionarTarefaVisivel() {
         UsuarioDTO usuario = new UsuarioDTO(6, "Teste", "123", "teste@email.com");
 
-        controller.navegarParaTelaDeAdicionarTarefa(usuario);
+        //controller.navegarParaTelaDeAdicionarTarefa(usuario);
 
         Mockito.verify(telaLogin).setVisible(true);
     }
@@ -50,7 +50,7 @@ public class ControllerTelaHomeTest {
     public void deveTornarATelaUsuarioVisivel() {
         UsuarioDTO usuario = new UsuarioDTO(6, "Teste", "123", "teste@email.com");
 
-        controller.navegarParaTelaDeUsuario(usuario);
+        //controller.navegarParaTelaDeUsuario(usuario);
 
         Mockito.verify(telaUsuario).setVisible(true);
     }

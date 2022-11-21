@@ -227,9 +227,11 @@ public class TelaCadastro extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    //Navega para telaLogin.
+    //Instancia TelaCadstro e a torna visível.
     private void lblLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseClicked
-        this.controller.navegarParaTelaLogin();
+        TelaLogin telaLogin = new TelaLogin();
+        telaLogin.setVisible(true);
+        
         this.dispose();
     }//GEN-LAST:event_lblLoginMouseClicked
 

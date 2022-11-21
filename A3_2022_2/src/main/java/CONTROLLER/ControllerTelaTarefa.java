@@ -7,24 +7,11 @@ import EXCEPTIONS.NaoFoiPossivelApagarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
 import EXCEPTIONS.TarefaNaoAlteradaException;
-import VIEW.TelaUsuario;
 import VIEW.TelaHome;
 import java.util.Objects;
 
 public class ControllerTelaTarefa {
-
-    //Instancia TelaUsuario e a torna visível.
-    public void navegarParaTelaDeUsuario(UsuarioDTO usuario) {
-        TelaUsuario telaUsuario = new TelaUsuario(usuario);
-        telaUsuario.setVisible(true);
-    }
-
-    //Instancia TelaHome e a torna visível.
-    public void navegarParaTelaHome(UsuarioDTO usuario) {
-        TelaHome telaHome = new TelaHome(usuario);
-        telaHome.setVisible(true);
-    }
-
+    
     /**
      * Verifica se há alteração na tarefa, caso sim chama o método
      * atualizarTarefa de TarefaDAO.

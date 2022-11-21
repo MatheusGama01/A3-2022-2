@@ -5,24 +5,10 @@ import DTO.UsuarioDTO;
 import DAO.TarefaDAO;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
-import VIEW.TelaAdicionarTarefa;
 import VIEW.TelaTarefa;
-import VIEW.TelaUsuario;
 import java.util.ArrayList;
 
 public class ControllerTelaHome {
-
-    //Instancia tela AdicionarTarefa e a torna visível.
-    public void navegarParaTelaDeAdicionarTarefa(UsuarioDTO usuario) {
-        TelaAdicionarTarefa telaAdicionarTarefa = new TelaAdicionarTarefa(usuario);
-        telaAdicionarTarefa.setVisible(true);
-    }
-
-    //Instancia TelaUsuario e a torna visível.
-    public void navegarParaTelaDeUsuario(UsuarioDTO usuario) {
-        TelaUsuario telaUsuario = new TelaUsuario(usuario);
-        telaUsuario.setVisible(true);
-    }
 
     /**
      * Instancia TelaTarefa e a torna visível com os dados dados da tarefa que

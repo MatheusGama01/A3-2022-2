@@ -7,19 +7,12 @@ import EXCEPTIONS.FalhaAoCriptografarSenhaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.EmailOuSenhaIncorretosException;
 import HELPER.Criptografia;
-import VIEW.TelaCadastro;
 import VIEW.TelaHome;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ControllerTelaLogin {
-    
-    //Instancia TelaCadstro e a torna visível.
-    public void navegarParaTelaCadastro(){
-        TelaCadastro telaCadastro = new TelaCadastro();
-        telaCadastro.setVisible(true);
-    }
-    
+        
     /**
      * Realiza a verificação dos dados digitados pelo usuário e, caso estejam
      * corretos, navega para telaHome.

@@ -10,12 +10,6 @@ import VIEW.TelaLogin;
 
 public class ControllerTelaCadastro {
 
-    //Instancia TelaCadstro e a torna visível.
-    public void navegarParaTelaLogin() {
-        TelaLogin telaLogin = new TelaLogin();
-        telaLogin.setVisible(true);
-    }
-
     /**
      * Chama o método de encriptação de senha e posteriormente chama o método de
      * cadastrar usuário passando UsuarioDTO com nome, email e senha encriptada.

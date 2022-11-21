@@ -10,25 +10,12 @@ import DTO.UsuarioDTO;
 import EXCEPTIONS.NaoFoiPossivelCriarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import VIEW.TelaHome;
-import VIEW.TelaUsuario;
 
 /**
  *
  * @author Gabriele
  */
 public class ControllerTelaAdicionarTarefa {
-
-    //Instancia TelaHome e a torna visível.
-    public void navegarParaTelaHome(UsuarioDTO usuario) {
-        TelaHome telaHome = new TelaHome(usuario);
-        telaHome.setVisible(true);
-    }
-
-    //Instancia TelaUsuario e a torna visível.
-    public void navegarParaTelaDeUsuario(UsuarioDTO usuario) {
-        TelaUsuario telaUsuario = new TelaUsuario(usuario);
-        telaUsuario.setVisible(true);
-    }
 
     //Chama o método de criar tarefa em tarefaDAO.
     public void criarTarefa(String descricao, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException {
