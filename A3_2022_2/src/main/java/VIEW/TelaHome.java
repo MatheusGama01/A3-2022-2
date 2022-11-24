@@ -4,7 +4,7 @@ import CONTROLLER.ControllerTelaHome;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
-import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
+import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuarioException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -197,7 +197,7 @@ public class TelaHome extends javax.swing.JFrame {
     private void jComboBoxStatusTarefaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxStatusTarefaItemStateChanged
         try {
             this.inicializarTabela();
-        } catch (NaoFoiPossivelListarAsTarefasDoUsuario e) {
+        } catch (NaoFoiPossivelListarAsTarefasDoUsuarioException e) {
             ErroInesperado(e);
         }
     }//GEN-LAST:event_jComboBoxStatusTarefaItemStateChanged
@@ -228,13 +228,13 @@ public class TelaHome extends javax.swing.JFrame {
         try {
             lblUsuario.setText(usuarioLogado.getNome());
             this.inicializarTabela();
-        } catch (NaoFoiPossivelListarAsTarefasDoUsuario e) {
+        } catch (NaoFoiPossivelListarAsTarefasDoUsuarioException e) {
             ErroInesperado(e);
         }
     }
 
     //Inseri os dados do ArrayList tarefas na tabela.
-    private void inicializarTabela() throws NaoFoiPossivelListarAsTarefasDoUsuario {
+    private void inicializarTabela() throws NaoFoiPossivelListarAsTarefasDoUsuarioException {
         String statusSelecionado = statusComboBox();
         ArrayList<TarefaDTO> tarefas = new ArrayList<>();
 

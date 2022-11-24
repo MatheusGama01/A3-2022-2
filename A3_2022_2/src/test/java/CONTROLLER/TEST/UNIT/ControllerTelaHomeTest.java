@@ -10,7 +10,7 @@ import EXCEPTIONS.NaoFoiPossivelApagarOUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelCriarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
-import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
+import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelListarOUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class ControllerTelaHomeTest {
     }
 
     @After
-    public void tearDown() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarOUsuarioException {
+    public void tearDown() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
 
@@ -53,7 +53,7 @@ public class ControllerTelaHomeTest {
     }
 
     @Test
-    public void deveListarTodasAsTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
+    public void deveListarTodasAsTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
         UsuarioDTO usuarioDTO = carregarUsuario();
 
         TarefaDTO tarefa1 = new TarefaDTO("Teste 1", false);
@@ -77,7 +77,7 @@ public class ControllerTelaHomeTest {
     }
 
     @Test
-    public void deveListarTodasAsTarefasAFazer() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException {
+    public void deveListarTodasAsTarefasAFazer() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException {
         UsuarioDTO usuarioDTO = carregarUsuario();
 
         TarefaDTO tarefa1 = new TarefaDTO("Teste 1", false);
@@ -103,7 +103,7 @@ public class ControllerTelaHomeTest {
     }
     
     @Test
-    public void deveListarTodasAsTarefasFeitas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException {
+    public void deveListarTodasAsTarefasFeitas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException {
         UsuarioDTO usuarioDTO = carregarUsuario();
 
         TarefaDTO tarefa1 = new TarefaDTO("Teste 1", false);
@@ -137,7 +137,7 @@ public class ControllerTelaHomeTest {
         return usuarioRetornado;
     }
 
-    private TarefaDTO pegaAPrimeiraTarefaDoBanco(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    private TarefaDTO pegaAPrimeiraTarefaDoBanco(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         TarefaDAO tarefaDAO = new TarefaDAO();
         ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
         TarefaDTO tarefa = new TarefaDTO(0, "", Boolean.FALSE);

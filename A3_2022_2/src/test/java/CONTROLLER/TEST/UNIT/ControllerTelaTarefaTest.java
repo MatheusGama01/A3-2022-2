@@ -10,7 +10,7 @@ import EXCEPTIONS.NaoFoiPossivelApagarOUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelCriarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
-import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
+import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelListarOUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
 import EXCEPTIONS.TarefaNaoAlteradaException;
@@ -42,7 +42,7 @@ public class ControllerTelaTarefaTest {
     }
     
     @After
-    public void tearDown() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelApagarOUsuarioException{
+    public void tearDown() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelApagarOUsuarioException{
         UsuarioDTO usuarioDTO = carregarUsuario();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         
@@ -60,7 +60,7 @@ public class ControllerTelaTarefaTest {
     }
     
     @Test
-    public void deveSalvarAEdicaoDaTarefaComSucesso() throws TarefaNaoAlteradaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelListarOUsuarioException {
+    public void deveSalvarAEdicaoDaTarefaComSucesso() throws TarefaNaoAlteradaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefaDTO = pegaAPrimeiraTarefaDoBanco(usuarioDTO);
         
@@ -79,7 +79,7 @@ public class ControllerTelaTarefaTest {
     
     @Test
     @DisplayName("O método salvarEdição deve lançar uma exceção quando não há nenhuma alteração na tarefa")
-    public void verifcaSeSalvarEdicaoLancaException() throws TarefaNaoAlteradaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    public void verifcaSeSalvarEdicaoLancaException() throws TarefaNaoAlteradaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefaDTO = pegaAPrimeiraTarefaDoBanco(usuarioDTO);
         
@@ -94,7 +94,7 @@ public class ControllerTelaTarefaTest {
     }
     
     @Test
-    public void deveApagarATarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelListarOUsuarioException {
+    public void deveApagarATarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefaDTO = pegaAPrimeiraTarefaDoBanco(usuarioDTO);
         
@@ -115,7 +115,7 @@ public class ControllerTelaTarefaTest {
         return usuarioRetornado;
     }
     
-    private TarefaDTO pegaAPrimeiraTarefaDoBanco(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    private TarefaDTO pegaAPrimeiraTarefaDoBanco(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
         TarefaDTO tarefa = new TarefaDTO(0, "", Boolean.FALSE);
 

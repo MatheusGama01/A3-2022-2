@@ -1,6 +1,6 @@
 package EXCEPTIONS;
 
-public class NaoFoiPossivelListarAsTarefasDoUsuario extends Exception {
+public class NaoFoiPossivelListarAsTarefasDoUsuarioException extends Exception {
 
     @Override
     public String getMessage() {

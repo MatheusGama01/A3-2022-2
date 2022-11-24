@@ -9,7 +9,7 @@ import EXCEPTIONS.NaoFoiPossivelApagarOUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelCriarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
-import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
+import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelListarOUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class TarefaDAOTest {
     }
 
     @After
-    public void tearDown() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarOUsuarioException {
+    public void tearDown() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
 
@@ -51,7 +51,7 @@ public class TarefaDAOTest {
     }
 
     @Test
-    public void deveCriarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelListarOUsuarioException {
+    public void deveCriarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefaDTO = new TarefaDTO("Teste unitário", false);
 
@@ -63,9 +63,9 @@ public class TarefaDAOTest {
 
         assertEquals(tarefaDTO, tarefaSalva);
     }
-
+    
     @Test
-    public void deveListarTodasAsTarefasDoUsuario() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
+    public void deveListarTodasAsTarefasDoUsuario() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefa1 = new TarefaDTO("Teste 1", false);
         TarefaDTO tarefa2 = new TarefaDTO("Teste 2", false);
@@ -86,7 +86,7 @@ public class TarefaDAOTest {
     }
     
     @Test
-    public void deveListarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
+    public void deveListarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefaDTO = new TarefaDTO("Teste 1", false);
         tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO);
@@ -103,7 +103,7 @@ public class TarefaDAOTest {
     }
     
     @Test
-    public void deveAtualizarUmaTarefaComSucesso() throws NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
+    public void deveAtualizarUmaTarefaComSucesso() throws NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefaDTO = new TarefaDTO("Teste 1", false);
         tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO);
@@ -121,7 +121,7 @@ public class TarefaDAOTest {
     }
     
     @Test
-    public void deveApagarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
+    public void deveApagarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefa = new TarefaDTO("Teste", false);
         tarefaDAO.criarTarefa(tarefa, usuarioDTO);
@@ -146,7 +146,7 @@ public class TarefaDAOTest {
         return usuarioRetornado;
     }
 
-    private TarefaDTO pegaAPrimeiraTarefaDoBanco(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    private TarefaDTO pegaAPrimeiraTarefaDoBanco(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
         TarefaDTO tarefa = new TarefaDTO(0, "", Boolean.FALSE);
 

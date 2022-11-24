@@ -5,7 +5,7 @@ import DTO.UsuarioDTO;
 import EXCEPTIONS.NaoFoiPossivelApagarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelCriarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
-import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
+import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +19,7 @@ public class TarefaDAO {
     Connection conn;
 
     //Cria um ArrayList de tarefas a partir das tarefas salvas no banco de dados.
-    public ArrayList<TarefaDTO> listarTarefas(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    public ArrayList<TarefaDTO> listarTarefas(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         try {
             ArrayList<TarefaDTO> listaDeTarefas = new ArrayList<>();
 
@@ -52,13 +52,13 @@ public class TarefaDAO {
             return listaDeTarefas;
         } catch (SQLException ex) {
             System.out.println("Deu erro em listarTarefas" + ex);
-            throw new NaoFoiPossivelListarAsTarefasDoUsuario();
+            throw new NaoFoiPossivelListarAsTarefasDoUsuarioException();
             //return null;
         }
     }
 
     //Lista uma tarefa no banco de dados.
-    public TarefaDTO listarTarefa(TarefaDTO tarefa) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    public TarefaDTO listarTarefa(TarefaDTO tarefa) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         try {
 
             String sql = "SELECT * FROM tarefas WHERE id = " + tarefa.getId();
@@ -78,7 +78,7 @@ public class TarefaDAO {
             return tarefaRetornada;
         } catch (SQLException ex) {
             System.out.println("Deu erro em listarTarefa" + ex);
-            throw new NaoFoiPossivelListarAsTarefasDoUsuario();
+            throw new NaoFoiPossivelListarAsTarefasDoUsuarioException();
             //return null;
         }
     }

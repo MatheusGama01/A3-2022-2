@@ -4,7 +4,7 @@ import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
 import DAO.TarefaDAO;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
-import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
+import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuarioException;
 import VIEW.TelaTarefa;
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class ControllerTelaHome {
     }
 
     //Cria um ArrayList com todas as tarefas do usuário.
-    public ArrayList<TarefaDTO> listarTarefas(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    public ArrayList<TarefaDTO> listarTarefas(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         System.out.println("Em ControllerTelaHome o idUsuario é: " + usuario.getId());
         TarefaDAO tarefaDAO = new TarefaDAO();
         ArrayList<TarefaDTO> listaDeTarefas = new ArrayList<>();
@@ -45,7 +45,7 @@ public class ControllerTelaHome {
     }
 
     //Cria um ArrayList apenas com as tarefas à fazer.
-    public ArrayList<TarefaDTO> listarTarefasAFazer(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    public ArrayList<TarefaDTO> listarTarefasAFazer(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         System.out.println("Em ControllerTelaHome o idUsuario é: " + usuario.getId());
         TarefaDAO tarefaDAO = new TarefaDAO();
         ArrayList<TarefaDTO> listaDeTarefasAFazer = new ArrayList<>();
@@ -65,7 +65,7 @@ public class ControllerTelaHome {
     }
 
     //Cria um ArrayList apenas com as tarefas feitas.
-    public ArrayList<TarefaDTO> listarTarefasFeitas(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    public ArrayList<TarefaDTO> listarTarefasFeitas(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         System.out.println("Em ControllerTelaHome o idUsuario é: " + usuario.getId());
         TarefaDAO tarefaDAO = new TarefaDAO();
         ArrayList<TarefaDTO> listaDeTarefasFeitas = new ArrayList<>();

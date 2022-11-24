@@ -10,7 +10,7 @@ import EXCEPTIONS.NaoFoiPossivelApagarOUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelCriarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
-import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
+import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelListarOUsuarioException;
 import java.util.ArrayList;
 import org.junit.After;
@@ -28,7 +28,7 @@ public class ControllerTelaAdicionarTarefaTest {
     }
 
     @After
-    public void tearDown() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarOUsuarioException {
+    public void tearDown() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         
@@ -47,7 +47,7 @@ public class ControllerTelaAdicionarTarefaTest {
     }
 
     @Test
-    public void deveAdicionarATarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelListarAsTarefasDoUsuario, NaoFoiPossivelCadastrarUsuarioException, NaoFoiPossivelListarOUsuarioException {
+    public void deveAdicionarATarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelCadastrarUsuarioException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste Controller", "123", "controller@email.com");
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         usuarioDAO.cadastrarUsuario(usuarioDTO);
@@ -73,7 +73,7 @@ public class ControllerTelaAdicionarTarefaTest {
         return usuarioRetornado;
     }
 
-    private TarefaDTO pegaAPrimeiraTarefaDoBanco(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    private TarefaDTO pegaAPrimeiraTarefaDoBanco(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         TarefaDAO tarefaDAO = new TarefaDAO();
         ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
         TarefaDTO tarefa = new TarefaDTO(0, "", Boolean.FALSE);

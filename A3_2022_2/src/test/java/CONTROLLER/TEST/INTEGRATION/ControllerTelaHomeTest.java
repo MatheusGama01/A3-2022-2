@@ -5,7 +5,7 @@ import DAO.TarefaDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
-import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuario;
+import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuarioException;
 import VIEW.TelaLogin;
 import VIEW.TelaUsuario;
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class ControllerTelaHomeTest {
 
     //Integração entre ControllerTelaHome e TarefaDAO.    
     @Test
-    public void deveChamarOMetodoListarTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuario {
+    public void deveChamarOMetodoListarTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         UsuarioDTO usuario = new UsuarioDTO(1, "Matheus", "123", "matheus@email.com");
         ArrayList<TarefaDTO> tarefas = new ArrayList<>();
 
