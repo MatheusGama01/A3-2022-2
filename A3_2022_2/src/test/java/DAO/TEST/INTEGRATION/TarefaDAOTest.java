@@ -1,5 +1,6 @@
 package DAO.TEST.INTEGRATION;
 
+import CONTROLLER.ControllerTelaTarefa;
 import DAO.ConexaoDAO;
 import DAO.TarefaDAO;
 import DAO.UsuarioDAO;
@@ -43,19 +44,19 @@ public class TarefaDAOTest {
     @Mock
     private TarefaDAO tarefaDAO;
 
-    //@Mock
-    //private ConexaoDAO conexaoDAO;
+//    @Mock
+//    private ConexaoDAO conexaoDAO;
     
     @Before
     public void init() throws FalhaAoCriptografarSenhaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
         MockitoAnnotations.initMocks(this);
-        
+
         Criptografia criptografia = new Criptografia();
         UsuarioDTO usuarioDTO = new UsuarioDTO("TarefaDAO TesteIntegração", criptografia.encriptarSenha("123"), "tarefadao@email.com");
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         usuarioDAO.cadastrarUsuario(usuarioDTO);
     }
-    
+
     @After
     public void tearDown() throws FalhaAoCriptografarSenhaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarOUsuarioException {
         Criptografia criptografia = new Criptografia();
@@ -99,7 +100,8 @@ public class TarefaDAOTest {
     }
     
     @Test
-    public void verificaSeAtualizarTarefaRetornaTrue() throws NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException{
+    public void verificaSeAtualizarTarefaRetornaTrue() throws NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException{
+        UsuarioDTO usuario = carregarUsuario();
         TarefaDTO tarefaDTO = mock(TarefaDTO.class);
         
         when(tarefaDAO.atualizarTarefa(tarefaDTO)).thenReturn(true);
@@ -115,6 +117,25 @@ public class TarefaDAOTest {
         
         assertTrue(tarefaDAO.apagarTarefa(tarefaDTO));
     }
+
+    /*
+    @Test(expected = NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.class)
+    public void verificarErroAoApagarTarefaComBancoIndisponivel() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
+        UsuarioDTO usuarioDTO = carregarUsuario();
+        
+        TarefaDTO tarefaDTO = new TarefaDTO("teste", false);
+        tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO);
+        
+        TarefaDTO tarefa = pegaAPrimeiraTarefaDoBanco(usuarioDTO);
+
+        ConexaoDAO conexaoDAO = mock(ConexaoDAO.class);
+
+        when(conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
+
+        TarefaDTO tarefa = new TarefaDTO(4, "asdjbasdb", false, 1);
+        tarefaDAO.apagarTarefa(tarefa);
+    }
+    */
 
     /*
 
@@ -138,9 +159,9 @@ public class TarefaDAOTest {
         assertEquals("Desculpe, houve um erro inesperado e não conseguimos encontrar suas tarefas!", NaoFoiPossivelListarAsTarefasDoUsuario.getMessage());
     }
     
-    */
+     */
 
-    /*
+ /*
     
     //@Test(expected = NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.class)
     @Test
@@ -186,5 +207,22 @@ public class TarefaDAOTest {
         UsuarioDTO usuarioRetornado = usuarioDAO.listarUsuario(usuarioDTO);
 
         return usuarioRetornado;
+    }
+
+    private TarefaDTO pegaAPrimeiraTarefaDoBanco(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
+        ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
+        TarefaDTO tarefa = new TarefaDTO(0, "", Boolean.FALSE);
+
+        for (TarefaDTO tarefa1 : tarefas) {
+
+            tarefa.setId(tarefa1.getId());
+            tarefa.setDescricao(tarefa1.getDescricao());
+            tarefa.setStatus(tarefa1.getStatus());
+            tarefa.setIdUsuario(tarefa1.getIdUsuario());
+
+            break;
+        }
+
+        return tarefa;
     }
 }

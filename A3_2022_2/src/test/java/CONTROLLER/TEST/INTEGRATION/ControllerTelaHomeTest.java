@@ -1,6 +1,7 @@
 package CONTROLLER.TEST.INTEGRATION;
 
 import CONTROLLER.ControllerTelaHome;
+import DAO.ConexaoDAO;
 import DAO.TarefaDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
@@ -8,33 +9,102 @@ import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuarioException;
 import VIEW.TelaLogin;
 import VIEW.TelaUsuario;
+import com.mysql.cj.jdbc.ConnectionImpl;
+import java.sql.Connection;
 import java.util.ArrayList;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
+import static org.mockito.ArgumentMatchers.any;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
 public class ControllerTelaHomeTest {
-
+    
+    @Mock
     private ControllerTelaHome controller;
 
-    @Mock
-    private TarefaDAO tarefaDAO;
-
-    @Mock
-    private TelaLogin telaLogin;
-
-    @Mock
-    private TelaUsuario telaUsuario;
+//    @Mock
+//    private TarefaDAO tarefaDAO;
 
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        this.controller = new ControllerTelaHome();
     }
-
+    
+    @Test
+    public void verificaSeListarTarefasRetornaNaoNula() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException{
+        UsuarioDTO usuario = mock(UsuarioDTO.class);
+        
+        TarefaDTO tarefa1 = new TarefaDTO(1, "Tarefa 1", false, 1);
+        TarefaDTO tarefa2 = new TarefaDTO(2, "Tarefa 2", true, 1);
+        
+        ArrayList<TarefaDTO> listaDeTarefas = new ArrayList<>();
+        listaDeTarefas.add(tarefa1);
+        listaDeTarefas.add(tarefa2);
+        
+        when(controller.listarTarefas(any(UsuarioDTO.class))).thenReturn(listaDeTarefas);
+        
+        assertEquals(listaDeTarefas, controller.listarTarefas(usuario));
+    }
+    
+    @Test
+    public void verificaSeListarTarefasAFazerRetornaNaoNulo() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException{
+        UsuarioDTO usuario = mock(UsuarioDTO.class);
+        
+        TarefaDTO tarefa1 = new TarefaDTO(1, "Tarefa 1", false, 1);
+        TarefaDTO tarefa2 = new TarefaDTO(2, "Tarefa 2", false, 1);
+        
+        ArrayList<TarefaDTO> listaDeTarefas = new ArrayList<>();
+        listaDeTarefas.add(tarefa1);
+        listaDeTarefas.add(tarefa2);
+        
+        when(controller.listarTarefasAFazer(any(UsuarioDTO.class))).thenReturn(listaDeTarefas);
+        
+        assertEquals(listaDeTarefas, controller.listarTarefasAFazer(usuario));
+    }
+    
+    @Test
+    public void verificaSeListarTarefasFeitasRetornaNaoNulo() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException{
+        UsuarioDTO usuario = mock(UsuarioDTO.class);
+        
+        TarefaDTO tarefa1 = new TarefaDTO(1, "Tarefa 1", true, 1);
+        TarefaDTO tarefa2 = new TarefaDTO(2, "Tarefa 2", true, 1);
+        
+        ArrayList<TarefaDTO> listaDeTarefas = new ArrayList<>();
+        listaDeTarefas.add(tarefa1);
+        listaDeTarefas.add(tarefa2);
+        
+        when(controller.listarTarefasFeitas(any(UsuarioDTO.class))).thenReturn(listaDeTarefas);
+        
+        assertEquals(listaDeTarefas, controller.listarTarefasFeitas(usuario));
+    }
+    
+    /*
+    @Test
+    public void verificaSeListarTarefasRetornaArrayListNaoNulo() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException{
+        tarefaDAO = mock(TarefaDAO.class);
+        
+        ArrayList<TarefaDTO> tarefas = new ArrayList<>();
+        TarefaDTO tarefa1 = new TarefaDTO(1, "Tarefa 1", false, 1);
+        TarefaDTO tarefa2 = new TarefaDTO(2, "Tarefa 2", true, 1);
+        tarefas.add(tarefa1);
+        tarefas.add(tarefa2);
+        
+        when(tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenReturn(tarefas);
+        
+        UsuarioDTO usuario = new UsuarioDTO(1, "Matheus", "123", "matheus@email.com");
+        ArrayList<TarefaDTO> tarefasListadas = controller.listarTarefas(usuario);
+        
+        assertEquals(tarefas.get(0).getDescricao(), tarefasListadas.get(0).getDescricao());
+    }
+    */
+    
+    /*
     //Integração entre ControllerTelaHome e TelaAdicionarTarefa.
     @Test
     public void deveTornarATelaAdicionarTarefaVisivel() {
@@ -65,4 +135,5 @@ public class ControllerTelaHomeTest {
 
         Mockito.verify(tarefaDAO).listarTarefas(ArgumentMatchers.any());
     }
+    */
 }
