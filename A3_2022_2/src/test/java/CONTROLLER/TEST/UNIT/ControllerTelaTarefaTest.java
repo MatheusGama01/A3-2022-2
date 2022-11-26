@@ -30,10 +30,11 @@ public class ControllerTelaTarefaTest {
 
     @Before
     public void init() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelListarOUsuarioException {
-        this.controller = new ControllerTelaTarefa();
+        
         
         ConexaoDAO conexaoDAO = new ConexaoDAO();
         this.tarefaDAO = new TarefaDAO(conexaoDAO);
+        this.controller = new ControllerTelaTarefa(tarefaDAO);
 
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste ControllerTelaTarefa", "123", "testeControllerTelaTarefa@email.com");
         UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);

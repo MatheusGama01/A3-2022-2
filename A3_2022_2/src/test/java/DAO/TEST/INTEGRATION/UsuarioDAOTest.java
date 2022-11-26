@@ -8,7 +8,10 @@ import DAO.ConexaoDAO;
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.FalhaAoAutenticarException;
+import EXCEPTIONS.NaoFoiPossivelApagarOUsuarioException;
+import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import EXCEPTIONS.NaoFoiPossivelListarOUsuarioException;
 import java.sql.ResultSet;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -29,7 +32,7 @@ import org.mockito.MockitoAnnotations;
  */
 public class UsuarioDAOTest {
 
-    @Mock
+    
     private UsuarioDAO usuarioDAO;
 
     @Mock
@@ -38,41 +41,38 @@ public class UsuarioDAOTest {
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
+        this.usuarioDAO = new UsuarioDAO(conexaoDAO);
+    }
+    
+    @Test (expected = NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.class)
+    public void verificarSeLancaErrorAutenticarUsuarioComBancoIndisponivel() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, FalhaAoAutenticarException {
+        when(conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
+        UsuarioDTO usuarioDTO1 = new UsuarioDTO(1, "jose", "1235", "jose44@email.com");
+        usuarioDAO.autenticarUsuario(usuarioDTO1);
+        
     }
 
-    @Test
-    public void verificaSeAutenticarUsuarioRetornaNaoNulo() throws FalhaAoAutenticarException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
+   @Test (expected = NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.class)
+   public void verificarSeLancaErrorCadastrarUsuarioComBancoIndisponivel() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException{
+   when(conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
+    UsuarioDTO usuarioDTOg = new UsuarioDTO("Lara", "9912", "Lara123@email.com");
+    usuarioDAO.cadastrarUsuario(usuarioDTOg);
+   } 
+   
+   @Test (expected = NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.class)
+   public void verificarSeLancaErrorListarUsuarioComBancoIndisponivel() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException{
+   when (conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
+   UsuarioDTO usuarioDTOm = new UsuarioDTO("4433", "Matheus55@email.com");
+   usuarioDAO.listarUsuario(usuarioDTOm);
+   }
+   
+   @Test(expected = NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.class)
+   public void verificarSeLancaErrorApagarUsuarioComBancoIndisponivel() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException{
+   when (conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
+   UsuarioDTO usuarioDTOe = new UsuarioDTO("2613", "Eudes13@email.com");
+   usuarioDAO.apagarUsuario(usuarioDTOe);
+   }
+           
+           
 
-        // arrange
-        ResultSet rs = mock(ResultSet.class);
-        UsuarioDTO user = mock(UsuarioDTO.class);
-        // action
-        when(usuarioDAO.autenticarUsuario(any(UsuarioDTO.class))).thenReturn(rs);
-        // assert 
-        assertNotNull(usuarioDAO.autenticarUsuario(user));
-
-    }
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
-    @Test
-    public void verificaSeQuandoBancoIndisponivelAutenticarUsuarioLancaExcecao() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, FalhaAoAutenticarException {
-
-        UsuarioDTO user = mock(UsuarioDTO.class);
-        Mockito.doThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException()).when(conexaoDAO).conectaBD();
-
-        expectedException.expect(NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.class);
-        expectedException.expectMessage("Não foi possível estabelecer conexão com o banco de dados.\n Tente novamente mais tarde!");
-
-        given(usuarioDAO.autenticarUsuario(user)).willThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
-
-        //arrange 
-//        Mockito.doThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException()).when(conexaoDAO).conectaBD();
-//        //action
-//        usuarioDAO.autenticarUsuario(user);
-//        //assert 
-//        assertEquals("Não foi possível estabelecer conexão com o banco de dados.\nTente novamente mais tarde!", NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.getMessage());
-//     
-    }
 }

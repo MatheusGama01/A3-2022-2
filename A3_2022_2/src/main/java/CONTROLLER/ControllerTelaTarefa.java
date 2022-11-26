@@ -12,6 +12,15 @@ import VIEW.TelaHome;
 import java.util.Objects;
 
 public class ControllerTelaTarefa {
+
+    private final TarefaDAO tarefaDAO;
+
+    public ControllerTelaTarefa(TarefaDAO tarefaDAO) {
+        this.tarefaDAO = tarefaDAO;
+        
+    }
+    
+    
     
     /**
      * Verifica se há alteração na tarefa, caso sim chama o método
@@ -22,8 +31,7 @@ public class ControllerTelaTarefa {
             throw new TarefaNaoAlteradaException();
         } else {
             System.out.println("Salvando alteração");
-            TarefaDAO tarefaDAO = new TarefaDAO(new ConexaoDAO());
-
+            
             tarefa.setDescricao(descricao);
             tarefa.setStatus(status);
 
@@ -35,9 +43,7 @@ public class ControllerTelaTarefa {
 
     //Chama o método de apagar tarefa em tarefaDAO.
     public void apagarTarefa(TarefaDTO tarefa, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException {
-        ConexaoDAO conexaoDAO = new ConexaoDAO();
-        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
-
+        
         Boolean apagouTarefa = tarefaDAO.apagarTarefa(tarefa);
 
         TelaHome telaHome = new TelaHome(usuario);

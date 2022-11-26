@@ -1,6 +1,8 @@
 package VIEW;
 
 import CONTROLLER.ControllerTelaTarefa;
+import DAO.ConexaoDAO;
+import DAO.TarefaDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.NaoFoiPossivelApagarATarefaException;
@@ -24,7 +26,9 @@ public class TelaTarefa extends javax.swing.JFrame {
 
     public TelaTarefa(TarefaDTO tarefaSelecionada, UsuarioDTO usuario) {
         initComponents();
-        controller = new ControllerTelaTarefa();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
+        controller = new ControllerTelaTarefa(tarefaDAO);
         tarefa = tarefaSelecionada;
         usuarioLogado = usuario;
         inicializarTelaTarefa(tarefaSelecionada, usuario);
