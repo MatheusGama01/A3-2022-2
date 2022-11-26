@@ -1,5 +1,6 @@
 package DAO.TEST.UNIT;
 
+import DAO.ConexaoDAO;
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.FalhaAoAutenticarException;
@@ -21,7 +22,9 @@ public class UsuarioDAOTest {
 
     @Before
     public void init() {
-        this.usuarioDAO = new UsuarioDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        this.usuarioDAO = new UsuarioDAO(conexaoDAO);
+        
     }
 
     @After

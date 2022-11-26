@@ -196,7 +196,8 @@ public class TarefaDAOTest {
      */
     private UsuarioDTO carregarUsuario() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = new UsuarioDTO("TarefaDAO TesteIntegração", "123", "tarefadao@email.com");
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
 
         UsuarioDTO usuarioRetornado = usuarioDAO.listarUsuario(usuarioDTO);
 
