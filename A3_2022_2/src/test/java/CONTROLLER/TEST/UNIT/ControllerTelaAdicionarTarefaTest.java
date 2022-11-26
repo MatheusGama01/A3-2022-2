@@ -1,6 +1,7 @@
 package CONTROLLER.TEST.UNIT;
 
 import CONTROLLER.ControllerTelaAdicionarTarefa;
+import DAO.ConexaoDAO;
 import DAO.TarefaDAO;
 import DAO.UsuarioDAO;
 import DTO.TarefaDTO;
@@ -32,7 +33,8 @@ public class ControllerTelaAdicionarTarefaTest {
         UsuarioDTO usuarioDTO = carregarUsuario();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         
-        TarefaDAO tarefaDAO = new TarefaDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
 
         for (TarefaDTO tarefa : tarefas) {
@@ -74,7 +76,8 @@ public class ControllerTelaAdicionarTarefaTest {
     }
 
     private TarefaDTO pegaAPrimeiraTarefaDoBanco(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
-        TarefaDAO tarefaDAO = new TarefaDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
         TarefaDTO tarefa = new TarefaDTO(0, "", Boolean.FALSE);
 

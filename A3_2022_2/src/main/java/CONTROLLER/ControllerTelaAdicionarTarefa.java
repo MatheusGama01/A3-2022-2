@@ -4,6 +4,7 @@
  */
 package CONTROLLER;
 
+import DAO.ConexaoDAO;
 import DAO.TarefaDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
@@ -20,7 +21,8 @@ public class ControllerTelaAdicionarTarefa {
     //Chama o método de criar tarefa em tarefaDAO.
     public void criarTarefa(String descricao, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException {
         TarefaDTO tarefa = new TarefaDTO(descricao, false);
-        TarefaDAO tarefaDAO = new TarefaDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         
         tarefaDAO.criarTarefa(tarefa, usuario);
         TelaHome telaHome = new TelaHome(usuario);

@@ -15,8 +15,13 @@ import java.util.ArrayList;
 
 public class TarefaDAO {
 
+    private final ConexaoDAO conexaoDAO;
     PreparedStatement pstm;
     Connection conn;
+
+    public TarefaDAO(ConexaoDAO conexao) {
+        this.conexaoDAO = conexao;
+    }   
 
     //Cria um ArrayList de tarefas a partir das tarefas salvas no banco de dados.
     public ArrayList<TarefaDTO> listarTarefas(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
@@ -27,7 +32,7 @@ public class TarefaDAO {
 
             //Busca no banco de dados todas as tarefas com o id do usuário.
             String sql = "SELECT * FROM tarefas WHERE idUsuario= " + usuarioDTO.getId();
-            conn = new ConexaoDAO().conectaBD();
+            conn = conexaoDAO.conectaBD();
             pstm = conn.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
 
@@ -62,7 +67,7 @@ public class TarefaDAO {
         try {
 
             String sql = "SELECT * FROM tarefas WHERE id = " + tarefa.getId();
-            conn = new ConexaoDAO().conectaBD();
+            conn = conexaoDAO.conectaBD();
             pstm = conn.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
 
@@ -86,7 +91,7 @@ public class TarefaDAO {
     //Inseri uma tarefa no banco de dados.
     public Boolean criarTarefa(TarefaDTO tarefaDTO, UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException {
         try {
-            conn = new ConexaoDAO().conectaBD();
+            conn = conexaoDAO.conectaBD();
             pstm = conn.prepareStatement("INSERT INTO tarefas(descricao, status, idUsuario) VALUES(?, ?, ?)");
             pstm.setString(1, tarefaDTO.getDescricao());
             pstm.setBoolean(2, false);
@@ -104,7 +109,7 @@ public class TarefaDAO {
     //Atualiza uma tarefa salva no banco de dados.
     public Boolean atualizarTarefa(TarefaDTO tarefaDTO) throws NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
-            conn = new ConexaoDAO().conectaBD();
+            conn = conexaoDAO.conectaBD();
             pstm = conn.prepareStatement("UPDATE tarefas SET descricao = ? , status = ? where  id = ?");
             pstm.setString(1, tarefaDTO.getDescricao());
             pstm.setBoolean(2, tarefaDTO.getStatus());
@@ -122,7 +127,7 @@ public class TarefaDAO {
     //Apaga uma tarefa salva no banco de dados.
     public Boolean apagarTarefa(TarefaDTO tarefaDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException {
         try {
-            conn = new ConexaoDAO().conectaBD();
+            conn = conexaoDAO.conectaBD();
             pstm = conn.prepareStatement("DELETE FROM tarefas WHERE id = ?");
             pstm.setInt(1, tarefaDTO.getId());
             pstm.executeUpdate();

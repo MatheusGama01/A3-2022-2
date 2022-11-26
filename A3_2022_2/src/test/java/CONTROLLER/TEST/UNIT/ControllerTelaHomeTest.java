@@ -1,6 +1,7 @@
 package CONTROLLER.TEST.UNIT;
 
 import CONTROLLER.ControllerTelaHome;
+import DAO.ConexaoDAO;
 import DAO.TarefaDAO;
 import DAO.UsuarioDAO;
 import DTO.TarefaDTO;
@@ -37,8 +38,9 @@ public class ControllerTelaHomeTest {
     public void tearDown() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         UsuarioDAO usuarioDAO = new UsuarioDAO();
-
-        TarefaDAO tarefaDAO = new TarefaDAO();
+        
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
 
         for (TarefaDTO tarefa : tarefas) {
@@ -54,11 +56,12 @@ public class ControllerTelaHomeTest {
 
     @Test
     public void deveListarTodasAsTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
         UsuarioDTO usuarioDTO = carregarUsuario();
 
         TarefaDTO tarefa1 = new TarefaDTO("Teste 1", false);
         TarefaDTO tarefa2 = new TarefaDTO("Teste 2", false);
-        TarefaDAO tarefaDAO = new TarefaDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         tarefaDAO.criarTarefa(tarefa1, usuarioDTO);
         tarefaDAO.criarTarefa(tarefa2, usuarioDTO);
 
@@ -78,11 +81,12 @@ public class ControllerTelaHomeTest {
 
     @Test
     public void deveListarTodasAsTarefasAFazer() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException {
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
         UsuarioDTO usuarioDTO = carregarUsuario();
 
         TarefaDTO tarefa1 = new TarefaDTO("Teste 1", false);
         TarefaDTO tarefa2 = new TarefaDTO("Teste 2", false);
-        TarefaDAO tarefaDAO = new TarefaDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         tarefaDAO.criarTarefa(tarefa1, usuarioDTO);
         tarefaDAO.criarTarefa(tarefa2, usuarioDTO);
         
@@ -104,11 +108,12 @@ public class ControllerTelaHomeTest {
     
     @Test
     public void deveListarTodasAsTarefasFeitas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException {
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
         UsuarioDTO usuarioDTO = carregarUsuario();
 
         TarefaDTO tarefa1 = new TarefaDTO("Teste 1", false);
         TarefaDTO tarefa2 = new TarefaDTO("Teste 2", false);
-        TarefaDAO tarefaDAO = new TarefaDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         tarefaDAO.criarTarefa(tarefa1, usuarioDTO);
         tarefaDAO.criarTarefa(tarefa2, usuarioDTO);
         
@@ -138,7 +143,8 @@ public class ControllerTelaHomeTest {
     }
 
     private TarefaDTO pegaAPrimeiraTarefaDoBanco(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
-        TarefaDAO tarefaDAO = new TarefaDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
         TarefaDTO tarefa = new TarefaDTO(0, "", Boolean.FALSE);
 

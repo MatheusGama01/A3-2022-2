@@ -1,5 +1,6 @@
 package CONTROLLER;
 
+import DAO.ConexaoDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
 import DAO.TarefaDAO;
@@ -32,7 +33,8 @@ public class ControllerTelaHome {
     //Cria um ArrayList com todas as tarefas do usuário.
     public ArrayList<TarefaDTO> listarTarefas(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         System.out.println("Em ControllerTelaHome o idUsuario é: " + usuario.getId());
-        TarefaDAO tarefaDAO = new TarefaDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         ArrayList<TarefaDTO> listaDeTarefas = new ArrayList<>();
 
         //Inseri os dados retornados pelo banco em um ArrayList.
@@ -47,7 +49,8 @@ public class ControllerTelaHome {
     //Cria um ArrayList apenas com as tarefas à fazer.
     public ArrayList<TarefaDTO> listarTarefasAFazer(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         System.out.println("Em ControllerTelaHome o idUsuario é: " + usuario.getId());
-        TarefaDAO tarefaDAO = new TarefaDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         ArrayList<TarefaDTO> listaDeTarefasAFazer = new ArrayList<>();
 
         /**
@@ -67,7 +70,8 @@ public class ControllerTelaHome {
     //Cria um ArrayList apenas com as tarefas feitas.
     public ArrayList<TarefaDTO> listarTarefasFeitas(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         System.out.println("Em ControllerTelaHome o idUsuario é: " + usuario.getId());
-        TarefaDAO tarefaDAO = new TarefaDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         ArrayList<TarefaDTO> listaDeTarefasFeitas = new ArrayList<>();
 
         /**

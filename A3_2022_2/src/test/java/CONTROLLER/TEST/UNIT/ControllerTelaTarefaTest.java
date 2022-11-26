@@ -1,6 +1,7 @@
 package CONTROLLER.TEST.UNIT;
 
 import CONTROLLER.ControllerTelaTarefa;
+import DAO.ConexaoDAO;
 import DAO.TarefaDAO;
 import DAO.UsuarioDAO;
 import DTO.TarefaDTO;
@@ -30,7 +31,9 @@ public class ControllerTelaTarefaTest {
     @Before
     public void init() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelListarOUsuarioException {
         this.controller = new ControllerTelaTarefa();
-        this.tarefaDAO = new TarefaDAO();
+        
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        this.tarefaDAO = new TarefaDAO(conexaoDAO);
 
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste ControllerTelaTarefa", "123", "testeControllerTelaTarefa@email.com");
         UsuarioDAO usuarioDAO = new UsuarioDAO();

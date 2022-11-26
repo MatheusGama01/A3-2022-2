@@ -1,5 +1,6 @@
 package DAO.TEST.INTEGRATION;
 
+import CONTROLLER.ControllerTelaHome;
 import CONTROLLER.ControllerTelaTarefa;
 import DAO.ConexaoDAO;
 import DAO.TarefaDAO;
@@ -16,8 +17,10 @@ import EXCEPTIONS.NaoFoiPossivelListarAsTarefasDoUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelListarOUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
 import HELPER.Criptografia;
+import com.mysql.cj.jdbc.ConnectionImpl;
 import com.mysql.cj.jdbc.exceptions.MySQLTimeoutException;
 import java.sql.Connection;
+import java.sql.JDBCType;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -35,41 +38,25 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
 public class TarefaDAOTest {
 
-    @Mock
     private TarefaDAO tarefaDAO;
 
-//    @Mock
-//    private ConexaoDAO conexaoDAO;
+    @Mock
+    private ConexaoDAO conexaoDAO;
     
     @Before
     public void init() throws FalhaAoCriptografarSenhaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
         MockitoAnnotations.initMocks(this);
-
-        Criptografia criptografia = new Criptografia();
-        UsuarioDTO usuarioDTO = new UsuarioDTO("TarefaDAO TesteIntegração", criptografia.encriptarSenha("123"), "tarefadao@email.com");
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        usuarioDAO.cadastrarUsuario(usuarioDTO);
+        this.tarefaDAO = new TarefaDAO(conexaoDAO);
     }
-
-    @After
-    public void tearDown() throws FalhaAoCriptografarSenhaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarOUsuarioException {
-        Criptografia criptografia = new Criptografia();
-        UsuarioDTO usuarioDTO = new UsuarioDTO("TarefaDAO TesteIntegração", criptografia.encriptarSenha("123"), "tarefadao@email.com");
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-
-        usuarioDAO.apagarUsuario(usuarioDTO);
-        UsuarioDTO usuarioRetornado = usuarioDAO.listarUsuario(usuarioDTO);
-
-        UsuarioDTO usuarioDTO2 = new UsuarioDTO(0, null, null, null);
-        assertEquals(usuarioDTO2, usuarioRetornado);
-    }
-
+    
+    /*
     @Test
     public void verificaSeListarTarefasRetornaNaoNulo() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         ArrayList<TarefaDTO> tarefas = mock(ArrayList.class);
@@ -78,6 +65,7 @@ public class TarefaDAOTest {
         when(tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenReturn(tarefas);
 
         assertNotNull(tarefaDAO.listarTarefas(usuarioDTO));
+        verify(tarefaDAO, times(1)).listarTarefas(usuarioDTO);
     }
     
     @Test
@@ -87,6 +75,7 @@ public class TarefaDAOTest {
         when(tarefaDAO.listarTarefa(tarefaDTO)).thenReturn(tarefaDTO);
         
         assertNotNull(tarefaDAO.listarTarefa(tarefaDTO));
+        verify(tarefaDAO, times(1)).listarTarefa(tarefaDTO);
     }
     
     @Test
@@ -97,6 +86,7 @@ public class TarefaDAOTest {
         when(tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO)).thenReturn(true);
         
         assertTrue(tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO));
+        verify(tarefaDAO, times(1)).criarTarefa(tarefaDTO, usuarioDTO);
     }
     
     @Test
@@ -107,6 +97,7 @@ public class TarefaDAOTest {
         when(tarefaDAO.atualizarTarefa(tarefaDTO)).thenReturn(true);
         
         assertTrue(tarefaDAO.atualizarTarefa(tarefaDTO));
+        verify(tarefaDAO, times(1)).atualizarTarefa(tarefaDTO);
     }
     
     @Test
@@ -116,26 +107,29 @@ public class TarefaDAOTest {
         when(tarefaDAO.apagarTarefa(tarefaDTO)).thenReturn(true);
         
         assertTrue(tarefaDAO.apagarTarefa(tarefaDTO));
-    }
-
-    /*
-    @Test(expected = NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.class)
-    public void verificarErroAoApagarTarefaComBancoIndisponivel() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
-        UsuarioDTO usuarioDTO = carregarUsuario();
-        
-        TarefaDTO tarefaDTO = new TarefaDTO("teste", false);
-        tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO);
-        
-        TarefaDTO tarefa = pegaAPrimeiraTarefaDoBanco(usuarioDTO);
-
-        ConexaoDAO conexaoDAO = mock(ConexaoDAO.class);
-
-        when(conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
-
-        TarefaDTO tarefa = new TarefaDTO(4, "asdjbasdb", false, 1);
-        tarefaDAO.apagarTarefa(tarefa);
+        verify(tarefaDAO, times(1)).apagarTarefa(tarefaDTO);
     }
     */
+    
+    @Test
+    public void verificaSeListarTarefasRetornaListaDeTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException{
+        Connection connection = mock(Connection.class);
+        UsuarioDTO usuarioDTO = mock(UsuarioDTO.class);
+        
+        when(conexaoDAO.conectaBD()).thenReturn(connection);
+        
+        tarefaDAO.listarTarefas(usuarioDTO);
+        
+        verify(conexaoDAO, times(1)).conectaBD();
+    }
+
+    @Test(expected = NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.class)
+    public void verificaSeLancaErroAoApagarTarefaComBancoIndisponivel() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
+        when(conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
+
+        TarefaDTO tarefaDTO2 = new TarefaDTO(4, "asdjbasdb", false, 100);
+        tarefaDAO.apagarTarefa(tarefaDTO2);
+    }
 
     /*
 

@@ -36,6 +36,28 @@ public class ControllerTelaHomeTest {
         MockitoAnnotations.initMocks(this);
     }
     
+    /*    
+    @Test
+    public void verificaSeATarefaEApagadaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException{
+        ControllerTelaHome controller = new ControllerTelaHome();
+        
+        tarefaDAO = mock(TarefaDAO.class);
+        UsuarioDTO usuario = mock(UsuarioDTO.class);
+        
+        TarefaDTO tarefa1 = new TarefaDTO(1, "Teste 1", true, 100);
+        TarefaDTO tarefa2 = new TarefaDTO(2, "Teste 2", false, 100);
+        ArrayList<TarefaDTO> listaDeTarefas = new ArrayList<>();
+        listaDeTarefas.add(tarefa1);
+        listaDeTarefas.add(tarefa2);
+        
+        when(tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenReturn(listaDeTarefas);
+        
+        ArrayList<TarefaDTO> tarefasRetornadas = controller.listarTarefas(usuario);
+        
+        assertEquals(listaDeTarefas.get(0).getDescricao(), tarefasRetornadas.get(0).getDescricao());
+    }
+    */
+    
     @Test
     public void verificaSeListarTarefasRetornaNaoNula() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException{
         UsuarioDTO usuario = mock(UsuarioDTO.class);

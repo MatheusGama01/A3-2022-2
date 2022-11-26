@@ -1,5 +1,6 @@
 package DAO.TEST.UNIT;
 
+import DAO.ConexaoDAO;
 import DAO.TarefaDAO;
 import DAO.UsuarioDAO;
 import DTO.TarefaDTO;
@@ -24,7 +25,7 @@ public class TarefaDAOTest {
 
     @Before
     public void init() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
-        this.tarefaDAO = new TarefaDAO();
+        this.tarefaDAO = new TarefaDAO(new ConexaoDAO());
 
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste TarefaDAO", "123", "tarefadao@email.com");
         UsuarioDAO usuarioDAO = new UsuarioDAO();

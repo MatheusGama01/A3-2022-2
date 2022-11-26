@@ -1,5 +1,6 @@
 package CONTROLLER;
 
+import DAO.ConexaoDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
 import DAO.TarefaDAO;
@@ -21,7 +22,7 @@ public class ControllerTelaTarefa {
             throw new TarefaNaoAlteradaException();
         } else {
             System.out.println("Salvando alteração");
-            TarefaDAO tarefaDAO = new TarefaDAO();
+            TarefaDAO tarefaDAO = new TarefaDAO(new ConexaoDAO());
 
             tarefa.setDescricao(descricao);
             tarefa.setStatus(status);
@@ -34,7 +35,8 @@ public class ControllerTelaTarefa {
 
     //Chama o método de apagar tarefa em tarefaDAO.
     public void apagarTarefa(TarefaDTO tarefa, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException {
-        TarefaDAO tarefaDAO = new TarefaDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
 
         Boolean apagouTarefa = tarefaDAO.apagarTarefa(tarefa);
 
