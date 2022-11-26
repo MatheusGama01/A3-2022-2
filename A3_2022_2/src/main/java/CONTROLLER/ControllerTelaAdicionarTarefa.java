@@ -18,11 +18,15 @@ import VIEW.TelaHome;
  */
 public class ControllerTelaAdicionarTarefa {
 
+    private final TarefaDAO tarefaDAO;
+
+    public ControllerTelaAdicionarTarefa(TarefaDAO tarefaDAO) {
+        this.tarefaDAO = tarefaDAO;
+    }
+
     //Chama o método de criar tarefa em tarefaDAO.
     public void criarTarefa(String descricao, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException {
         TarefaDTO tarefa = new TarefaDTO(descricao, false);
-        ConexaoDAO conexaoDAO = new ConexaoDAO();
-        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         
         tarefaDAO.criarTarefa(tarefa, usuario);
         TelaHome telaHome = new TelaHome(usuario);

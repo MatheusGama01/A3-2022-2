@@ -1,6 +1,8 @@
 package VIEW;
 
 import CONTROLLER.ControllerTelaAdicionarTarefa;
+import DAO.ConexaoDAO;
+import DAO.TarefaDAO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.NaoFoiPossivelCriarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
@@ -17,7 +19,11 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
     public TelaAdicionarTarefa(UsuarioDTO usuario) {
         initComponents();
         usuarioLogado = usuario;
-        controller = new ControllerTelaAdicionarTarefa();
+        
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
+        controller = new ControllerTelaAdicionarTarefa(tarefaDAO);
+        
         inicializarTela(usuario);
     }
 

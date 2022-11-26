@@ -25,7 +25,9 @@ public class ControllerTelaAdicionarTarefaTest {
 
     @Before
     public void init() {
-        this.controller = new ControllerTelaAdicionarTarefa();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
+        this.controller = new ControllerTelaAdicionarTarefa(tarefaDAO);
     }
 
     @After
