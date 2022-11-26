@@ -1,5 +1,6 @@
 package CONTROLLER;
 
+import DAO.ConexaoDAO;
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.FalhaAoAutenticarException;
@@ -20,7 +21,8 @@ public class ControllerTelaLogin {
     public Boolean logar(String email, String senha) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, EmailOuSenhaIncorretosException, FalhaAoAutenticarException, FalhaAoCriptografarSenhaException {
         try {
             UsuarioDTO usuarioDTO = new UsuarioDTO(Criptografia.encriptarSenha(senha), email);
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            ConexaoDAO conexaoDAO = new ConexaoDAO();
+            UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
 
             ResultSet rs = usuarioDAO.autenticarUsuario(usuarioDTO);
 

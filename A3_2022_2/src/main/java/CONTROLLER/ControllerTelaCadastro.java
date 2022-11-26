@@ -1,5 +1,6 @@
 package CONTROLLER;
 
+import DAO.ConexaoDAO;
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.FalhaAoCriptografarSenhaException;
@@ -9,7 +10,7 @@ import HELPER.Criptografia;
 import VIEW.TelaLogin;
 
 public class ControllerTelaCadastro {
-
+    
     /**
      * Chama o método de encriptação de senha e posteriormente chama o método de
      * cadastrar usuário passando UsuarioDTO com nome, email e senha encriptada.
@@ -18,7 +19,9 @@ public class ControllerTelaCadastro {
         String senhaEncriptada = Criptografia.encriptarSenha(senha);
 
         UsuarioDTO usuarioDTO = new UsuarioDTO(nome, senhaEncriptada, email);
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
+        
 
         usuarioDAO.cadastrarUsuario(usuarioDTO);
 

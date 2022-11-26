@@ -12,16 +12,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsuarioDAO {
-
+    
+    private final ConexaoDAO conexaoDAO;
     Connection conn;
-
+    
+    public UsuarioDAO(ConexaoDAO conexaoDAO) {
+       this.conexaoDAO = conexaoDAO;
+    }
+   
     /**
      * Verifica se os dados passados pelo model usuarioDTO são semelhantes a
      * algum usuario no banco.
      */
     public ResultSet autenticarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, FalhaAoAutenticarException {
         try {
-            conn = new ConexaoDAO().conectaBD();
+            conn = conexaoDAO.conectaBD();
             String query = "SELECT * FROM usuarios WHERE email=? AND senha=?";
             PreparedStatement pstm = conn.prepareStatement(query);
 
@@ -41,7 +46,7 @@ public class UsuarioDAO {
     //Inseri um usuário no banco de dados.
     public boolean cadastrarUsuario(UsuarioDTO objUsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
         try {
-            conn = new ConexaoDAO().conectaBD();
+            conn = conexaoDAO.conectaBD();
             String query = "INSERT INTO usuarios (nome, email, senha) VALUES (?,?,?)";
             PreparedStatement pstm = conn.prepareStatement(query);
             
@@ -66,7 +71,7 @@ public class UsuarioDAO {
         try {
             UsuarioDTO usuarioRetornado = new UsuarioDTO();
             
-            conn = new ConexaoDAO().conectaBD();
+            conn = conexaoDAO.conectaBD();
             PreparedStatement pstm = conn.prepareStatement("SELECT * FROM usuarios WHERE email=?");
             
             pstm.setString(1, usuarioDTO.getEmail());
@@ -113,7 +118,7 @@ public class UsuarioDAO {
     //Apaga um usuário do banco de dados.
     public boolean apagarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException {
         try {
-            conn = new ConexaoDAO().conectaBD();
+            conn = conexaoDAO.conectaBD();
             PreparedStatement pstm = conn.prepareStatement("DELETE FROM usuarios WHERE email = ?");
 
             pstm.setString(1, usuarioDTO.getEmail());
