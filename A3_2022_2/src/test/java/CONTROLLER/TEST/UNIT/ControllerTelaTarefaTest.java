@@ -36,7 +36,7 @@ public class ControllerTelaTarefaTest {
         this.tarefaDAO = new TarefaDAO(conexaoDAO);
 
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste ControllerTelaTarefa", "123", "testeControllerTelaTarefa@email.com");
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
         usuarioDAO.cadastrarUsuario(usuarioDTO);
         UsuarioDTO usuarioDTO2 = carregarUsuario();
         
@@ -47,7 +47,8 @@ public class ControllerTelaTarefaTest {
     @After
     public void tearDown() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelApagarOUsuarioException{
         UsuarioDTO usuarioDTO = carregarUsuario();
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
         
         ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
         
@@ -111,7 +112,8 @@ public class ControllerTelaTarefaTest {
     
     private UsuarioDTO carregarUsuario() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste ControllerTelaTarefa", "123", "testeControllerTelaTarefa@email.com");
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
 
         UsuarioDTO usuarioRetornado = usuarioDAO.listarUsuario(usuarioDTO);
 

@@ -29,7 +29,8 @@ public class ControllerTelaHomeTest {
         this.controller = new ControllerTelaHome();
 
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste ControllerTelaHome", "123", "controller@email.com");
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
 
         usuarioDAO.cadastrarUsuario(usuarioDTO);
     }
@@ -37,9 +38,10 @@ public class ControllerTelaHomeTest {
     @After
     public void tearDown() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = carregarUsuario();
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
-        
         ConexaoDAO conexaoDAO = new ConexaoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
+        
+        
         TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
 
@@ -135,7 +137,8 @@ public class ControllerTelaHomeTest {
 
     private UsuarioDTO carregarUsuario() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste ControllerTelaHome", "123", "controller@email.com");
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
 
         UsuarioDTO usuarioRetornado = usuarioDAO.listarUsuario(usuarioDTO);
 

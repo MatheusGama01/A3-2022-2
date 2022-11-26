@@ -1,6 +1,7 @@
 package CONTROLLER.TEST.UNIT;
 
 import CONTROLLER.ControllerTelaLogin;
+import DAO.ConexaoDAO;
 import DAO.UsuarioDAO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.FalhaAoAutenticarException;
@@ -23,7 +24,7 @@ public class ControllerTelaLoginTest {
     private Criptografia criptgrafia;
 
     @Before
-    public void inti() {
+    public void init() {
         this.controller = new ControllerTelaLogin();
         this.criptgrafia = new Criptografia();
     }
@@ -31,7 +32,8 @@ public class ControllerTelaLoginTest {
     @After
     public void tearDown() throws FalhaAoCriptografarSenhaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste ControllerTelaLogin", Criptografia.encriptarSenha("123"), "controller@email.com");
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
         
         usuarioDAO.apagarUsuario(usuarioDTO);
         UsuarioDTO usuarioRetornado = usuarioDAO.listarUsuario(usuarioDTO);
@@ -43,7 +45,8 @@ public class ControllerTelaLoginTest {
     @Test
     public void deveRealizarAutenticacaoComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, EmailOuSenhaIncorretosException, FalhaAoAutenticarException, FalhaAoCriptografarSenhaException, NaoFoiPossivelCadastrarUsuarioException {
         UsuarioDTO usuario = new UsuarioDTO("Teste ControllerTelaLogin", criptgrafia.encriptarSenha("123"), "controller@email.com");
-        UsuarioDAO usuarioDAO = new UsuarioDAO();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
         usuarioDAO.cadastrarUsuario(usuario);
         
         usuario.setSenha("123");
