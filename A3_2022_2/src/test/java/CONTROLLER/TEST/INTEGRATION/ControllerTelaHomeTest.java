@@ -108,6 +108,20 @@ public class ControllerTelaHomeTest {
     
     /*
     @Test
+    public void verificaSeListarTarefasRetornaListaDeTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException{
+        Connection connection = mock(Connection.class);
+        UsuarioDTO usuarioDTO = mock(UsuarioDTO.class);
+        
+        when(conexaoDAO.conectaBD()).thenReturn(connection);
+        
+        tarefaDAO.listarTarefas(usuarioDTO);
+        
+        verify(conexaoDAO, times(1)).conectaBD();
+    }
+    */
+    
+    /*
+    @Test
     public void verificaSeListarTarefasRetornaArrayListNaoNulo() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException{
         tarefaDAO = mock(TarefaDAO.class);
         

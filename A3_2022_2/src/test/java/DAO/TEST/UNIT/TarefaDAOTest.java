@@ -25,10 +25,10 @@ public class TarefaDAOTest {
 
     @Before
     public void init() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
-        this.tarefaDAO = new TarefaDAO(new ConexaoDAO());
-
-        UsuarioDTO usuarioDTO = new UsuarioDTO("Teste TarefaDAO", "123", "tarefadao@email.com");
         ConexaoDAO conexaoDAO = new ConexaoDAO();
+        this.tarefaDAO = new TarefaDAO(conexaoDAO);
+        
+        UsuarioDTO usuarioDTO = new UsuarioDTO("Teste TarefaDAO", "123", "tarefadao@email.com");
         UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
 
         usuarioDAO.cadastrarUsuario(usuarioDTO);

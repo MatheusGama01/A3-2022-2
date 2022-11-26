@@ -21,7 +21,7 @@ public class TarefaDAO {
 
     public TarefaDAO(ConexaoDAO conexao) {
         this.conexaoDAO = conexao;
-    }   
+    }
 
     //Cria um ArrayList de tarefas a partir das tarefas salvas no banco de dados.
     public ArrayList<TarefaDTO> listarTarefas(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
