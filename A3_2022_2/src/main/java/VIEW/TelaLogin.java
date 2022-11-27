@@ -1,6 +1,8 @@
 package VIEW;
 
 import CONTROLLER.ControllerTelaLogin;
+import DAO.ConexaoDAO;
+import DAO.UsuarioDAO;
 import EXCEPTIONS.FalhaAoAutenticarException;
 import EXCEPTIONS.FalhaAoCriptografarSenhaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
@@ -20,7 +22,10 @@ public class TelaLogin extends javax.swing.JFrame {
 
     public TelaLogin() {
         initComponents();
-        this.controller = new ControllerTelaLogin();
+        
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
+        this.controller = new ControllerTelaLogin(usuarioDAO);
         this.validacoes = new Validacoes();
     }
 

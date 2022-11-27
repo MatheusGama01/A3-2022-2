@@ -25,7 +25,9 @@ public class ControllerTelaLoginTest {
 
     @Before
     public void init() {
-        this.controller = new ControllerTelaLogin();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
+        this.controller = new ControllerTelaLogin(usuarioDAO);
         this.criptgrafia = new Criptografia();
     }
     

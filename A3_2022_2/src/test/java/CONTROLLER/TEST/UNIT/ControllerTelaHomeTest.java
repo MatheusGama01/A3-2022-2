@@ -26,10 +26,11 @@ public class ControllerTelaHomeTest {
 
     @Before
     public void init() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
-        this.controller = new ControllerTelaHome();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
+        this.controller = new ControllerTelaHome(tarefaDAO);
 
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste ControllerTelaHome", "123", "controller@email.com");
-        ConexaoDAO conexaoDAO = new ConexaoDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
 
         usuarioDAO.cadastrarUsuario(usuarioDTO);

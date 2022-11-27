@@ -20,8 +20,6 @@ public class ControllerTelaTarefa {
         
     }
     
-    
-    
     /**
      * Verifica se há alteração na tarefa, caso sim chama o método
      * atualizarTarefa de TarefaDAO.

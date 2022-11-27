@@ -1,6 +1,8 @@
 package VIEW;
 
 import CONTROLLER.ControllerTelaHome;
+import DAO.ConexaoDAO;
+import DAO.TarefaDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
@@ -19,7 +21,10 @@ public class TelaHome extends javax.swing.JFrame {
      */
     public TelaHome(UsuarioDTO usuario) {
         initComponents();
-        controller = new ControllerTelaHome();
+        
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
+        controller = new ControllerTelaHome(tarefaDAO);
         usuarioLogado = usuario;
         inicializarTela();
     }

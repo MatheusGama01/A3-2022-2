@@ -13,6 +13,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ControllerTelaLogin {
+
+    private final UsuarioDAO usuarioDAO;
+
+    public ControllerTelaLogin(UsuarioDAO usuarioDAO) {
+        this.usuarioDAO = usuarioDAO;
+    }
         
     /**
      * Realiza a verificação dos dados digitados pelo usuário e, caso estejam
@@ -21,8 +27,6 @@ public class ControllerTelaLogin {
     public Boolean logar(String email, String senha) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, EmailOuSenhaIncorretosException, FalhaAoAutenticarException, FalhaAoCriptografarSenhaException {
         try {
             UsuarioDTO usuarioDTO = new UsuarioDTO(Criptografia.encriptarSenha(senha), email);
-            ConexaoDAO conexaoDAO = new ConexaoDAO();
-            UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
 
             ResultSet rs = usuarioDAO.autenticarUsuario(usuarioDTO);
 
