@@ -24,7 +24,9 @@ public class ControllerTelaCadastroTest {
 
     @Before
     public void init() {
-        this.controller = new ControllerTelaCadastro();
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
+        this.controller = new ControllerTelaCadastro(usuarioDAO);
         this.criptografia = new Criptografia();
     }
 

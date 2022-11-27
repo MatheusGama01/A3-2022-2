@@ -1,6 +1,9 @@
 package VIEW;
 
 import CONTROLLER.ControllerTelaCadastro;
+import DAO.ConexaoDAO;
+import DAO.TarefaDAO;
+import DAO.UsuarioDAO;
 import EXCEPTIONS.EmailInvalidoException;
 import EXCEPTIONS.FalhaAoCriptografarSenhaException;
 import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
@@ -20,7 +23,10 @@ public class TelaCadastro extends javax.swing.JFrame {
      */
     public TelaCadastro() {
         initComponents();
-        this.controller = new ControllerTelaCadastro();
+        
+        ConexaoDAO conexaoDAO = new ConexaoDAO();
+        UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
+        this.controller = new ControllerTelaCadastro(usuarioDAO);
         this.validacoes = new Validacoes();
     }
 
