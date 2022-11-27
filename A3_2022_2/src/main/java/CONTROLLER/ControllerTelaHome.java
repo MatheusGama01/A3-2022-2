@@ -16,25 +16,6 @@ public class ControllerTelaHome {
         this.tarefaDAO = tarefaDAO;
     }
 
-    /**
-     * Instancia TelaTarefa e a torna visível com os dados dados da tarefa que
-     * foi seleciando.
-     */
-    public void navegarParaTelaTarefa(int idTarefa, String descricao, String statusRecebido, UsuarioDTO usuario) {
-        Boolean status;
-
-        if (statusRecebido == "Feita") {
-            status = true;
-        } else {
-            status = false;
-        }
-
-        TarefaDTO tarefa = new TarefaDTO(idTarefa, descricao, status);
-
-        TelaTarefa telaTarefa = new TelaTarefa(tarefa, usuario);
-        telaTarefa.setVisible(true);
-    }
-
     //Cria um ArrayList com todas as tarefas do usuário.
     public ArrayList<TarefaDTO> listarTarefas(UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         System.out.println("Em ControllerTelaHome o idUsuario é: " + usuario.getId());

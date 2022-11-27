@@ -218,8 +218,9 @@ public class TelaHome extends javax.swing.JFrame {
             descricao = tblTarefas.getValueAt(tblTarefas.getSelectedRow(), 1).toString();
             status = tblTarefas.getValueAt(tblTarefas.getSelectedRow(), 2).toString();
         }
+        
 
-        this.controller.navegarParaTelaTarefa(idTarefa, descricao, status, usuarioLogado);
+        this.navegarParaTelaTarefa(idTarefa, descricao, status, usuarioLogado);
         this.dispose();
     }//GEN-LAST:event_tblTarefasMouseClicked
 
@@ -285,6 +286,25 @@ public class TelaHome extends javax.swing.JFrame {
                 status
             });
         }
+    }
+    
+    /**
+     * Instancia TelaTarefa e a torna visível com os dados dados da tarefa que
+     * foi seleciando.
+     */
+    public void navegarParaTelaTarefa(int idTarefa, String descricao, String statusRecebido, UsuarioDTO usuario) {
+        Boolean status;
+
+        if (statusRecebido == "Feita") {
+            status = true;
+        } else {
+            status = false;
+        }
+
+        TarefaDTO tarefa = new TarefaDTO(idTarefa, descricao, status);
+
+        TelaTarefa telaTarefa = new TelaTarefa(tarefa, usuario);
+        telaTarefa.setVisible(true);
     }
 
     //Mostra uma mensagem referente ao erro ocorrido.
