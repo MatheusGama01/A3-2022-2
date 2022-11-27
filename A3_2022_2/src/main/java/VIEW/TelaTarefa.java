@@ -26,6 +26,7 @@ public class TelaTarefa extends javax.swing.JFrame {
 
     public TelaTarefa(TarefaDTO tarefaSelecionada, UsuarioDTO usuario) {
         initComponents();
+
         ConexaoDAO conexaoDAO = new ConexaoDAO();
         TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         controller = new ControllerTelaTarefa(tarefaDAO);
@@ -185,7 +186,7 @@ public class TelaTarefa extends javax.swing.JFrame {
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
         TelaUsuario telaUsuario = new TelaUsuario(usuarioLogado);
         telaUsuario.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_lblUsuarioMouseClicked
 
@@ -193,7 +194,7 @@ public class TelaTarefa extends javax.swing.JFrame {
     private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
         TelaHome telaHome = new TelaHome(usuarioLogado);
         telaHome.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_lblLogoMouseClicked
 
@@ -201,10 +202,18 @@ public class TelaTarefa extends javax.swing.JFrame {
     private void btnSalvarEdicaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarEdicaoMouseClicked
         String descricao = TextAreaDescricaoDaTarefa.getText();
         Boolean status = CheckBoxStatusDaTarefa.isSelected();
-        
+
         try {
-            controller.salvarEdicao(tarefa, descricao, status, usuarioLogado);
-            this.dispose();
+            boolean tarefaAtualizada = controller.salvarEdicao(tarefa, descricao, status, usuarioLogado);
+
+            if (tarefaAtualizada == true) {
+                TelaHome telaHome = new TelaHome(usuarioLogado);
+                telaHome.setVisible(true);
+
+                this.dispose();
+            } else {
+                throw new NaoFoiPossivelSalvarAEdicaoDaTarefaException();
+            }
         } catch (TarefaNaoAlteradaException | NaoFoiPossivelSalvarAEdicaoDaTarefaException | NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException e) {
             ErroInesperado(e);
         }
@@ -214,12 +223,20 @@ public class TelaTarefa extends javax.swing.JFrame {
     private void btnApagarTarefaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnApagarTarefaMouseClicked
         //Confirma se o usuário realmente quer excluir a tarefa.
         Boolean confirmarExclusao = confirmarExclusao();
-        
-        if(confirmarExclusao == true){
+
+        if (confirmarExclusao == true) {
             try {
-                this.controller.apagarTarefa(tarefa, usuarioLogado);
-                this.dispose();
-                TarefaApagadaComSucesso();
+                boolean tarefaApagada = this.controller.apagarTarefa(tarefa, usuarioLogado);
+
+                if (tarefaApagada = true) {
+                    TelaHome telaHome = new TelaHome(usuarioLogado);
+                    telaHome.setVisible(true);
+
+                    this.dispose();
+                    TarefaApagadaComSucesso();
+                } else {
+                    throw new NaoFoiPossivelApagarATarefaException();
+                }
             } catch (NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | NaoFoiPossivelApagarATarefaException e) {
                 ErroInesperado(e);
             }
@@ -227,14 +244,13 @@ public class TelaTarefa extends javax.swing.JFrame {
     }//GEN-LAST:event_btnApagarTarefaMouseClicked
 
     //Inicializa TelaTarefa com as informações da tarefa que foi passada.
-    private void inicializarTelaTarefa(TarefaDTO tarefa, UsuarioDTO usuario) {        
+    private void inicializarTelaTarefa(TarefaDTO tarefa, UsuarioDTO usuario) {
         lblUsuario.setText(usuario.getNome());
         TextAreaDescricaoDaTarefa.setText(tarefa.getDescricao());
 
         /**
-         * Se status == true -> a tarefa já estará marcada como feita. 
-         * Se status == false -> a checkbox ficará desmarcada, pois a tarefa 
-         * está à fazer.
+         * Se status == true -> a tarefa já estará marcada como feita. Se status
+         * == false -> a checkbox ficará desmarcada, pois a tarefa está à fazer.
          */
         CheckBoxStatusDaTarefa.setSelected(tarefa.getStatus());
     }
@@ -249,14 +265,14 @@ public class TelaTarefa extends javax.swing.JFrame {
             return false;
         }
     }
-    
+
     //Mostra uma menssagem indicando que a tarefa foi apagada.
-    private void TarefaApagadaComSucesso(){
+    private void TarefaApagadaComSucesso() {
         JOptionPane.showMessageDialog(null, "A tarefa foi apagada!");
     }
-    
+
     //Mostra uma mensagem referente ao erro ocorrido.
-    private void ErroInesperado(Exception e){
+    private void ErroInesperado(Exception e) {
         JOptionPane.showMessageDialog(null, e.getMessage());
     }
 
