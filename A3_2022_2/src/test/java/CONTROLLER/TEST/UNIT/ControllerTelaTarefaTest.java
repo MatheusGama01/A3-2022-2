@@ -72,7 +72,7 @@ public class ControllerTelaTarefaTest {
         String descricao = "Teste";
         Boolean status = true;
 
-        controller.salvarEdicao(tarefaDTO, descricao, status, usuarioDTO);
+        controller.salvarEdicao(tarefaDTO, descricao, status);
 
         TarefaDTO tarefaEditada = tarefaDAO.listarTarefa(tarefaDTO);
 
@@ -92,7 +92,7 @@ public class ControllerTelaTarefaTest {
         Boolean status = false;
 
         TarefaNaoAlteradaException TarefaNaoAlteradaException = assertThrows(TarefaNaoAlteradaException.class, () -> {
-            controller.salvarEdicao(tarefaDTO, descricao, status, usuarioDTO);
+            controller.salvarEdicao(tarefaDTO, descricao, status);
         });
 
         assertEquals("A tarefa não foi alterada!\nFaça uma alteração para salvar a edição.", TarefaNaoAlteradaException.getMessage());
@@ -103,7 +103,7 @@ public class ControllerTelaTarefaTest {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefaDTO = pegaAPrimeiraTarefaDoBanco(usuarioDTO);
         
-        controller.apagarTarefa(tarefaDTO, usuarioDTO);
+        controller.apagarTarefa(tarefaDTO);
 
         TarefaDTO tarefaApagada = tarefaDAO.listarTarefa(tarefaDTO);
         TarefaDTO tarefaDTO2 = new TarefaDTO(0, null, null, 0);

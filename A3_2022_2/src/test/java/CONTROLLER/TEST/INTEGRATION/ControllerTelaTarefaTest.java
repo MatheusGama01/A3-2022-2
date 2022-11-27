@@ -3,7 +3,6 @@ package CONTROLLER.TEST.INTEGRATION;
 import CONTROLLER.ControllerTelaTarefa;
 import DAO.TarefaDAO;
 import DTO.TarefaDTO;
-import DTO.UsuarioDTO;
 import EXCEPTIONS.NaoFoiPossivelApagarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
@@ -32,21 +31,19 @@ public class ControllerTelaTarefaTest {
     public void verificaSeSalvarEdicaoLancaErroQuandoNaoFoiSalvaAEdicao() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException, TarefaNaoAlteradaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException {
         when(tarefaDAO.atualizarTarefa(any(TarefaDTO.class))).thenThrow(new NaoFoiPossivelSalvarAEdicaoDaTarefaException());
 
-        UsuarioDTO usuario = new UsuarioDTO(100, "Teste", "123", "teste@email.com");
         TarefaDTO tarefa = new TarefaDTO(1, "Teste", false, 100);
         String descricao = "Teste 1";
         boolean status = true;
         
-        controller.salvarEdicao(tarefa, descricao, status, usuario);
+        controller.salvarEdicao(tarefa, descricao, status);
     }
     
     @Test(expected = NaoFoiPossivelApagarATarefaException.class)
     public void verificaSeApagarTarefaLancaErroQuandoNaoFoiApagadaATarefa() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException{
         when(tarefaDAO.apagarTarefa(any(TarefaDTO.class))).thenThrow(new NaoFoiPossivelApagarATarefaException());
         
-        UsuarioDTO usuario = new UsuarioDTO(100, "Teste", "123", "teste@email.com");
         TarefaDTO tarefa = new TarefaDTO(1, "Teste", false, 100);
         
-        controller.apagarTarefa(tarefa, usuario);
+        controller.apagarTarefa(tarefa);
     }
 }

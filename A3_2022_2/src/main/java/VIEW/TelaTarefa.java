@@ -204,7 +204,7 @@ public class TelaTarefa extends javax.swing.JFrame {
         Boolean status = CheckBoxStatusDaTarefa.isSelected();
 
         try {
-            boolean tarefaAtualizada = controller.salvarEdicao(tarefa, descricao, status, usuarioLogado);
+            boolean tarefaAtualizada = controller.salvarEdicao(tarefa, descricao, status);
 
             if (tarefaAtualizada == true) {
                 TelaHome telaHome = new TelaHome(usuarioLogado);
@@ -226,7 +226,7 @@ public class TelaTarefa extends javax.swing.JFrame {
 
         if (confirmarExclusao == true) {
             try {
-                boolean tarefaApagada = this.controller.apagarTarefa(tarefa, usuarioLogado);
+                boolean tarefaApagada = this.controller.apagarTarefa(tarefa);
 
                 if (tarefaApagada = true) {
                     TelaHome telaHome = new TelaHome(usuarioLogado);
