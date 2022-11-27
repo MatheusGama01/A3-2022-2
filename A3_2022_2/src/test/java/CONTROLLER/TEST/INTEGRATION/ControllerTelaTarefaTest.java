@@ -4,40 +4,49 @@ import CONTROLLER.ControllerTelaTarefa;
 import DAO.TarefaDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
+import EXCEPTIONS.NaoFoiPossivelApagarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NaoFoiPossivelSalvarAEdicaoDaTarefaException;
 import EXCEPTIONS.TarefaNaoAlteradaException;
-import VIEW.TelaHome;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.ArgumentMatchers.any;
 import org.mockito.Mock;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
 public class ControllerTelaTarefaTest {
 
-    @Mock
     private ControllerTelaTarefa controller;
+
+    @Mock
+    private TarefaDAO tarefaDAO;
 
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
+        this.controller = new ControllerTelaTarefa(tarefaDAO);
     }
 
-    @Test
-    public void verificaSeEdicaoFoiSalvaComSucesso() throws TarefaNaoAlteradaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
-        TarefaDTO tarefa = mock(TarefaDTO.class);
-        UsuarioDTO usuario = mock(UsuarioDTO.class);
-        TelaHome telaHome = mock(TelaHome.class);
-        TarefaDAO tarefaDAO = mock(TarefaDAO.class);
-        
-        String descricao = "Teste";
-        boolean status = true;
+    @Test(expected = NaoFoiPossivelSalvarAEdicaoDaTarefaException.class)
+    public void verificaSeSalvarEdicaoLancaErroQuandoNaoFoiSalvaAEdicao() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException, TarefaNaoAlteradaException, NaoFoiPossivelSalvarAEdicaoDaTarefaException {
+        when(tarefaDAO.atualizarTarefa(any(TarefaDTO.class))).thenThrow(new NaoFoiPossivelSalvarAEdicaoDaTarefaException());
 
-        controller.salvarEdicao(tarefa, descricao, status, usuario);
+        UsuarioDTO usuario = new UsuarioDTO(100, "Teste", "123", "teste@email.com");
+        TarefaDTO tarefa = new TarefaDTO(1, "Teste", false, 100);
+        String descricao = "Teste 1";
+        boolean status = true;
         
-        verify(tarefaDAO).atualizarTarefa(tarefa);
-        verify(telaHome).setVisible(true);
+        controller.salvarEdicao(tarefa, descricao, status, usuario);
+    }
+    
+    @Test(expected = NaoFoiPossivelApagarATarefaException.class)
+    public void verificaSeApagarTarefaLancaErroQuandoNaoFoiApagadaATarefa() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException{
+        when(tarefaDAO.apagarTarefa(any(TarefaDTO.class))).thenThrow(new NaoFoiPossivelApagarATarefaException());
+        
+        UsuarioDTO usuario = new UsuarioDTO(100, "Teste", "123", "teste@email.com");
+        TarefaDTO tarefa = new TarefaDTO(1, "Teste", false, 100);
+        
+        controller.apagarTarefa(tarefa, usuario);
     }
 }

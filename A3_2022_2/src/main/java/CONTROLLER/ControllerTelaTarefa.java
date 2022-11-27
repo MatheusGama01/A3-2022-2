@@ -1,6 +1,5 @@
 package CONTROLLER;
 
-import DAO.ConexaoDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
 import DAO.TarefaDAO;
