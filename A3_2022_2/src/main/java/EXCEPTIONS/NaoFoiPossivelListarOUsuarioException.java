@@ -1,6 +1,6 @@
 package EXCEPTIONS;
 
-public class NaoFoiPossivelListarOUsuarioException extends Exception{
+public class NaoFoiPossivelListarOUsuarioException extends Exception {
 
     @Override
     public String getMessage() {

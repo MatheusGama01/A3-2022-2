@@ -12,10 +12,11 @@ public class ConexaoDAO {
     String usuario = "root";
     String senha = "@ServidorMySQL@";
 
-    //Inicializa a conexão com o banco de dados
+    //Inicializa a conexão com o banco de dados.
     public Connection conectaBD() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = DriverManager.getConnection(url, usuario, senha);
+            
             return conn;
         } catch (SQLException ex) {
             System.out.println("Deu erro em conectaBD " + ex);

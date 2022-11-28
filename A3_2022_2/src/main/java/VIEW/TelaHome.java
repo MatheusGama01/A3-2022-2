@@ -21,11 +21,12 @@ public class TelaHome extends javax.swing.JFrame {
      */
     public TelaHome(UsuarioDTO usuario) {
         initComponents();
-        
+
         ConexaoDAO conexaoDAO = new ConexaoDAO();
         TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         controller = new ControllerTelaHome(tarefaDAO);
         usuarioLogado = usuario;
+
         inicializarTela();
     }
 
@@ -186,7 +187,7 @@ public class TelaHome extends javax.swing.JFrame {
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
         TelaUsuario telaUsuario = new TelaUsuario(usuarioLogado);
         telaUsuario.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_lblUsuarioMouseClicked
 
@@ -194,7 +195,7 @@ public class TelaHome extends javax.swing.JFrame {
     private void lblNovaTarefaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNovaTarefaMouseClicked
         TelaAdicionarTarefa telaAdicionarTarefa = new TelaAdicionarTarefa(usuarioLogado);
         telaAdicionarTarefa.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_lblNovaTarefaMouseClicked
 
@@ -213,14 +214,15 @@ public class TelaHome extends javax.swing.JFrame {
         String descricao = "";
         String status = "";
 
+        //Pega os dados da tarefa selecionada.
         if (tblTarefas.getSelectedRow() != -1) {
             idTarefa = (int) tblTarefas.getValueAt(tblTarefas.getSelectedRow(), 0);
             descricao = tblTarefas.getValueAt(tblTarefas.getSelectedRow(), 1).toString();
             status = tblTarefas.getValueAt(tblTarefas.getSelectedRow(), 2).toString();
         }
-        
 
         this.navegarParaTelaTarefa(idTarefa, descricao, status, usuarioLogado);
+
         this.dispose();
     }//GEN-LAST:event_tblTarefasMouseClicked
 
@@ -239,13 +241,13 @@ public class TelaHome extends javax.swing.JFrame {
         }
     }
 
-    //Inseri os dados do ArrayList tarefas na tabela.
+    //Busca as tarefas no banco de dados e chama o método preencherTabela.
     private void inicializarTabela() throws NaoFoiPossivelListarAsTarefasDoUsuarioException {
         String statusSelecionado = statusComboBox();
         ArrayList<TarefaDTO> tarefas = new ArrayList<>();
 
         /**
-         * A partir do status selecionado na combo box da TelaHome ele chama o
+         * A partir do status selecionado na combo box da TelaHome é chamado o
          * método mais adequado para trazer as tarefas do banco de dados.
          */
         try {
@@ -262,7 +264,7 @@ public class TelaHome extends javax.swing.JFrame {
         } catch (NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException e) {
             ErroInesperado(e);
         }
-        
+
         preencherTabela(tarefas);
     }
 
@@ -287,13 +289,13 @@ public class TelaHome extends javax.swing.JFrame {
             });
         }
     }
-    
+
     /**
      * Instancia TelaTarefa e a torna visível com os dados dados da tarefa que
      * foi seleciando.
      */
     public void navegarParaTelaTarefa(int idTarefa, String descricao, String statusRecebido, UsuarioDTO usuario) {
-        Boolean status;
+        boolean status;
 
         if (statusRecebido == "Feita") {
             status = true;

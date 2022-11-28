@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 public class Validacoes {
 
     //Verifica se todos os campos de texto para cadastro foram preenchidos.
-    public boolean dadosDeCadastroInseridos(String nome, String email, String senha, String confirmarSenha) throws NenhumDadoDeCadastroInseridoException {
+    public Boolean dadosDeCadastroInseridos(String nome, String email, String senha, String confirmarSenha) throws NenhumDadoDeCadastroInseridoException {
         if (nome.equals("") || email.equals("") || senha.equals("") || confirmarSenha.equals("")) {
             throw new NenhumDadoDeCadastroInseridoException();
         } else {
@@ -19,7 +19,7 @@ public class Validacoes {
     }
 
     //Verifica se todos os campos de texto para login foram preenchidos.
-    public boolean dadosDeLoginInseridos(String email, String senha) throws NenhumDadoDeLoginInseridoException {
+    public Boolean dadosDeLoginInseridos(String email, String senha) throws NenhumDadoDeLoginInseridoException {
         if (email.equals("") || senha.equals("")) {
             throw new NenhumDadoDeLoginInseridoException();
         } else {
@@ -28,7 +28,7 @@ public class Validacoes {
     }
 
     //Verifica se os campos de senha e confirmação de senha são iguais.
-    public boolean senhasIguais(String senha, String confirmarSenha) throws SenhasDiferentesException {
+    public Boolean senhasIguais(String senha, String confirmarSenha) throws SenhasDiferentesException {
         if (senha.equals(confirmarSenha)) {
             return true;
         } else {
@@ -37,8 +37,8 @@ public class Validacoes {
     }
 
     //Verifica se o email digitado é válido.
-    public boolean emailValido(String email) throws EmailInvalidoException {
-        boolean emailValido = false;
+    public Boolean emailValido(String email) throws EmailInvalidoException {
+        Boolean emailValido = false;
 
         if (email != null && email.length() > 0) {
             String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";

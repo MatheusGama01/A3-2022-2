@@ -12,8 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.ArgumentMatchers.any;
 import org.mockito.Mock;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 
@@ -33,7 +31,7 @@ public class ControllerTelaHomeTest {
     @Test
     public void verificaSeListarTarefasRetornaCorretamenteAListaDeTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         UsuarioDTO usuario = new UsuarioDTO(100, "Teste", "123", "teste@email.com");
-        
+
         TarefaDTO tarefa1 = new TarefaDTO(1, "Teste 1", true, 100);
         TarefaDTO tarefa2 = new TarefaDTO(2, "Teste 2", false, 100);
         ArrayList<TarefaDTO> listaDeTarefas = new ArrayList<>();
@@ -41,7 +39,7 @@ public class ControllerTelaHomeTest {
         listaDeTarefas.add(tarefa2);
 
         when(tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenReturn(listaDeTarefas);
-        
+
         ArrayList<TarefaDTO> tarefasRetornadas = controller.listarTarefas(usuario);
 
         assertEquals(listaDeTarefas, tarefasRetornadas);
@@ -55,24 +53,24 @@ public class ControllerTelaHomeTest {
 
         controller.listarTarefas(usuario);
     }
-    
+
     @Test
-    public void verificaSeListarTarefasAFazerRetornaCorretamenteAListaDeTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException{
+    public void verificaSeListarTarefasAFazerRetornaCorretamenteAListaDeTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         UsuarioDTO usuario = new UsuarioDTO(100, "Teste", "123", "teste@email.com");
-        
+
         TarefaDTO tarefa1 = new TarefaDTO(1, "Teste 1", true, 100);
         TarefaDTO tarefa2 = new TarefaDTO(2, "Teste 2", false, 100);
         ArrayList<TarefaDTO> listaDeTarefas = new ArrayList<>();
         listaDeTarefas.add(tarefa1);
         listaDeTarefas.add(tarefa2);
-        
+
         ArrayList<TarefaDTO> listaDeTarefasAFazer = new ArrayList<>();
         listaDeTarefasAFazer.add(tarefa2);
-        
+
         when(tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenReturn(listaDeTarefas);
-        
+
         ArrayList<TarefaDTO> tarefasRetornadas = controller.listarTarefasAFazer(usuario);
-        
+
         assertEquals(listaDeTarefasAFazer, tarefasRetornadas);
     }
 
@@ -84,24 +82,24 @@ public class ControllerTelaHomeTest {
 
         controller.listarTarefasAFazer(usuario);
     }
-    
+
     @Test
-    public void verificaSeListarTarefasFeitasRetornaCorretamenteAListaDeTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException{
+    public void verificaSeListarTarefasFeitasRetornaCorretamenteAListaDeTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         UsuarioDTO usuario = new UsuarioDTO(100, "Teste", "123", "teste@email.com");
-        
+
         TarefaDTO tarefa1 = new TarefaDTO(1, "Teste 1", true, 100);
         TarefaDTO tarefa2 = new TarefaDTO(2, "Teste 2", false, 100);
         ArrayList<TarefaDTO> listaDeTarefas = new ArrayList<>();
         listaDeTarefas.add(tarefa1);
         listaDeTarefas.add(tarefa2);
-        
+
         ArrayList<TarefaDTO> listaDeTarefasFeitas = new ArrayList<>();
         listaDeTarefasFeitas.add(tarefa1);
-        
+
         when(tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenReturn(listaDeTarefas);
-        
+
         ArrayList<TarefaDTO> tarefasRetornadas = controller.listarTarefasFeitas(usuario);
-        
+
         assertEquals(listaDeTarefasFeitas, tarefasRetornadas);
     }
 

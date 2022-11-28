@@ -4,13 +4,11 @@
  */
 package CONTROLLER;
 
-import DAO.ConexaoDAO;
 import DAO.TarefaDAO;
 import DTO.TarefaDTO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.NaoFoiPossivelCriarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
-import VIEW.TelaHome;
 
 /**
  *
@@ -25,12 +23,12 @@ public class ControllerTelaAdicionarTarefa {
     }
 
     //Chama o método de criar tarefa em tarefaDAO.
-    public void criarTarefa(String descricao, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException {
+    public Boolean criarTarefa(String descricao, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException {
         TarefaDTO tarefa = new TarefaDTO(descricao, false);
-        
-        tarefaDAO.criarTarefa(tarefa, usuario);
-        TelaHome telaHome = new TelaHome(usuario);
-        telaHome.setVisible(true);
+
+        Boolean tarefaCriada = tarefaDAO.criarTarefa(tarefa, usuario);
+
+        return tarefaCriada;
     }
 
 }

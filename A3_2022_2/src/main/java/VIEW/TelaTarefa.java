@@ -32,6 +32,7 @@ public class TelaTarefa extends javax.swing.JFrame {
         controller = new ControllerTelaTarefa(tarefaDAO);
         tarefa = tarefaSelecionada;
         usuarioLogado = usuario;
+
         inicializarTelaTarefa(tarefaSelecionada, usuario);
     }
 
@@ -204,8 +205,12 @@ public class TelaTarefa extends javax.swing.JFrame {
         Boolean status = CheckBoxStatusDaTarefa.isSelected();
 
         try {
-            boolean tarefaAtualizada = controller.salvarEdicao(tarefa, descricao, status);
+            Boolean tarefaAtualizada = controller.salvarEdicao(tarefa, descricao, status);
 
+            /**
+             * Se tarefaAtualizada for igual a "true" o usuário é redirecionado
+             * para tela home. Se não, é lançada uma exceção.
+             */
             if (tarefaAtualizada == true) {
                 TelaHome telaHome = new TelaHome(usuarioLogado);
                 telaHome.setVisible(true);
@@ -226,8 +231,12 @@ public class TelaTarefa extends javax.swing.JFrame {
 
         if (confirmarExclusao == true) {
             try {
-                boolean tarefaApagada = this.controller.apagarTarefa(tarefa);
+                Boolean tarefaApagada = this.controller.apagarTarefa(tarefa);
 
+                /**
+                 * Se tarefaApagada for igual a "true" o usuário é
+                 * redirecionado para tela home. Se não, é lançada uma exceção.
+                 */
                 if (tarefaApagada = true) {
                     TelaHome telaHome = new TelaHome(usuarioLogado);
                     telaHome.setVisible(true);
@@ -249,8 +258,9 @@ public class TelaTarefa extends javax.swing.JFrame {
         TextAreaDescricaoDaTarefa.setText(tarefa.getDescricao());
 
         /**
-         * Se status == true -> a tarefa já estará marcada como feita. Se status
-         * == false -> a checkbox ficará desmarcada, pois a tarefa está à fazer.
+         * Se status == true -> a tarefa já estará marcada como feita. 
+         * Se status == false -> a checkbox ficará desmarcada, pois a tarefa 
+         * estará à fazer.
          */
         CheckBoxStatusDaTarefa.setSelected(tarefa.getStatus());
     }

@@ -3,6 +3,7 @@ package VIEW;
 import CONTROLLER.ControllerTelaLogin;
 import DAO.ConexaoDAO;
 import DAO.UsuarioDAO;
+import DTO.UsuarioDTO;
 import EXCEPTIONS.FalhaAoAutenticarException;
 import EXCEPTIONS.FalhaAoCriptografarSenhaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
@@ -22,7 +23,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     public TelaLogin() {
         initComponents();
-        
+
         ConexaoDAO conexaoDAO = new ConexaoDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
         this.controller = new ControllerTelaLogin(usuarioDAO);
@@ -202,7 +203,7 @@ public class TelaLogin extends javax.swing.JFrame {
     private void btnCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastroActionPerformed
         TelaCadastro telaCadastro = new TelaCadastro();
         telaCadastro.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_btnCadastroActionPerformed
 
@@ -210,14 +211,33 @@ public class TelaLogin extends javax.swing.JFrame {
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
         String email = txtEmail.getText();
         String senha = new String(txtSenha.getPassword());
+        UsuarioDTO usuarioVazio = new UsuarioDTO(0, null, null, null);
 
         try {
-            //Verifica se foram inseridos os dados
+            //Verifica se foram inseridos os dados.
             Boolean dadosInseridos = validacoes.dadosDeLoginInseridos(email, senha);
-            
+
+            /**
+             * Se dadosInseridos for igual a "true" é chamado o método de logar
+             * usuário. Se não, é lançada uma exceção.
+             */
             if (dadosInseridos == true) {
-                controller.logar(email, senha);
-                this.dispose();
+                UsuarioDTO usuarioLogado = controller.logar(email, senha);
+
+                /**
+                 * Se usuarioLogado estiver vazio é lançada uma exceção. Se não,
+                 * o usuário é redirecinado para a tela home.
+                 */
+                if (usuarioLogado.equals(usuarioVazio)) {
+                    throw new FalhaAoAutenticarException();
+                } else {
+                    TelaHome telaHome = new TelaHome(usuarioLogado);
+                    telaHome.setVisible(true);
+
+                    this.dispose();
+                }
+            } else {
+                throw new FalhaAoAutenticarException();
             }
         } catch (NenhumDadoDeLoginInseridoException | NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | EmailOuSenhaIncorretosException | FalhaAoAutenticarException | FalhaAoCriptografarSenhaException e) {
             ErroInesperado(e);

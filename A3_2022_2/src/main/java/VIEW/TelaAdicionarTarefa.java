@@ -19,11 +19,11 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
     public TelaAdicionarTarefa(UsuarioDTO usuario) {
         initComponents();
         usuarioLogado = usuario;
-        
+
         ConexaoDAO conexaoDAO = new ConexaoDAO();
         TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
         controller = new ControllerTelaAdicionarTarefa(tarefaDAO);
-        
+
         inicializarTela(usuario);
     }
 
@@ -169,8 +169,16 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
         String descricao = textAreaDescricao.getText();
 
         try {
-            controller.criarTarefa(descricao, usuarioLogado);
-            this.dispose();
+            Boolean tarefaCriada = controller.criarTarefa(descricao, usuarioLogado);
+
+            if (tarefaCriada == true) {
+                TelaHome telaHome = new TelaHome(usuarioLogado);
+                telaHome.setVisible(true);
+
+                this.dispose();
+            } else {
+                throw new NaoFoiPossivelCriarATarefaException();
+            }
         } catch (NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | NaoFoiPossivelCriarATarefaException e) {
             ErroInesperado(e);
         }
@@ -180,7 +188,7 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
     private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
         TelaHome telaHome = new TelaHome(usuarioLogado);
         telaHome.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_lblLogoMouseClicked
 
@@ -188,7 +196,7 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
         TelaUsuario telaUsuario = new TelaUsuario(usuarioLogado);
         telaUsuario.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_lblUsuarioMouseClicked
 
@@ -196,7 +204,7 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         TelaHome telaHome = new TelaHome(usuarioLogado);
         telaHome.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 

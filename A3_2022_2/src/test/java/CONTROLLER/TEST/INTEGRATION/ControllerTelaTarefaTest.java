@@ -34,16 +34,16 @@ public class ControllerTelaTarefaTest {
         TarefaDTO tarefa = new TarefaDTO(1, "Teste", false, 100);
         String descricao = "Teste 1";
         boolean status = true;
-        
+
         controller.salvarEdicao(tarefa, descricao, status);
     }
-    
+
     @Test(expected = NaoFoiPossivelApagarATarefaException.class)
-    public void verificaSeApagarTarefaLancaErroQuandoNaoFoiApagadaATarefa() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException{
+    public void verificaSeApagarTarefaLancaErroQuandoNaoFoiApagadaATarefa() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException {
         when(tarefaDAO.apagarTarefa(any(TarefaDTO.class))).thenThrow(new NaoFoiPossivelApagarATarefaException());
-        
+
         TarefaDTO tarefa = new TarefaDTO(1, "Teste", false, 100);
-        
+
         controller.apagarTarefa(tarefa);
     }
 }

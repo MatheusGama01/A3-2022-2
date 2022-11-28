@@ -55,9 +55,10 @@ public class ControllerTelaLoginTest {
         String email = usuario.getEmail();
         String senha = usuario.getSenha();
 
-        Boolean login = controller.logar(email, senha);
+        UsuarioDTO usuarioLogado = controller.logar(email, senha);
 
-        assertTrue(login);
+        assertEquals(usuarioLogado.getEmail(), usuario.getEmail());
+        assertEquals(usuarioLogado.getSenha(), usuario.getSenha());
     }
 
     @Test

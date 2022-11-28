@@ -2,7 +2,6 @@ package VIEW;
 
 import CONTROLLER.ControllerTelaCadastro;
 import DAO.ConexaoDAO;
-import DAO.TarefaDAO;
 import DAO.UsuarioDAO;
 import EXCEPTIONS.EmailInvalidoException;
 import EXCEPTIONS.FalhaAoCriptografarSenhaException;
@@ -23,7 +22,7 @@ public class TelaCadastro extends javax.swing.JFrame {
      */
     public TelaCadastro() {
         initComponents();
-        
+
         ConexaoDAO conexaoDAO = new ConexaoDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
         this.controller = new ControllerTelaCadastro(usuarioDAO);
@@ -237,13 +236,13 @@ public class TelaCadastro extends javax.swing.JFrame {
     private void lblLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLoginMouseClicked
         TelaLogin telaLogin = new TelaLogin();
         telaLogin.setVisible(true);
-        
+
         this.dispose();
     }//GEN-LAST:event_lblLoginMouseClicked
 
     /**
-     * Verifica se foram inseridos dados e faz as devidas validações, caso esteja
-     * tudo certo o usuário é cadastrado.
+     * Verifica se foram inseridos dados e faz as devidas validações, caso
+     * esteja tudo certo o usuário é cadastrado.
      */
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         String nome = txtNome.getText();
@@ -253,22 +252,41 @@ public class TelaCadastro extends javax.swing.JFrame {
 
         try {
             //Chama o método validaDados para realizar as validações.
-            boolean dadosValidados = validaDados(nome, email, senha, confirmarSenha);
+            Boolean dadosValidados = validaDados(nome, email, senha, confirmarSenha);
 
+            /**
+             * Se dadosValidados for igual a "true" é chamado o método de
+             * cadastrar usuário. Se não, é lançada uma exceção.
+             */
             if (dadosValidados == true) {
-                controller.cadastrarUsuario(nome, email, senha);
-                this.dispose();
+                Boolean usuarioCadastrado = controller.cadastrarUsuario(nome, email, senha);
+
+                /**
+                 * Se usuarioCadastrado for igual a "true" o usuário é
+                 * redirecionado para tela de login. Se não, é lançada uma
+                 * exceção.
+                 */
+                if (usuarioCadastrado == true) {
+                    TelaLogin telaLogin = new TelaLogin();
+                    telaLogin.setVisible(true);
+
+                    this.dispose();
+                } else {
+                    throw new NaoFoiPossivelCadastrarUsuarioException();
+                }
+            } else {
+                throw new NaoFoiPossivelCadastrarUsuarioException();
             }
         } catch (NenhumDadoDeCadastroInseridoException | SenhasDiferentesException | NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | NaoFoiPossivelCadastrarUsuarioException | FalhaAoCriptografarSenhaException | EmailInvalidoException e) {
             ErroInesperado(e);
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    //Verifica se foi inserido algum dado e realiza validaçã de email e senha.
+    //Verifica se foi inserido algum dado e realiza validação de email e senha.
     private Boolean validaDados(String nome, String email, String senha, String confirmarSenha) throws NenhumDadoDeCadastroInseridoException, SenhasDiferentesException, EmailInvalidoException {
-        boolean dadosInseridos = validacoes.dadosDeCadastroInseridos(nome, email, senha, confirmarSenha);
-        boolean emailValido = validacoes.emailValido(email);
-        boolean senhasIguais = validacoes.senhasIguais(senha, confirmarSenha);
+        Boolean dadosInseridos = validacoes.dadosDeCadastroInseridos(nome, email, senha, confirmarSenha);
+        Boolean emailValido = validacoes.emailValido(email);
+        Boolean senhasIguais = validacoes.senhasIguais(senha, confirmarSenha);
 
         if (dadosInseridos == true && emailValido == true && senhasIguais == true) {
             return true;

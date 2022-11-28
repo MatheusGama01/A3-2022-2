@@ -30,14 +30,14 @@ public class TarefaDAO {
 
             System.out.println("Em TarefaDAO o idUsuario é: " + usuarioDTO.getId());
 
-            //Busca no banco de dados todas as tarefas com o id do usuário.
+            //Busca no banco de dados todas as tarefas com o id do usuário logado.
             String sql = "SELECT * FROM tarefas WHERE idUsuario= " + usuarioDTO.getId();
             conn = conexaoDAO.conectaBD();
             pstm = conn.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
 
             /**
-             * Inseri as tarefas retornadas pelo banco de dados no ArrayList
+             * Insere as tarefas retornadas pelo banco de dados no ArrayList
              * listaDeTarefas.
              */
             while (rs.next()) {
@@ -58,14 +58,13 @@ public class TarefaDAO {
         } catch (SQLException ex) {
             System.out.println("Deu erro em listarTarefas" + ex);
             throw new NaoFoiPossivelListarAsTarefasDoUsuarioException();
-            //return null;
         }
     }
 
-    //Lista uma tarefa no banco de dados.
+    //Busca uma tarefa específica no banco de dados.
     public TarefaDTO listarTarefa(TarefaDTO tarefa) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
         try {
-
+            //Busca a tarefa no banco de dados.
             String sql = "SELECT * FROM tarefas WHERE id = " + tarefa.getId();
             conn = conexaoDAO.conectaBD();
             pstm = conn.prepareStatement(sql);
@@ -73,6 +72,7 @@ public class TarefaDAO {
 
             TarefaDTO tarefaRetornada = new TarefaDTO();
 
+            //Cria um instância de TarefaDTO e insere a tarefa retornada dentro.
             if (rs.next()) {
                 tarefaRetornada.setId(rs.getInt("id"));
                 tarefaRetornada.setDescricao(rs.getString("descricao"));
@@ -80,15 +80,16 @@ public class TarefaDAO {
                 tarefaRetornada.setIdUsuario(rs.getInt("idUsuario"));
             }
 
+            pstm.close();
+
             return tarefaRetornada;
         } catch (SQLException ex) {
             System.out.println("Deu erro em listarTarefa" + ex);
             throw new NaoFoiPossivelListarAsTarefasDoUsuarioException();
-            //return null;
         }
     }
 
-    //Inseri uma tarefa no banco de dados.
+    //Insere uma tarefa no banco de dados.
     public Boolean criarTarefa(TarefaDTO tarefaDTO, UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException {
         try {
             conn = conexaoDAO.conectaBD();
@@ -98,11 +99,12 @@ public class TarefaDAO {
             pstm.setInt(3, usuarioDTO.getId());
             pstm.execute();
 
+            pstm.close();
+
             return true;
         } catch (SQLException ex) {
             System.out.println("Deu erro em criarTarefa" + ex);
             throw new NaoFoiPossivelCriarATarefaException();
-            //return false;
         }
     }
 
@@ -110,17 +112,18 @@ public class TarefaDAO {
     public Boolean atualizarTarefa(TarefaDTO tarefaDTO) throws NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
             conn = conexaoDAO.conectaBD();
-            pstm = conn.prepareStatement("UPDATE tarefas SET descricao = ? , status = ? where  id = ?");
+            pstm = conn.prepareStatement("UPDATE tarefas SET descricao = ? , status = ? WHERE  id = ?");
             pstm.setString(1, tarefaDTO.getDescricao());
             pstm.setBoolean(2, tarefaDTO.getStatus());
             pstm.setInt(3, tarefaDTO.getId());
             pstm.executeUpdate();
 
+            pstm.close();
+
             return true;
         } catch (SQLException ex) {
             System.out.println("Deu erro em atualizarTarefa" + ex);
             throw new NaoFoiPossivelSalvarAEdicaoDaTarefaException();
-            //return false;
         }
     }
 
@@ -132,11 +135,12 @@ public class TarefaDAO {
             pstm.setInt(1, tarefaDTO.getId());
             pstm.executeUpdate();
 
+            pstm.close();
+
             return true;
         } catch (SQLException ex) {
             System.out.println("Deu erro em apagarTarefa" + ex);
             throw new NaoFoiPossivelApagarATarefaException();
-            //return false;
         }
     }
 }
