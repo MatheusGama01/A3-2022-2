@@ -3,6 +3,7 @@ package HELPER;
 import EXCEPTIONS.EmailInvalidoException;
 import EXCEPTIONS.NenhumDadoDeCadastroInseridoException;
 import EXCEPTIONS.NenhumDadoDeLoginInseridoException;
+import EXCEPTIONS.NenhumaDescricaoInseridaException;
 import EXCEPTIONS.SenhasDiferentesException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,6 +24,14 @@ public class Validacoes {
         if (email.equals("") || senha.equals("")) {
             throw new NenhumDadoDeLoginInseridoException();
         } else {
+            return true;
+        }
+    }
+    
+    public Boolean dadosDeAdicaoDeTarefaInseridos(String descricao) throws NenhumaDescricaoInseridaException{
+        if(descricao.equals("")){
+            throw new NenhumaDescricaoInseridaException();
+        } else{
             return true;
         }
     }

@@ -6,23 +6,27 @@ import DAO.TarefaDAO;
 import DTO.UsuarioDTO;
 import EXCEPTIONS.NaoFoiPossivelCriarATarefaException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
+import EXCEPTIONS.NenhumaDescricaoInseridaException;
+import HELPER.Validacoes;
 import javax.swing.JOptionPane;
 
 public class TelaAdicionarTarefa extends javax.swing.JFrame {
 
     private final ControllerTelaAdicionarTarefa controller;
-    UsuarioDTO usuarioLogado = new UsuarioDTO();
+    private final Validacoes validacoes;
+    private final UsuarioDTO usuarioLogado;
 
     /**
      * Creates new form AdicionarTarefa
      */
     public TelaAdicionarTarefa(UsuarioDTO usuario) {
         initComponents();
-        usuarioLogado = usuario;
+        this.usuarioLogado = usuario;
 
         ConexaoDAO conexaoDAO = new ConexaoDAO();
         TarefaDAO tarefaDAO = new TarefaDAO(conexaoDAO);
-        controller = new ControllerTelaAdicionarTarefa(tarefaDAO);
+        this.controller = new ControllerTelaAdicionarTarefa(tarefaDAO);
+        this.validacoes = new Validacoes();
 
         inicializarTela(usuario);
     }
@@ -169,17 +173,33 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
         String descricao = textAreaDescricao.getText();
 
         try {
-            Boolean tarefaCriada = controller.criarTarefa(descricao, usuarioLogado);
+            //Chama o método dadosDeAdicaoDeTarefaInseridos para realizar a validação.
+            Boolean descricaoInserida = this.validacoes.dadosDeAdicaoDeTarefaInseridos(descricao);
 
-            if (tarefaCriada == true) {
-                TelaHome telaHome = new TelaHome(usuarioLogado);
-                telaHome.setVisible(true);
+            /**
+             * Se descricaoInserida for igual a "true" é chamado o método de
+             * cadastrar usuário. Se não, é lançada uma exceção.
+             */
+            if (descricaoInserida == true) {
+                Boolean tarefaCriada = this.controller.criarTarefa(descricao, this.usuarioLogado);
 
-                this.dispose();
+                /**
+                 * Se tarefaCriada for igual a "true" o usuário é
+                 * redirecionado para tela de login. Se não, é lançada uma
+                 * exceção.
+                 */
+                if (tarefaCriada == true) {
+                    TelaHome telaHome = new TelaHome(this.usuarioLogado);
+                    telaHome.setVisible(true);
+
+                    this.dispose();
+                } else {
+                    throw new NaoFoiPossivelCriarATarefaException();
+                }
             } else {
                 throw new NaoFoiPossivelCriarATarefaException();
             }
-        } catch (NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | NaoFoiPossivelCriarATarefaException e) {
+        } catch (NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException | NaoFoiPossivelCriarATarefaException | NenhumaDescricaoInseridaException e) {
             ErroInesperado(e);
         }
     }//GEN-LAST:event_btnSalvarTarefaActionPerformed
