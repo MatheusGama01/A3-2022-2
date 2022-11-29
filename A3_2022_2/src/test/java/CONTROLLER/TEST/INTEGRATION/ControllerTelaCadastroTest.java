@@ -23,17 +23,17 @@ public class ControllerTelaCadastroTest {
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        this.controller = new ControllerTelaCadastro(usuarioDAO);
+        this.controller = new ControllerTelaCadastro(this.usuarioDAO);
     }
 
     @Test(expected = NaoFoiPossivelCadastrarUsuarioException.class)
     public void verificaSeCadastrarUsuarioLancaErroQuandoNaoForPossivelCadastrarUsuario() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException, FalhaAoCriptografarSenhaException {
-        when(usuarioDAO.cadastrarUsuario(any(UsuarioDTO.class))).thenThrow(new NaoFoiPossivelCadastrarUsuarioException());
+        when(this.usuarioDAO.cadastrarUsuario(any(UsuarioDTO.class))).thenThrow(new NaoFoiPossivelCadastrarUsuarioException());
 
         String nome = "Teste";
         String email = "teste@email.com";
         String senha = "123";
 
-        controller.cadastrarUsuario(nome, email, senha);
+        this.controller.cadastrarUsuario(nome, email, senha);
     }
 }

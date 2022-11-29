@@ -32,9 +32,9 @@ public class TarefaDAO {
 
             //Busca no banco de dados todas as tarefas com o id do usuário logado.
             String sql = "SELECT * FROM tarefas WHERE idUsuario= " + usuarioDTO.getId();
-            conn = conexaoDAO.conectaBD();
-            pstm = conn.prepareStatement(sql);
-            ResultSet rs = pstm.executeQuery();
+            this.conn = this.conexaoDAO.conectaBD();
+            this.pstm = this.conn.prepareStatement(sql);
+            ResultSet rs = this.pstm.executeQuery();
 
             /**
              * Insere as tarefas retornadas pelo banco de dados no ArrayList
@@ -52,7 +52,7 @@ public class TarefaDAO {
                 listaDeTarefas.add(tarefa);
             }
 
-            pstm.close();
+            this.pstm.close();
 
             return listaDeTarefas;
         } catch (SQLException ex) {
@@ -66,9 +66,9 @@ public class TarefaDAO {
         try {
             //Busca a tarefa no banco de dados.
             String sql = "SELECT * FROM tarefas WHERE id = " + tarefa.getId();
-            conn = conexaoDAO.conectaBD();
-            pstm = conn.prepareStatement(sql);
-            ResultSet rs = pstm.executeQuery();
+            this.conn = this.conexaoDAO.conectaBD();
+            this.pstm = this.conn.prepareStatement(sql);
+            ResultSet rs = this.pstm.executeQuery();
 
             TarefaDTO tarefaRetornada = new TarefaDTO();
 
@@ -80,7 +80,7 @@ public class TarefaDAO {
                 tarefaRetornada.setIdUsuario(rs.getInt("idUsuario"));
             }
 
-            pstm.close();
+            this.pstm.close();
 
             return tarefaRetornada;
         } catch (SQLException ex) {
@@ -92,14 +92,14 @@ public class TarefaDAO {
     //Insere uma tarefa no banco de dados.
     public Boolean criarTarefa(TarefaDTO tarefaDTO, UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException {
         try {
-            conn = conexaoDAO.conectaBD();
-            pstm = conn.prepareStatement("INSERT INTO tarefas(descricao, status, idUsuario) VALUES(?, ?, ?)");
-            pstm.setString(1, tarefaDTO.getDescricao());
-            pstm.setBoolean(2, false);
-            pstm.setInt(3, usuarioDTO.getId());
-            pstm.execute();
+            this.conn = this.conexaoDAO.conectaBD();
+            this.pstm = this.conn.prepareStatement("INSERT INTO tarefas(descricao, status, idUsuario) VALUES(?, ?, ?)");
+            this.pstm.setString(1, tarefaDTO.getDescricao());
+            this.pstm.setBoolean(2, false);
+            this.pstm.setInt(3, usuarioDTO.getId());
+            this.pstm.execute();
 
-            pstm.close();
+            this.pstm.close();
 
             return true;
         } catch (SQLException ex) {
@@ -111,14 +111,14 @@ public class TarefaDAO {
     //Atualiza uma tarefa salva no banco de dados.
     public Boolean atualizarTarefa(TarefaDTO tarefaDTO) throws NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
-            conn = conexaoDAO.conectaBD();
-            pstm = conn.prepareStatement("UPDATE tarefas SET descricao = ? , status = ? WHERE  id = ?");
-            pstm.setString(1, tarefaDTO.getDescricao());
-            pstm.setBoolean(2, tarefaDTO.getStatus());
-            pstm.setInt(3, tarefaDTO.getId());
-            pstm.executeUpdate();
+            this.conn = this.conexaoDAO.conectaBD();
+            this.pstm = this.conn.prepareStatement("UPDATE tarefas SET descricao = ? , status = ? WHERE  id = ?");
+            this.pstm.setString(1, tarefaDTO.getDescricao());
+            this.pstm.setBoolean(2, tarefaDTO.getStatus());
+            this.pstm.setInt(3, tarefaDTO.getId());
+            this.pstm.executeUpdate();
 
-            pstm.close();
+            this.pstm.close();
 
             return true;
         } catch (SQLException ex) {
@@ -130,12 +130,12 @@ public class TarefaDAO {
     //Apaga uma tarefa salva no banco de dados.
     public Boolean apagarTarefa(TarefaDTO tarefaDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException {
         try {
-            conn = conexaoDAO.conectaBD();
-            pstm = conn.prepareStatement("DELETE FROM tarefas WHERE id = ?");
-            pstm.setInt(1, tarefaDTO.getId());
-            pstm.executeUpdate();
+            this.conn = this.conexaoDAO.conectaBD();
+            this.pstm = conn.prepareStatement("DELETE FROM tarefas WHERE id = ?");
+            this.pstm.setInt(1, tarefaDTO.getId());
+            this.pstm.executeUpdate();
 
-            pstm.close();
+            this.pstm.close();
 
             return true;
         } catch (SQLException ex) {

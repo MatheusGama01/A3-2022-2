@@ -15,9 +15,9 @@ public class ConexaoDAO {
     //Inicializa a conexão com o banco de dados.
     public Connection conectaBD() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException {
         try {
-            conn = DriverManager.getConnection(url, usuario, senha);
+            this.conn = DriverManager.getConnection(this.url, this.usuario, this.senha);
             
-            return conn;
+            return this.conn;
         } catch (SQLException ex) {
             System.out.println("Deu erro em conectaBD " + ex);
             throw new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException();

@@ -26,7 +26,7 @@ public class ControllerTelaAdicionarTarefa {
     public Boolean criarTarefa(String descricao, UsuarioDTO usuario) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException {
         TarefaDTO tarefa = new TarefaDTO(descricao, false);
 
-        Boolean tarefaCriada = tarefaDAO.criarTarefa(tarefa, usuario);
+        Boolean tarefaCriada = this.tarefaDAO.criarTarefa(tarefa, usuario);
 
         return tarefaCriada;
     }

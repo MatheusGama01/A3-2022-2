@@ -10,7 +10,6 @@ import EXCEPTIONS.NaoFoiPossivelCadastrarUsuarioException;
 import EXCEPTIONS.NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException;
 import EXCEPTIONS.NaoFoiPossivelListarOUsuarioException;
 import HELPER.Criptografia;
-import java.sql.ResultSet;
 import org.junit.After;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -31,8 +30,8 @@ public class UsuarioDAOTest {
     public void tearDown() throws FalhaAoCriptografarSenhaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste UsuárioDAO", Criptografia.encriptarSenha("123"), "usuariodao@email.com");
 
-        usuarioDAO.apagarUsuario(usuarioDTO);
-        UsuarioDTO usuarioRetornado = usuarioDAO.listarUsuario(usuarioDTO);
+        this.usuarioDAO.apagarUsuario(usuarioDTO);
+        UsuarioDTO usuarioRetornado = this.usuarioDAO.listarUsuario(usuarioDTO);
 
         UsuarioDTO usuarioDTO2 = new UsuarioDTO(0, null, null, null);
         assertEquals(usuarioDTO2, usuarioRetornado);
@@ -42,9 +41,9 @@ public class UsuarioDAOTest {
     public void deveCadastrarOUsuarioComSucesso() throws FalhaAoCriptografarSenhaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelApagarOUsuarioException {
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste UsuárioDAO", Criptografia.encriptarSenha("123"), "usuariodao@email.com");
 
-        usuarioDAO.cadastrarUsuario(usuarioDTO);
+        this.usuarioDAO.cadastrarUsuario(usuarioDTO);
 
-        UsuarioDTO usuarioCadastrado = usuarioDAO.listarUsuario(usuarioDTO);
+        UsuarioDTO usuarioCadastrado = this.usuarioDAO.listarUsuario(usuarioDTO);
         usuarioDTO.setId(usuarioCadastrado.getId());
 
         assertEquals(usuarioDTO, usuarioCadastrado);
@@ -53,9 +52,9 @@ public class UsuarioDAOTest {
     @Test
     public void deveAutenticarOUsuarioComSucesso() throws FalhaAoCriptografarSenhaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, FalhaAoAutenticarException, NaoFoiPossivelCadastrarUsuarioException {
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste UsuárioDAO", Criptografia.encriptarSenha("123"), "usuariodao@email.com");
-        usuarioDAO.cadastrarUsuario(usuarioDTO);
+        this.usuarioDAO.cadastrarUsuario(usuarioDTO);
 
-        UsuarioDTO usuarioAutenticado = usuarioDAO.autenticarUsuario(usuarioDTO);
+        UsuarioDTO usuarioAutenticado = this.usuarioDAO.autenticarUsuario(usuarioDTO);
 
         assertNotNull(usuarioAutenticado);
     }
@@ -63,9 +62,9 @@ public class UsuarioDAOTest {
     @Test
     public void deveListarOUsuarioComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException, FalhaAoCriptografarSenhaException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste UsuárioDAO", Criptografia.encriptarSenha("123"), "usuariodao@email.com");
-        usuarioDAO.cadastrarUsuario(usuarioDTO);
+        this.usuarioDAO.cadastrarUsuario(usuarioDTO);
 
-        UsuarioDTO usuarioListado = usuarioDAO.listarUsuario(usuarioDTO);
+        UsuarioDTO usuarioListado = this.usuarioDAO.listarUsuario(usuarioDTO);
         usuarioDTO.setId(usuarioListado.getId());
 
         assertEquals(usuarioDTO, usuarioListado);
@@ -75,11 +74,11 @@ public class UsuarioDAOTest {
     public void deveApagarUsuarioComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, FalhaAoCriptografarSenhaException, NaoFoiPossivelCadastrarUsuarioException, NaoFoiPossivelApagarOUsuarioException, NaoFoiPossivelListarOUsuarioException {
         UsuarioDTO usuarioTeste = new UsuarioDTO(0, null, null, null);
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste UsuárioDAO", Criptografia.encriptarSenha("123"), "usuariodao@email.com");
-        usuarioDAO.cadastrarUsuario(usuarioDTO);
+        this.usuarioDAO.cadastrarUsuario(usuarioDTO);
 
-        usuarioDAO.apagarUsuario(usuarioDTO);
+        this.usuarioDAO.apagarUsuario(usuarioDTO);
 
-        UsuarioDTO usuarioApagado = usuarioDAO.listarUsuario(usuarioDTO);
+        UsuarioDTO usuarioApagado = this.usuarioDAO.listarUsuario(usuarioDTO);
         assertEquals(usuarioTeste, usuarioApagado);
     }
 }

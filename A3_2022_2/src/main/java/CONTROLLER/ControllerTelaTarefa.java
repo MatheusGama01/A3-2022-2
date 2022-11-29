@@ -14,7 +14,6 @@ public class ControllerTelaTarefa {
 
     public ControllerTelaTarefa(TarefaDAO tarefaDAO) {
         this.tarefaDAO = tarefaDAO;
-
     }
 
     /**
@@ -30,7 +29,7 @@ public class ControllerTelaTarefa {
             tarefa.setDescricao(descricao);
             tarefa.setStatus(status);
 
-            Boolean tarefaAtualizada = tarefaDAO.atualizarTarefa(tarefa);
+            Boolean tarefaAtualizada = this.tarefaDAO.atualizarTarefa(tarefa);
 
             return tarefaAtualizada;
         }
@@ -38,7 +37,7 @@ public class ControllerTelaTarefa {
 
     //Chama o método de apagar tarefa em tarefaDAO.
     public Boolean apagarTarefa(TarefaDTO tarefa) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException {
-        Boolean apagouTarefa = tarefaDAO.apagarTarefa(tarefa);
+        Boolean apagouTarefa = this.tarefaDAO.apagarTarefa(tarefa);
 
         return apagouTarefa;
     }

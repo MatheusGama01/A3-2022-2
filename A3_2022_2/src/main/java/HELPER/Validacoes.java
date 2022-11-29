@@ -28,6 +28,7 @@ public class Validacoes {
         }
     }
     
+    //Verifica se foi inserida uma descricao para criar um tarefa.
     public Boolean dadosDeAdicaoDeTarefaInseridos(String descricao) throws NenhumaDescricaoInseridaException{
         if(descricao.equals("")){
             throw new NenhumaDescricaoInseridaException();

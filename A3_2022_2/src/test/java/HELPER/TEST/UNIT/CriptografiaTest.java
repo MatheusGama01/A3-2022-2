@@ -19,7 +19,7 @@ public class CriptografiaTest {
     public void deveEncriptarASenhaComSucesso() throws FalhaAoCriptografarSenhaException{
         String senha = "123";
         
-        String senhaEncriptada = criptografia.encriptarSenha(senha);
+        String senhaEncriptada = this.criptografia.encriptarSenha(senha);
         
         assertEquals("196a500b9911174047387a15004a27a6661231b233a904b457a99856833779928b67b2ab", senhaEncriptada);
     }

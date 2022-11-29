@@ -23,7 +23,7 @@ public class ControllerTelaCadastro {
         String senhaEncriptada = Criptografia.encriptarSenha(senha);
         UsuarioDTO usuarioDTO = new UsuarioDTO(nome, senhaEncriptada, email);
 
-        Boolean usuarioCadastrado = usuarioDAO.cadastrarUsuario(usuarioDTO);
+        Boolean usuarioCadastrado = this.usuarioDAO.cadastrarUsuario(usuarioDTO);
 
         return usuarioCadastrado;
     }

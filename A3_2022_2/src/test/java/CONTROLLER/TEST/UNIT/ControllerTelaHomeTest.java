@@ -68,7 +68,7 @@ public class ControllerTelaHomeTest {
         tarefaDAO.criarTarefa(tarefa1, usuarioDTO);
         tarefaDAO.criarTarefa(tarefa2, usuarioDTO);
 
-        ArrayList<TarefaDTO> tarefasListadas = controller.listarTarefas(usuarioDTO);
+        ArrayList<TarefaDTO> tarefasListadas = this.controller.listarTarefas(usuarioDTO);
 
         tarefa1.setIdUsuario(usuarioDTO.getId());
         tarefa2.setIdUsuario(usuarioDTO.getId());
@@ -98,7 +98,7 @@ public class ControllerTelaHomeTest {
         tarefa1.setId(tarefaDTO.getId());
         tarefaDAO.atualizarTarefa(tarefa1);
 
-        ArrayList<TarefaDTO> tarefasListadas = controller.listarTarefasAFazer(usuarioDTO);
+        ArrayList<TarefaDTO> tarefasListadas = this.controller.listarTarefasAFazer(usuarioDTO);
 
         tarefa2.setIdUsuario(usuarioDTO.getId());
         tarefa2.setId(tarefasListadas.get(0).getId());
@@ -125,7 +125,7 @@ public class ControllerTelaHomeTest {
         tarefa1.setId(tarefaDTO.getId());
         tarefaDAO.atualizarTarefa(tarefa1);
 
-        ArrayList<TarefaDTO> tarefasListadas = controller.listarTarefasFeitas(usuarioDTO);
+        ArrayList<TarefaDTO> tarefasListadas = this.controller.listarTarefasFeitas(usuarioDTO);
 
         tarefa1.setIdUsuario(usuarioDTO.getId());
         tarefa1.setId(tarefasListadas.get(0).getId());

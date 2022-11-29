@@ -61,7 +61,7 @@ public class ControllerTelaAdicionarTarefaTest {
 
         String descricao = "Teste";
 
-        controller.criarTarefa(descricao, usuario);
+        this.controller.criarTarefa(descricao, usuario);
 
         TarefaDTO tarefaSalva = pegaAPrimeiraTarefaDoBanco(usuario);
 

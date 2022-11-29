@@ -19,7 +19,7 @@ public class ConexaoDAOTest {
     @Test
     public void deveConectarAoBancoComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException{
         
-        Connection conn = conexaoDAO.conectaBD();
+        Connection conn = this.conexaoDAO.conectaBD();
         
         assertNotNull(conn);
     }

@@ -209,19 +209,19 @@ public class TelaLogin extends javax.swing.JFrame {
 
     //Chama o método logar em controller.
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
-        String email = txtEmail.getText();
-        String senha = new String(txtSenha.getPassword());
+        String email = this.txtEmail.getText();
+        String senha = new String(this.txtSenha.getPassword());
 
         try {
             //Verifica se foram inseridos os dados.
-            Boolean dadosInseridos = validacoes.dadosDeLoginInseridos(email, senha);
+            Boolean dadosInseridos = this.validacoes.dadosDeLoginInseridos(email, senha);
 
             /**
              * Se dadosInseridos for igual a "true" é chamado o método de logar
              * usuário. Se não, é lançada uma exceção.
              */
             if (dadosInseridos == true) {
-                UsuarioDTO usuarioLogado = controller.logar(email, senha);
+                UsuarioDTO usuarioLogado = this.controller.logar(email, senha);
 
                 TelaHome telaHome = new TelaHome(usuarioLogado);
                 telaHome.setVisible(true);

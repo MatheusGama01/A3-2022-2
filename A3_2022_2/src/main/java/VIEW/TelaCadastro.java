@@ -245,10 +245,10 @@ public class TelaCadastro extends javax.swing.JFrame {
      * esteja tudo certo o usuário é cadastrado.
      */
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        String nome = txtNome.getText();
-        String email = txtEmail.getText();
-        String senha = new String(txtSenha.getPassword());
-        String confirmarSenha = new String(txtConfirmarSenha.getPassword());
+        String nome = this.txtNome.getText();
+        String email = this.txtEmail.getText();
+        String senha = new String(this.txtSenha.getPassword());
+        String confirmarSenha = new String(this.txtConfirmarSenha.getPassword());
 
         try {
             //Chama o método validaDados para realizar as validações.
@@ -259,7 +259,7 @@ public class TelaCadastro extends javax.swing.JFrame {
              * cadastrar usuário. Se não, é lançada uma exceção.
              */
             if (dadosValidados == true) {
-                Boolean usuarioCadastrado = controller.cadastrarUsuario(nome, email, senha);
+                Boolean usuarioCadastrado = this.controller.cadastrarUsuario(nome, email, senha);
 
                 /**
                  * Se usuarioCadastrado for igual a "true" o usuário é
@@ -284,9 +284,9 @@ public class TelaCadastro extends javax.swing.JFrame {
 
     //Verifica se foi inserido algum dado e realiza validação de email e senha.
     private Boolean validaDados(String nome, String email, String senha, String confirmarSenha) throws NenhumDadoDeCadastroInseridoException, SenhasDiferentesException, EmailInvalidoException {
-        Boolean dadosInseridos = validacoes.dadosDeCadastroInseridos(nome, email, senha, confirmarSenha);
-        Boolean emailValido = validacoes.emailValido(email);
-        Boolean senhasIguais = validacoes.senhasIguais(senha, confirmarSenha);
+        Boolean dadosInseridos = this.validacoes.dadosDeCadastroInseridos(nome, email, senha, confirmarSenha);
+        Boolean emailValido = this.validacoes.emailValido(email);
+        Boolean senhasIguais = this.validacoes.senhasIguais(senha, confirmarSenha);
 
         if (dadosInseridos == true && emailValido == true && senhasIguais == true) {
             return true;

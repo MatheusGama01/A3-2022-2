@@ -26,9 +26,9 @@ public class UsuarioDAO {
      */
     public UsuarioDTO autenticarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, FalhaAoAutenticarException {
         try {
-            conn = conexaoDAO.conectaBD();
+            this.conn = this.conexaoDAO.conectaBD();
             String query = "SELECT * FROM usuarios WHERE email=? AND senha=?";
-            PreparedStatement pstm = conn.prepareStatement(query);
+            PreparedStatement pstm = this.conn.prepareStatement(query);
             pstm.setString(1, usuarioDTO.getEmail());
             pstm.setString(2, usuarioDTO.getSenha());
             ResultSet rs = pstm.executeQuery();
@@ -54,9 +54,9 @@ public class UsuarioDAO {
     //Insere um usuário no banco de dados.
     public Boolean cadastrarUsuario(UsuarioDTO objUsuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
         try {
-            conn = conexaoDAO.conectaBD();
+            this.conn = this.conexaoDAO.conectaBD();
             String query = "INSERT INTO usuarios (nome, email, senha) VALUES (?,?,?)";
-            PreparedStatement pstm = conn.prepareStatement(query);
+            PreparedStatement pstm = this.conn.prepareStatement(query);
             pstm.setString(1, objUsuarioDTO.getNome());
             pstm.setString(2, objUsuarioDTO.getEmail());
             pstm.setString(3, objUsuarioDTO.getSenha());
@@ -79,8 +79,8 @@ public class UsuarioDAO {
             UsuarioDTO usuarioRetornado = new UsuarioDTO();
 
             //Busca um usuário no banco de dados.
-            conn = conexaoDAO.conectaBD();
-            PreparedStatement pstm = conn.prepareStatement("SELECT * FROM usuarios WHERE email=?");
+            this.conn = this.conexaoDAO.conectaBD();
+            PreparedStatement pstm = this.conn.prepareStatement("SELECT * FROM usuarios WHERE email=?");
             pstm.setString(1, usuarioDTO.getEmail());
             ResultSet rs = pstm.executeQuery();
 
@@ -104,8 +104,8 @@ public class UsuarioDAO {
     //Apaga um usuário do banco de dados.
     public Boolean apagarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException {
         try {
-            conn = conexaoDAO.conectaBD();
-            PreparedStatement pstm = conn.prepareStatement("DELETE FROM usuarios WHERE email = ?");
+            this.conn = this.conexaoDAO.conectaBD();
+            PreparedStatement pstm = this.conn.prepareStatement("DELETE FROM usuarios WHERE email = ?");
             pstm.setString(1, usuarioDTO.getEmail());
             pstm.executeUpdate();
 

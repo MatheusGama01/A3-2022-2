@@ -178,7 +178,7 @@ public class TelaUsuario extends javax.swing.JFrame {
 
     //Navega para TelaHome.
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        TelaHome telaHome = new TelaHome(usuarioLogado);
+        TelaHome telaHome = new TelaHome(this.usuarioLogado);
         telaHome.setVisible(true);
 
         this.dispose();
@@ -186,7 +186,7 @@ public class TelaUsuario extends javax.swing.JFrame {
 
     //Navega para TelaHome.
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        TelaHome telaHome = new TelaHome(usuarioLogado);
+        TelaHome telaHome = new TelaHome(this.usuarioLogado);
         telaHome.setVisible(true);
 
         this.dispose();
@@ -194,7 +194,7 @@ public class TelaUsuario extends javax.swing.JFrame {
 
     //Navega para TelaHome.
     private void lblVoltarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVoltarMouseClicked
-        TelaHome telaHome = new TelaHome(usuarioLogado);
+        TelaHome telaHome = new TelaHome(this.usuarioLogado);
         telaHome.setVisible(true);
 
         this.dispose();
@@ -202,7 +202,7 @@ public class TelaUsuario extends javax.swing.JFrame {
 
     //Inicializa tela com o nome do usuário.
     private void inicializarTela(UsuarioDTO usuario) {
-        lblUsuario.setText(usuario.getNome());
+        this.lblUsuario.setText(usuario.getNome());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -32,42 +32,42 @@ public class UsuarioDAOTest {
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        this.usuarioDAO = new UsuarioDAO(conexaoDAO);
+        this.usuarioDAO = new UsuarioDAO(this.conexaoDAO);
     }
 
     @Test(expected = NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.class)
     public void verificarSeLancaErroAoAutenticarUsuarioComBancoIndisponivel() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, FalhaAoAutenticarException {
-        when(conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
+        when(this.conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
 
         UsuarioDTO usuarioDTO1 = new UsuarioDTO(1, "jose", "1235", "jose44@email.com");
 
-        usuarioDAO.autenticarUsuario(usuarioDTO1);
+        this.usuarioDAO.autenticarUsuario(usuarioDTO1);
     }
 
     @Test(expected = NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.class)
     public void verificarSeLancaErroAoCadastrarUsuarioComBancoIndisponivel() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException {
-        when(conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
+        when(this.conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
         
         UsuarioDTO usuarioDTOg = new UsuarioDTO("Lara", "9912", "Lara123@email.com");
         
-        usuarioDAO.cadastrarUsuario(usuarioDTOg);
+        this.usuarioDAO.cadastrarUsuario(usuarioDTOg);
     }
 
     @Test(expected = NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.class)
     public void verificarSeLancaErroAoListarUsuarioComBancoIndisponivel() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarOUsuarioException {
-        when(conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
+        when(this.conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
         
         UsuarioDTO usuarioDTOm = new UsuarioDTO("4433", "Matheus55@email.com");
         
-        usuarioDAO.listarUsuario(usuarioDTOm);
+        this.usuarioDAO.listarUsuario(usuarioDTOm);
     }
 
     @Test(expected = NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException.class)
     public void verificarSeLancaErroAoApagarUsuarioComBancoIndisponivel() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarOUsuarioException {
-        when(conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
+        when(this.conexaoDAO.conectaBD()).thenThrow(new NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException());
         
         UsuarioDTO usuarioDTOe = new UsuarioDTO("2613", "Eudes13@email.com");
         
-        usuarioDAO.apagarUsuario(usuarioDTOe);
+        this.usuarioDAO.apagarUsuario(usuarioDTOe);
     }
 }

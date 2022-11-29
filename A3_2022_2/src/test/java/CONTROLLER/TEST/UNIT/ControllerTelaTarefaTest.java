@@ -30,11 +30,9 @@ public class ControllerTelaTarefaTest {
 
     @Before
     public void init() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCadastrarUsuarioException, NaoFoiPossivelCriarATarefaException, NaoFoiPossivelListarOUsuarioException {
-        
-        
         ConexaoDAO conexaoDAO = new ConexaoDAO();
         this.tarefaDAO = new TarefaDAO(conexaoDAO);
-        this.controller = new ControllerTelaTarefa(tarefaDAO);
+        this.controller = new ControllerTelaTarefa(this.tarefaDAO);
 
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste ControllerTelaTarefa", "123", "testeControllerTelaTarefa@email.com");
         UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
@@ -42,7 +40,7 @@ public class ControllerTelaTarefaTest {
         UsuarioDTO usuarioDTO2 = carregarUsuario();
         
         TarefaDTO tarefaDTO = new TarefaDTO("Teste 1", false);
-        tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO2);
+        this.tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO2);
     }
     
     @After
@@ -51,10 +49,10 @@ public class ControllerTelaTarefaTest {
         ConexaoDAO conexaoDAO = new ConexaoDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
         
-        ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
+        ArrayList<TarefaDTO> tarefas = this.tarefaDAO.listarTarefas(usuarioDTO);
         
         for (TarefaDTO tarefa : tarefas) {
-            tarefaDAO.apagarTarefa(tarefa);
+            this.tarefaDAO.apagarTarefa(tarefa);
         }
         
         usuarioDAO.apagarUsuario(usuarioDTO);
@@ -72,9 +70,9 @@ public class ControllerTelaTarefaTest {
         String descricao = "Teste";
         Boolean status = true;
 
-        controller.salvarEdicao(tarefaDTO, descricao, status);
+        this.controller.salvarEdicao(tarefaDTO, descricao, status);
 
-        TarefaDTO tarefaEditada = tarefaDAO.listarTarefa(tarefaDTO);
+        TarefaDTO tarefaEditada = this.tarefaDAO.listarTarefa(tarefaDTO);
 
         assertEquals(tarefaDTO.getId(), tarefaEditada.getId());
         assertEquals(descricao, tarefaEditada.getDescricao());
@@ -92,7 +90,7 @@ public class ControllerTelaTarefaTest {
         Boolean status = false;
 
         TarefaNaoAlteradaException TarefaNaoAlteradaException = assertThrows(TarefaNaoAlteradaException.class, () -> {
-            controller.salvarEdicao(tarefaDTO, descricao, status);
+            this.controller.salvarEdicao(tarefaDTO, descricao, status);
         });
 
         assertEquals("A tarefa não foi alterada!\nFaça uma alteração para salvar a edição.", TarefaNaoAlteradaException.getMessage());
@@ -103,9 +101,9 @@ public class ControllerTelaTarefaTest {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefaDTO = pegaAPrimeiraTarefaDoBanco(usuarioDTO);
         
-        controller.apagarTarefa(tarefaDTO);
+        this.controller.apagarTarefa(tarefaDTO);
 
-        TarefaDTO tarefaApagada = tarefaDAO.listarTarefa(tarefaDTO);
+        TarefaDTO tarefaApagada = this.tarefaDAO.listarTarefa(tarefaDTO);
         TarefaDTO tarefaDTO2 = new TarefaDTO(0, null, null, 0);
         
         assertEquals(tarefaDTO2, tarefaApagada);
@@ -122,7 +120,7 @@ public class ControllerTelaTarefaTest {
     }
     
     private TarefaDTO pegaAPrimeiraTarefaDoBanco(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
-        ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
+        ArrayList<TarefaDTO> tarefas = this.tarefaDAO.listarTarefas(usuarioDTO);
         TarefaDTO tarefa = new TarefaDTO(0, "", Boolean.FALSE);
 
         for (TarefaDTO tarefa1 : tarefas) {

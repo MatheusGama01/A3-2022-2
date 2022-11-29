@@ -46,7 +46,7 @@ public class ControllerTelaLoginTest {
 
     @Test
     public void deveRealizarAutenticacaoComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, EmailOuSenhaIncorretosException, FalhaAoAutenticarException, FalhaAoCriptografarSenhaException, NaoFoiPossivelCadastrarUsuarioException {
-        UsuarioDTO usuario = new UsuarioDTO("Teste ControllerTelaLogin", criptgrafia.encriptarSenha("123"), "controller@email.com");
+        UsuarioDTO usuario = new UsuarioDTO("Teste ControllerTelaLogin", this.criptgrafia.encriptarSenha("123"), "controller@email.com");
         ConexaoDAO conexaoDAO = new ConexaoDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
         usuarioDAO.cadastrarUsuario(usuario);
@@ -54,7 +54,7 @@ public class ControllerTelaLoginTest {
         String email = usuario.getEmail();
         String senha = "123";
 
-        UsuarioDTO usuarioLogado = controller.logar(email, senha);
+        UsuarioDTO usuarioLogado = this.controller.logar(email, senha);
         
         assertEquals(usuario.getEmail(), usuarioLogado.getEmail());
         assertEquals(usuario.getSenha(), usuarioLogado.getSenha());
@@ -66,7 +66,7 @@ public class ControllerTelaLoginTest {
         String senha = "";
 
         FalhaAoAutenticarException FalhaAoAutenticarException = assertThrows(FalhaAoAutenticarException.class, () -> {
-            controller.logar(email, senha);
+            this.controller.logar(email, senha);
         });
 
         assertEquals("Desculpe, houve um erro inesperado e não conseguimos fazer a autenticação!\nPor favor, tente novamente mais tarde!", FalhaAoAutenticarException.getMessage());

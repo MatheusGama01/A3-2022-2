@@ -12,9 +12,9 @@ import javax.swing.JOptionPane;
 
 public class TelaAdicionarTarefa extends javax.swing.JFrame {
 
+    private final UsuarioDTO usuarioLogado;
     private final ControllerTelaAdicionarTarefa controller;
     private final Validacoes validacoes;
-    private final UsuarioDTO usuarioLogado;
 
     /**
      * Creates new form AdicionarTarefa
@@ -170,7 +170,7 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
 
     //Chama o método de salvar tarefa.
     private void btnSalvarTarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTarefaActionPerformed
-        String descricao = textAreaDescricao.getText();
+        String descricao = this.textAreaDescricao.getText();
 
         try {
             //Chama o método dadosDeAdicaoDeTarefaInseridos para realizar a validação.
@@ -206,7 +206,7 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
 
     //Instancia TelaHome e a torna visível.
     private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
-        TelaHome telaHome = new TelaHome(usuarioLogado);
+        TelaHome telaHome = new TelaHome(this.usuarioLogado);
         telaHome.setVisible(true);
 
         this.dispose();
@@ -214,7 +214,7 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
 
     //Instancia TelaUsuario e a torna visível.
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
-        TelaUsuario telaUsuario = new TelaUsuario(usuarioLogado);
+        TelaUsuario telaUsuario = new TelaUsuario(this.usuarioLogado);
         telaUsuario.setVisible(true);
 
         this.dispose();
@@ -222,7 +222,7 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
 
     //Navega para telaHome sem salvar a tarefa.
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        TelaHome telaHome = new TelaHome(usuarioLogado);
+        TelaHome telaHome = new TelaHome(this.usuarioLogado);
         telaHome.setVisible(true);
 
         this.dispose();
@@ -230,7 +230,7 @@ public class TelaAdicionarTarefa extends javax.swing.JFrame {
 
     //Inicializa a telaAdicinarTarefa com o nome do usuário logado.
     private void inicializarTela(UsuarioDTO usuario) {
-        lblUsuario.setText(usuario.getNome());
+        this.lblUsuario.setText(usuario.getNome());
     }
 
     //Mostra uma mensagem referente ao erro ocorrido.

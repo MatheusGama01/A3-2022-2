@@ -14,8 +14,8 @@ import javax.swing.JOptionPane;
 public class TelaTarefa extends javax.swing.JFrame {
 
     private ControllerTelaTarefa controller;
-    TarefaDTO tarefa = new TarefaDTO();
-    UsuarioDTO usuarioLogado = new UsuarioDTO();
+    private TarefaDTO tarefa;
+    private UsuarioDTO usuarioLogado;
 
     /**
      * Creates new form TelaTarefa
@@ -185,7 +185,7 @@ public class TelaTarefa extends javax.swing.JFrame {
 
     //Instancia TelaUsuario e a torna visível.
     private void lblUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUsuarioMouseClicked
-        TelaUsuario telaUsuario = new TelaUsuario(usuarioLogado);
+        TelaUsuario telaUsuario = new TelaUsuario(this.usuarioLogado);
         telaUsuario.setVisible(true);
 
         this.dispose();
@@ -193,7 +193,7 @@ public class TelaTarefa extends javax.swing.JFrame {
 
     //Instancia TelaHome e a torna visível.
     private void lblLogoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblLogoMouseClicked
-        TelaHome telaHome = new TelaHome(usuarioLogado);
+        TelaHome telaHome = new TelaHome(this.usuarioLogado);
         telaHome.setVisible(true);
 
         this.dispose();
@@ -201,18 +201,18 @@ public class TelaTarefa extends javax.swing.JFrame {
 
     //Chama o métdo salvarEdicao de ControllerTelaTarefa.
     private void btnSalvarEdicaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalvarEdicaoMouseClicked
-        String descricao = TextAreaDescricaoDaTarefa.getText();
-        Boolean status = CheckBoxStatusDaTarefa.isSelected();
+        String descricao = this.TextAreaDescricaoDaTarefa.getText();
+        Boolean status = this.CheckBoxStatusDaTarefa.isSelected();
 
         try {
-            Boolean tarefaAtualizada = controller.salvarEdicao(tarefa, descricao, status);
+            Boolean tarefaAtualizada = this.controller.salvarEdicao(this.tarefa, descricao, status);
 
             /**
              * Se tarefaAtualizada for igual a "true" o usuário é redirecionado
              * para tela home. Se não, é lançada uma exceção.
              */
             if (tarefaAtualizada == true) {
-                TelaHome telaHome = new TelaHome(usuarioLogado);
+                TelaHome telaHome = new TelaHome(this.usuarioLogado);
                 telaHome.setVisible(true);
 
                 this.dispose();
@@ -231,14 +231,14 @@ public class TelaTarefa extends javax.swing.JFrame {
 
         if (confirmarExclusao == true) {
             try {
-                Boolean tarefaApagada = this.controller.apagarTarefa(tarefa);
+                Boolean tarefaApagada = this.controller.apagarTarefa(this.tarefa);
 
                 /**
                  * Se tarefaApagada for igual a "true" o usuário é
                  * redirecionado para tela home. Se não, é lançada uma exceção.
                  */
                 if (tarefaApagada = true) {
-                    TelaHome telaHome = new TelaHome(usuarioLogado);
+                    TelaHome telaHome = new TelaHome(this.usuarioLogado);
                     telaHome.setVisible(true);
 
                     this.dispose();
@@ -254,15 +254,15 @@ public class TelaTarefa extends javax.swing.JFrame {
 
     //Inicializa TelaTarefa com as informações da tarefa que foi passada.
     private void inicializarTelaTarefa(TarefaDTO tarefa, UsuarioDTO usuario) {
-        lblUsuario.setText(usuario.getNome());
-        TextAreaDescricaoDaTarefa.setText(tarefa.getDescricao());
+        this.lblUsuario.setText(usuario.getNome());
+        this.TextAreaDescricaoDaTarefa.setText(tarefa.getDescricao());
 
         /**
          * Se status == true -> a tarefa já estará marcada como feita. 
          * Se status == false -> a checkbox ficará desmarcada, pois a tarefa 
          * estará à fazer.
          */
-        CheckBoxStatusDaTarefa.setSelected(tarefa.getStatus());
+        this.CheckBoxStatusDaTarefa.setSelected(tarefa.getStatus());
     }
 
     //Confirma se o usuário realmente quer excluir a tarefa.

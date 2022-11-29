@@ -40,10 +40,10 @@ public class TarefaDAOTest {
         ConexaoDAO conexaoDAO = new ConexaoDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
 
-        ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
+        ArrayList<TarefaDTO> tarefas = this.tarefaDAO.listarTarefas(usuarioDTO);
 
         for (TarefaDTO tarefa : tarefas) {
-            tarefaDAO.apagarTarefa(tarefa);
+            this.tarefaDAO.apagarTarefa(tarefa);
         }
 
         usuarioDAO.apagarUsuario(usuarioDTO);
@@ -58,7 +58,7 @@ public class TarefaDAOTest {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefaDTO = new TarefaDTO("Teste unitário", false);
 
-        tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO);
+        this.tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO);
 
         TarefaDTO tarefaSalva = pegaAPrimeiraTarefaDoBanco(usuarioDTO);
         tarefaDTO.setId(tarefaSalva.getId());
@@ -72,10 +72,10 @@ public class TarefaDAOTest {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefa1 = new TarefaDTO("Teste 1", false);
         TarefaDTO tarefa2 = new TarefaDTO("Teste 2", false);
-        tarefaDAO.criarTarefa(tarefa1, usuarioDTO);
-        tarefaDAO.criarTarefa(tarefa2, usuarioDTO);
+        this.tarefaDAO.criarTarefa(tarefa1, usuarioDTO);
+        this.tarefaDAO.criarTarefa(tarefa2, usuarioDTO);
 
-        ArrayList<TarefaDTO> tarefasListadas = tarefaDAO.listarTarefas(usuarioDTO);
+        ArrayList<TarefaDTO> tarefasListadas = this.tarefaDAO.listarTarefas(usuarioDTO);
 
         ArrayList<TarefaDTO> tarefas = new ArrayList<>();
         tarefa1.setId(tarefasListadas.get(0).getId());
@@ -92,12 +92,12 @@ public class TarefaDAOTest {
     public void deveListarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefaDTO = new TarefaDTO("Teste 1", false);
-        tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO);
+        this.tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO);
         
         TarefaDTO tarefaApoio = pegaAPrimeiraTarefaDoBanco(usuarioDTO);
         tarefaDTO.setId(tarefaApoio.getId());
 
-        TarefaDTO tarefaListada = tarefaDAO.listarTarefa(tarefaDTO);
+        TarefaDTO tarefaListada = this.tarefaDAO.listarTarefa(tarefaDTO);
         
         tarefaDTO.setId(tarefaListada.getId());
         tarefaDTO.setIdUsuario(usuarioDTO.getId());
@@ -109,14 +109,14 @@ public class TarefaDAOTest {
     public void deveAtualizarUmaTarefaComSucesso() throws NaoFoiPossivelSalvarAEdicaoDaTarefaException, NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefaDTO = new TarefaDTO("Teste 1", false);
-        tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO);
+        this.tarefaDAO.criarTarefa(tarefaDTO, usuarioDTO);
         
         TarefaDTO tarefa = new TarefaDTO("Teste", false);
         TarefaDTO tarefaApoio = pegaAPrimeiraTarefaDoBanco(usuarioDTO);
         tarefa.setId(tarefaApoio.getId());
         tarefa.setIdUsuario(usuarioDTO.getId());
         
-        tarefaDAO.atualizarTarefa(tarefa);
+        this.tarefaDAO.atualizarTarefa(tarefa);
 
         TarefaDTO tarefaAtualizada = pegaAPrimeiraTarefaDoBanco(usuarioDTO);
         
@@ -127,15 +127,15 @@ public class TarefaDAOTest {
     public void deveApagarUmaTarefaComSucesso() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelApagarATarefaException, NaoFoiPossivelListarAsTarefasDoUsuarioException, NaoFoiPossivelListarOUsuarioException, NaoFoiPossivelCriarATarefaException {
         UsuarioDTO usuarioDTO = carregarUsuario();
         TarefaDTO tarefa = new TarefaDTO("Teste", false);
-        tarefaDAO.criarTarefa(tarefa, usuarioDTO);
+        this.tarefaDAO.criarTarefa(tarefa, usuarioDTO);
         
         TarefaDTO tarefaDTO = pegaAPrimeiraTarefaDoBanco(usuarioDTO);
         tarefa.setId(tarefaDTO.getId());
 
-        tarefaDAO.apagarTarefa(tarefaDTO);
+        this.tarefaDAO.apagarTarefa(tarefaDTO);
         
         TarefaDTO tarefaDTO2 = new TarefaDTO(0, null, null, 0);
-        TarefaDTO tarefaApagada = tarefaDAO.listarTarefa(tarefa);
+        TarefaDTO tarefaApagada = this.tarefaDAO.listarTarefa(tarefa);
         
         assertEquals(tarefaDTO2, tarefaApagada);
     }
@@ -151,7 +151,7 @@ public class TarefaDAOTest {
     }
 
     private TarefaDTO pegaAPrimeiraTarefaDoBanco(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
-        ArrayList<TarefaDTO> tarefas = tarefaDAO.listarTarefas(usuarioDTO);
+        ArrayList<TarefaDTO> tarefas = this.tarefaDAO.listarTarefas(usuarioDTO);
         TarefaDTO tarefa = new TarefaDTO(0, "", Boolean.FALSE);
 
         for (TarefaDTO tarefa1 : tarefas) {

@@ -49,13 +49,13 @@ public class ControllerTelaCadastroTest {
         String senha = "123";
         String email = "controllerTelaCadastro@email.com";
 
-        controller.cadastrarUsuario(nome, email, senha);
+        this.controller.cadastrarUsuario(nome, email, senha);
         ConexaoDAO conexaoDAO = new ConexaoDAO();
         UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
         UsuarioDTO usuarioDTO = new UsuarioDTO(nome, senha, email);
         UsuarioDTO usuarioCadastrado = usuarioDAO.listarUsuario(usuarioDTO);
         usuarioDTO.setId(usuarioCadastrado.getId());
-        usuarioDTO.setSenha(criptografia.encriptarSenha(senha));
+        usuarioDTO.setSenha(this.criptografia.encriptarSenha(senha));
 
         assertEquals(usuarioDTO, usuarioCadastrado);
     }

@@ -24,7 +24,7 @@ public class ControllerTelaHome {
          * Insere os dados retornados pelo banco de dados no ArrayList
          * listaDeTarefas.
          */
-        for (TarefaDTO tarefa : tarefaDAO.listarTarefas(usuario)) {
+        for (TarefaDTO tarefa : this.tarefaDAO.listarTarefas(usuario)) {
             System.out.println("ControllerTelaHome.listarTarefas - Status da tarefa: " + tarefa.getStatus());
             listaDeTarefas.add(tarefa);
         }
@@ -41,7 +41,7 @@ public class ControllerTelaHome {
          * Verifica cada tarefa salva no banco de dados e insere na
          * listaDeTarefasAFazer apenas as que estão com status: false (à fazer).
          */
-        for (TarefaDTO tarefa : tarefaDAO.listarTarefas(usuario)) {
+        for (TarefaDTO tarefa : this.tarefaDAO.listarTarefas(usuario)) {
             System.out.println("ControllerTelaHome.listarTarefas - Status da tarefa: " + tarefa.getStatus());
             if (tarefa.getStatus() == false) {
                 listaDeTarefasAFazer.add(tarefa);
@@ -60,7 +60,7 @@ public class ControllerTelaHome {
          * Verifica cada tarefa salva no banco de dados e inseri na
          * listaDeTarefasFeitas apenas as que estão com status: true (feitas).
          */
-        for (TarefaDTO tarefa : tarefaDAO.listarTarefas(usuario)) {
+        for (TarefaDTO tarefa : this.tarefaDAO.listarTarefas(usuario)) {
             System.out.println("ControllerTelaHome.listarTarefas - Status da tarefa: " + tarefa.getStatus());
             if (tarefa.getStatus() == true) {
                 listaDeTarefasFeitas.add(tarefa);

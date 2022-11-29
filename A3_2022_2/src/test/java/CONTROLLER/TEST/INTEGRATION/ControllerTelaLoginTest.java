@@ -25,7 +25,7 @@ public class ControllerTelaLoginTest {
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        this.controller = new ControllerTelaLogin(usuarioDAO);
+        this.controller = new ControllerTelaLogin(this.usuarioDAO);
     }
 
     @Test
@@ -34,9 +34,9 @@ public class ControllerTelaLoginTest {
         String senha = "123";
         UsuarioDTO usuarioDTO = new UsuarioDTO(senha, email);
 
-        when(usuarioDAO.autenticarUsuario(any(UsuarioDTO.class))).thenReturn(usuarioDTO);
+        when(this.usuarioDAO.autenticarUsuario(any(UsuarioDTO.class))).thenReturn(usuarioDTO);
 
-        UsuarioDTO usuarioAutenticado = controller.logar(email, senha);
+        UsuarioDTO usuarioAutenticado = this.controller.logar(email, senha);
 
         assertEquals(usuarioDTO, usuarioAutenticado);
     }
@@ -47,9 +47,9 @@ public class ControllerTelaLoginTest {
         String senha = "123";
         UsuarioDTO usuarioNulo = new UsuarioDTO(0, null, null, null);
 
-        when(usuarioDAO.autenticarUsuario(any(UsuarioDTO.class))).thenReturn(usuarioNulo);
+        when(this.usuarioDAO.autenticarUsuario(any(UsuarioDTO.class))).thenReturn(usuarioNulo);
 
-        UsuarioDTO usuarioAutenticado = controller.logar(email, senha);
+        UsuarioDTO usuarioAutenticado = this.controller.logar(email, senha);
 
         assertEquals(usuarioNulo, usuarioAutenticado);
     }
@@ -59,8 +59,8 @@ public class ControllerTelaLoginTest {
         String email = "teste@email.com";
         String senha = "123";
 
-        when(usuarioDAO.autenticarUsuario(any(UsuarioDTO.class))).thenThrow(new FalhaAoAutenticarException());
+        when(this.usuarioDAO.autenticarUsuario(any(UsuarioDTO.class))).thenThrow(new FalhaAoAutenticarException());
 
-        controller.logar(email, senha);
+        this.controller.logar(email, senha);
     }
 }

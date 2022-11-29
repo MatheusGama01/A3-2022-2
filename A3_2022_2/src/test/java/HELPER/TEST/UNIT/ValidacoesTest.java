@@ -25,7 +25,7 @@ public class ValidacoesTest {
         String senha = "123";
         String confirmarSenha = "123";
 
-        boolean dadosInseridos = validacoes.dadosDeCadastroInseridos(nome, email, senha, confirmarSenha);
+        Boolean dadosInseridos = this.validacoes.dadosDeCadastroInseridos(nome, email, senha, confirmarSenha);
 
         assertTrue(dadosInseridos);
     }
@@ -38,7 +38,7 @@ public class ValidacoesTest {
         String confirmarSenha = "123";
 
         NenhumDadoDeCadastroInseridoException NenhumDadoDeCadastroInseridoException = assertThrows(NenhumDadoDeCadastroInseridoException.class, () -> {
-            validacoes.dadosDeCadastroInseridos(nome, email, senha, confirmarSenha);
+            this.validacoes.dadosDeCadastroInseridos(nome, email, senha, confirmarSenha);
         });
 
         assertEquals("Digite seus dados para realizar o cadastro.", NenhumDadoDeCadastroInseridoException.getMessage());
@@ -49,7 +49,7 @@ public class ValidacoesTest {
         String senha = "123";
         String confirmarSenha = "123";
 
-        boolean senhasIguais = validacoes.senhasIguais(senha, confirmarSenha);
+        Boolean senhasIguais = this.validacoes.senhasIguais(senha, confirmarSenha);
 
         assertTrue(senhasIguais);
     }
@@ -60,7 +60,7 @@ public class ValidacoesTest {
         String confirmarSenha = "321";
 
         SenhasDiferentesException SenhasDiferentesException = assertThrows(SenhasDiferentesException.class, () -> {
-            validacoes.senhasIguais(senha, confirmarSenha);
+            this.validacoes.senhasIguais(senha, confirmarSenha);
         });
 
         assertEquals("As senhas são diferentes!\nDigite a mesma senha para realizar o cadastro.", SenhasDiferentesException.getMessage());
@@ -70,7 +70,7 @@ public class ValidacoesTest {
     public void deveRetornarTrueParaEmailValido() throws EmailInvalidoException {
         String email = "aaabbb@gmail.com";
 
-        boolean emailValido = validacoes.emailValido(email);
+        Boolean emailValido = this.validacoes.emailValido(email);
 
         assertTrue(emailValido);
     }
@@ -80,7 +80,7 @@ public class ValidacoesTest {
         String email = "inv@lido@com.br";
 
         EmailInvalidoException EmailInvalidoException = assertThrows(EmailInvalidoException.class, () -> {
-            validacoes.emailValido(email);
+            this.validacoes.emailValido(email);
         });
 
         assertEquals("O email digitado não é válido!\nPor favor, digite um email válido.", EmailInvalidoException.getMessage());
@@ -90,7 +90,7 @@ public class ValidacoesTest {
         String email = "invalido.com.br";
 
         EmailInvalidoException EmailInvalidoException = assertThrows(EmailInvalidoException.class, () -> {
-            validacoes.emailValido(email);
+            this.validacoes.emailValido(email);
         });
 
         assertEquals("O email digitado não é válido!\nPor favor, digite um email válido.", EmailInvalidoException.getMessage());
@@ -101,7 +101,7 @@ public class ValidacoesTest {
         String email = "invalido@gmail";
 
         EmailInvalidoException EmailInvalidoException = assertThrows(EmailInvalidoException.class, () -> {
-            validacoes.emailValido(email);
+            this.validacoes.emailValido(email);
         });
 
         assertEquals("O email digitado não é válido!\nPor favor, digite um email válido.", EmailInvalidoException.getMessage());
@@ -112,7 +112,7 @@ public class ValidacoesTest {
         String email = "";
 
         EmailInvalidoException EmailInvalidoException = assertThrows(EmailInvalidoException.class, () -> {
-            validacoes.emailValido(email);
+            this.validacoes.emailValido(email);
         });
 
         assertEquals("O email digitado não é válido!\nPor favor, digite um email válido.", EmailInvalidoException.getMessage());

@@ -25,7 +25,7 @@ public class ControllerTelaHomeTest {
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        this.controller = new ControllerTelaHome(tarefaDAO);
+        this.controller = new ControllerTelaHome(this.tarefaDAO);
     }
 
     @Test
@@ -38,20 +38,20 @@ public class ControllerTelaHomeTest {
         listaDeTarefas.add(tarefa1);
         listaDeTarefas.add(tarefa2);
 
-        when(tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenReturn(listaDeTarefas);
+        when(this.tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenReturn(listaDeTarefas);
 
-        ArrayList<TarefaDTO> tarefasRetornadas = controller.listarTarefas(usuario);
+        ArrayList<TarefaDTO> tarefasRetornadas = this.controller.listarTarefas(usuario);
 
         assertEquals(listaDeTarefas, tarefasRetornadas);
     }
 
     @Test(expected = NaoFoiPossivelListarAsTarefasDoUsuarioException.class)
     public void verificaSeListarTarefasLancaErroQuandoNaoForPossivelListarAsTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
-        when(tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenThrow(new NaoFoiPossivelListarAsTarefasDoUsuarioException());
+        when(this.tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenThrow(new NaoFoiPossivelListarAsTarefasDoUsuarioException());
 
         UsuarioDTO usuario = new UsuarioDTO(1, "Teste", "123", "teste@email.com");
 
-        controller.listarTarefas(usuario);
+        this.controller.listarTarefas(usuario);
     }
 
     @Test
@@ -67,20 +67,20 @@ public class ControllerTelaHomeTest {
         ArrayList<TarefaDTO> listaDeTarefasAFazer = new ArrayList<>();
         listaDeTarefasAFazer.add(tarefa2);
 
-        when(tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenReturn(listaDeTarefas);
+        when(this.tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenReturn(listaDeTarefas);
 
-        ArrayList<TarefaDTO> tarefasRetornadas = controller.listarTarefasAFazer(usuario);
+        ArrayList<TarefaDTO> tarefasRetornadas = this.controller.listarTarefasAFazer(usuario);
 
         assertEquals(listaDeTarefasAFazer, tarefasRetornadas);
     }
 
     @Test(expected = NaoFoiPossivelListarAsTarefasDoUsuarioException.class)
     public void verificaSeListarTarefasAFazerLancaErroQuandoNaoForPossivelListarAsTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
-        when(tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenThrow(new NaoFoiPossivelListarAsTarefasDoUsuarioException());
+        when(this.tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenThrow(new NaoFoiPossivelListarAsTarefasDoUsuarioException());
 
         UsuarioDTO usuario = new UsuarioDTO(1, "Teste", "123", "teste@email.com");
 
-        controller.listarTarefasAFazer(usuario);
+        this.controller.listarTarefasAFazer(usuario);
     }
 
     @Test
@@ -96,19 +96,19 @@ public class ControllerTelaHomeTest {
         ArrayList<TarefaDTO> listaDeTarefasFeitas = new ArrayList<>();
         listaDeTarefasFeitas.add(tarefa1);
 
-        when(tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenReturn(listaDeTarefas);
+        when(this.tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenReturn(listaDeTarefas);
 
-        ArrayList<TarefaDTO> tarefasRetornadas = controller.listarTarefasFeitas(usuario);
+        ArrayList<TarefaDTO> tarefasRetornadas = this.controller.listarTarefasFeitas(usuario);
 
         assertEquals(listaDeTarefasFeitas, tarefasRetornadas);
     }
 
     @Test(expected = NaoFoiPossivelListarAsTarefasDoUsuarioException.class)
     public void verificaSeListarTarefasFeitasLancaErroQuandoNaoForPossivelListarAsTarefas() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelListarAsTarefasDoUsuarioException {
-        when(tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenThrow(new NaoFoiPossivelListarAsTarefasDoUsuarioException());
+        when(this.tarefaDAO.listarTarefas(any(UsuarioDTO.class))).thenThrow(new NaoFoiPossivelListarAsTarefasDoUsuarioException());
 
         UsuarioDTO usuario = new UsuarioDTO(1, "Teste", "123", "teste@email.com");
 
-        controller.listarTarefasFeitas(usuario);
+        this.controller.listarTarefasFeitas(usuario);
     }
 }

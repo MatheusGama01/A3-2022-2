@@ -24,7 +24,7 @@ public class ControllerTelaLogin {
         UsuarioDTO usuarioDTO = new UsuarioDTO(Criptografia.encriptarSenha(senha), email);
         UsuarioDTO usuarioVazio = new UsuarioDTO(0, null, null, null);
 
-        UsuarioDTO usuarioLogado = usuarioDAO.autenticarUsuario(usuarioDTO);
+        UsuarioDTO usuarioLogado = this.usuarioDAO.autenticarUsuario(usuarioDTO);
 
         if (usuarioLogado.equals(usuarioVazio)) {
             throw new FalhaAoAutenticarException();

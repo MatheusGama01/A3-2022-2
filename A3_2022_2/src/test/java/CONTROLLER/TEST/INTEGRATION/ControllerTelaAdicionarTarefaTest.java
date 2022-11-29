@@ -23,16 +23,16 @@ public class ControllerTelaAdicionarTarefaTest {
     @Before
     public void init() {
         MockitoAnnotations.initMocks(this);
-        this.controller = new ControllerTelaAdicionarTarefa(tarefaDAO);
+        this.controller = new ControllerTelaAdicionarTarefa(this.tarefaDAO);
     }
 
     @Test(expected = NaoFoiPossivelCriarATarefaException.class)
     public void verificaSeCriarTarefaLacaExcecaoQuandoNaoForPossivelCriarUmaTarefa() throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, NaoFoiPossivelCriarATarefaException {
-        when(tarefaDAO.criarTarefa(any(TarefaDTO.class), any(UsuarioDTO.class))).thenThrow(new NaoFoiPossivelCriarATarefaException());
+        when(this.tarefaDAO.criarTarefa(any(TarefaDTO.class), any(UsuarioDTO.class))).thenThrow(new NaoFoiPossivelCriarATarefaException());
 
         UsuarioDTO usuario = new UsuarioDTO(100, "Teste", "123", "teste@email.com");
         String descricao = "Teste";
 
-        controller.criarTarefa(descricao, usuario);
+        this.controller.criarTarefa(descricao, usuario);
     }
 }
