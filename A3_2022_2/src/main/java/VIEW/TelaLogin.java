@@ -211,7 +211,6 @@ public class TelaLogin extends javax.swing.JFrame {
     private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogarActionPerformed
         String email = txtEmail.getText();
         String senha = new String(txtSenha.getPassword());
-        UsuarioDTO usuarioVazio = new UsuarioDTO(0, null, null, null);
 
         try {
             //Verifica se foram inseridos os dados.
@@ -224,18 +223,10 @@ public class TelaLogin extends javax.swing.JFrame {
             if (dadosInseridos == true) {
                 UsuarioDTO usuarioLogado = controller.logar(email, senha);
 
-                /**
-                 * Se usuarioLogado estiver vazio é lançada uma exceção. Se não,
-                 * o usuário é redirecinado para a tela home.
-                 */
-                if (usuarioLogado.equals(usuarioVazio)) {
-                    throw new FalhaAoAutenticarException();
-                } else {
-                    TelaHome telaHome = new TelaHome(usuarioLogado);
-                    telaHome.setVisible(true);
+                TelaHome telaHome = new TelaHome(usuarioLogado);
+                telaHome.setVisible(true);
 
-                    this.dispose();
-                }
+                this.dispose();
             } else {
                 throw new FalhaAoAutenticarException();
             }

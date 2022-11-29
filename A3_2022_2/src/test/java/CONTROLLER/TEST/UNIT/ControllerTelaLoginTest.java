@@ -51,14 +51,13 @@ public class ControllerTelaLoginTest {
         UsuarioDAO usuarioDAO = new UsuarioDAO(conexaoDAO);
         usuarioDAO.cadastrarUsuario(usuario);
         
-        usuario.setSenha("123");
         String email = usuario.getEmail();
-        String senha = usuario.getSenha();
+        String senha = "123";
 
         UsuarioDTO usuarioLogado = controller.logar(email, senha);
-
-        assertEquals(usuarioLogado.getEmail(), usuario.getEmail());
-        assertEquals(usuarioLogado.getSenha(), usuario.getSenha());
+        
+        assertEquals(usuario.getEmail(), usuarioLogado.getEmail());
+        assertEquals(usuario.getSenha(), usuarioLogado.getSenha());
     }
 
     @Test
@@ -66,10 +65,10 @@ public class ControllerTelaLoginTest {
         String email = "";
         String senha = "";
 
-        EmailOuSenhaIncorretosException UsuarioOuSenhaIncorretosException = assertThrows(EmailOuSenhaIncorretosException.class, () -> {
+        FalhaAoAutenticarException FalhaAoAutenticarException = assertThrows(FalhaAoAutenticarException.class, () -> {
             controller.logar(email, senha);
         });
 
-        assertEquals("O email e/ou senha digitados estão incorretos.", UsuarioOuSenhaIncorretosException.getMessage());
+        assertEquals("Desculpe, houve um erro inesperado e não conseguimos fazer a autenticação!\nPor favor, tente novamente mais tarde!", FalhaAoAutenticarException.getMessage());
     }
 }

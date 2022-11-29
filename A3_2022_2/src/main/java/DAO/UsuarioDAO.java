@@ -24,7 +24,7 @@ public class UsuarioDAO {
      * Verifica se o email e senha passados são semelhantes ao email e senha de
      * algum usuário cadastrado no banco de dados.
      */
-    public ResultSet autenticarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, FalhaAoAutenticarException {
+    public UsuarioDTO autenticarUsuario(UsuarioDTO usuarioDTO) throws NaoFoiPossivelEstabelecerConexaoComOBancoDeDadosException, FalhaAoAutenticarException {
         try {
             conn = conexaoDAO.conectaBD();
             String query = "SELECT * FROM usuarios WHERE email=? AND senha=?";
@@ -33,9 +33,18 @@ public class UsuarioDAO {
             pstm.setString(2, usuarioDTO.getSenha());
             ResultSet rs = pstm.executeQuery();
 
+            UsuarioDTO usuarioLogado = new UsuarioDTO();
+
+            while (rs.next()) {
+                usuarioLogado.setId(rs.getInt("id"));
+                usuarioLogado.setNome(rs.getString("nome"));
+                usuarioLogado.setEmail(rs.getString("email"));
+                usuarioLogado.setSenha(rs.getString("senha"));
+            }
+
             pstm.close();
 
-            return rs;
+            return usuarioLogado;
         } catch (SQLException ex) {
             System.out.println("Erro na consulta para autenticação " + ex);
             throw new FalhaAoAutenticarException();

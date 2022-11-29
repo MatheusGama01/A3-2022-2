@@ -55,7 +55,7 @@ public class UsuarioDAOTest {
         UsuarioDTO usuarioDTO = new UsuarioDTO("Teste UsuárioDAO", Criptografia.encriptarSenha("123"), "usuariodao@email.com");
         usuarioDAO.cadastrarUsuario(usuarioDTO);
 
-        ResultSet usuarioAutenticado = usuarioDAO.autenticarUsuario(usuarioDTO);
+        UsuarioDTO usuarioAutenticado = usuarioDAO.autenticarUsuario(usuarioDTO);
 
         assertNotNull(usuarioAutenticado);
     }
