@@ -33,7 +33,7 @@ public class ControllerTelaTarefaTest {
 
         TarefaDTO tarefa = new TarefaDTO(1, "Teste", false, 100);
         String descricao = "Teste 1";
-        boolean status = true;
+        Boolean status = true;
 
         controller.salvarEdicao(tarefa, descricao, status);
     }
