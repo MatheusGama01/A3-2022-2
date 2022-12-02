@@ -4,7 +4,7 @@
 
 # 🛠️ Projeto
 
-O Objetivo do projeto é que você tenha uma ferramenta que vá te auxiliar nas suas atividades do dia-a-dia, nela você poderá não só adicionar tarefas à fazer, como também marcar como feita as tarefas que já foram concluídas, além de visualizar todas as suas tarefas, editá-las e também poder excluí-las.
+O objetivo do projeto é que você tenha uma ferramenta que vá te auxiliar nas suas atividades do dia-a-dia, nela você poderá não só adicionar tarefas à fazer, como também marcar como feita as tarefas que já foram concluídas, além de visualizar todas as suas tarefas, editá-las e também poder excluí-las.
 
 
 # Tecnologias Usadas
@@ -155,33 +155,26 @@ https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
 
  * Clonando o repositório 
 
- No repositório do [projeto](https://github.com/MatheusGama01/A3-2022-2) clique no botão verde escrito code.
+ 1. No repositório do [projeto](https://github.com/MatheusGama01/A3-2022-2) clique no botão verde escrito code.
 
- No menu aberto clique em "Download zip", o arquivo será baixado no seu computador.
+ 2. No menu aberto clique em "Download zip", o arquivo será baixado no seu computador.
 
- Ultize um descompactador de sua preferência para descompactar o arquivo A3-2022-2-main.zip.
+ 3. Ultize um descompactador de sua preferência para descompactar o arquivo A3-2022-2-main.zip.
 
 
- * Abrindo o projeto na IDE 
+* Abrindo o projeto na IDE 
 
- Para este projeto usaremos a IDE [Netbeans 12.0](https://netbeans.apache.org/download/nb120/nb120.html) como referência, mas você pode usar a IDE de sua preferência.
+ 1. Para este projeto usaremos a IDE [Netbeans 12.0](https://netbeans.apache.org/download/nb120/nb120.html) como referência, mas você pode usar a IDE de sua preferência.
 
- Abra o Netbeans e clique no menu **`File`**, depois clique na opção "Open Project...".
+ 2. Abra o Netbeans e clique no menu **`File`**, depois clique na opção **`Open Project...`**.
 
- Localize o arquivo descompactado A3-2022-2-main no seu computador, abra a pasta e selecione o arquivo dentro após isso clique em "Open Project".
+ 3. Localize o arquivo descompactado A3-2022-2-main no seu computador, abra a pasta e selecione o arquivo dentro após isso clique em **`Open Project`**.
 
- Com o projeto aberto, localize a pasta "Project File" e abra o arquivo "pom.xml".
+ 4. Com o projeto aberto, localize a pasta **`Project File`** e abra o arquivo **`pom.xml`**.
 
- Verifique se o arquivo "pom.xml" está dessa maneira:
+ 5. Verifique se o arquivo **`pom.xml`** está dessa maneira:
 
 ```bash
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>A3</groupId>
-    <artifactId>A3_2022_2</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>org.netbeans.external</groupId>
@@ -233,46 +226,50 @@ https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <exec.mainClass>a3.a3_2022_2.A3_2022_2</exec.mainClass>
-    </properties>
-</project>
 ```
 
 * Se estiver diferente modifique-o para ficar igual, caso esteja dessa maneira não modifique.
 
+
 * Criando o banco de dados
 
-Após realizar a instalção do MySQL Workbench crie um servidor.
+1. Após realizar a instalção do MySQL Workbench crie um servidor.
 
-Caso tenha dúvida, consulte o vídeo: https://www.youtube.com/watch?v=iYN9a3i2qkQ&list=PLbEOwbQR9lqxsTusvu8wfkUECrmcV81MU&index=3
+2. Caso tenha dúvida, consulte o vídeo: https://www.youtube.com/watch?v=iYN9a3i2qkQ&list=PLbEOwbQR9lqxsTusvu8wfkUECrmcV81MU&index=3
 
-No servidor criado insira o códido SQL:
+3. No servidor criado insira o códido SQL:
 
 ```bash
 -- Cria banco de dados
 create database nomebanco;
+
 -- Seleciona banco de dados a ser usado
 use nomebanco;
 
 -- Cria tabela de usuários
 Create table usuarios(
-iduser int primary key,
-usuario varchar(50) not null,
-fone varchar(15),
-login varchar(15),
-senha varchar(15)
+id int primary key auto_increment,
+nome varchar(50) not null,
+email varchar(50) not null unique,
+senha varchar(90) not null
 );
-´´´
 
-Onde estiver "nomebanco" substitua para o nome que quer dar para o seu banco.
+-- Cria tabela de tarefas
+Create table tarefas(
+id int primary key auto_increment,
+descricao varchar(255) not null,
+status boolean not null,
+idUsuario int not null,
+foreign key(idUsuario) references usuarios(id)
+);
+```
+
+4. Onde estiver **`nomebanco`** substitua para o nome que quer dar para o seu banco.
+
 
 * Conectando o projeto com o banco de dados 
 
-No projeto, abra a pasta "Source Package", abra o pacote DAO e abra o arquivo "ConexaoDAO.java".
+1. No projeto, abra a pasta **`Source Package`**, abra o pacote DAO e abra o arquivo **`ConexaoDAO.java`**.
 
 ```bash
 String url = "jdbc:mysql://localhost:3306/nomebanco";
@@ -280,11 +277,11 @@ String usuario = "";
 String senha = "";
 ```
 
-Na String url substituia "nomebanco" pelo nome do seu banco de dados.
+2. Na String url substituia nomebanco pelo nome do seu banco de dados.
 
-Na String usuario insira dentro das aspas o nome do usuario do seu banco de dados no MySQL Workbench.
+3. Na String usuario insira dentro das aspas o nome do usuario do seu banco de dados no MySQL Workbench.
 
-Na String senha insira dentro das aspas a senha do seu bando de dados no MySQL Workbench.
+4. Na String senha insira dentro das aspas a senha do seu bando de dados no MySQL Workbench.
 
 
 
@@ -296,6 +293,7 @@ Na String senha insira dentro das aspas a senha do seu bando de dados no MySQL W
 
 - [Gabriele Cardoso](https://github.com/2433461)
 - [Matheus Gama](https://github.com/MatheusGama01)
+- [Vitor Magalhães](https://github.com/Vitor387)
 
  # 😊  Orientadores 
  
